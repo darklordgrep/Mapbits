@@ -7,6 +7,8 @@ Mapbits is a family of plugins that add functionality to the APEX map region. Cu
 
 - **Mapbits Drawing Controls** adds point, line, and/or polygon drawing tools to the APEX native map region. Drawing geometry 
 is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database.
+- **Mapbits Geocoder** is a dynamic action that calculates a coordinate for an address defined in page items using the [Nominatim](https://nominatim.org/) geocoding service. It then sets the point geometry of the associated Mapbits Drawing Controls plugin
+to this coordinate. 
 - **Mapbits Layer WMS** adds support for OGC Web Map Service (WMS) layers.
 - **Mapbits Layer ArcGIS REST GeoJSON** adds support for ArcGIS Rest vector data layers.
 
@@ -26,7 +28,7 @@ Alternatively, you can install Mapbits by installing the Mapbits Demo applicatio
 After installation, the plugins will be available as a page item or dynamic action type when you create new page items or dynamic actions. For Mapbits page items and dynamic actions, make sure to add them to the map region on your page. They will not work if added to other region types. For additional plugin-specific direction, refer to the help available in the plugins themseles.
 
 # Downloads
-* [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all of plugins as well some sample data to show them in action.*
+* [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all plugins as well some sample data to show them in action.*
 * [Mapbits Drawing Controls Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_draw.sql)
 * [Mapbits Layer WMS Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_wms.sql)
 * [Mapbits Layer ArcGIS REST GeoJSON Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql)
