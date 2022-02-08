@@ -1,2 +1,32 @@
 # Mapbits
-Oracle Application Express (APEX) plugins to enhance Map region functionality
+Oracle has added a native map region to Application Express (APEX) version 21.1. On its own, this new map region 
+can be used to visualize spatial data from the database in a pre-rendered basemap. However, APEX exposes an interface
+to the underlying map via javascript, offering possibilities beyond merely simple data visualization.
+
+Mapbits is a family of plugins that add functionality to the APEX map region. Currently available plugins include:
+
+- **Mapbits Drawing Controls** adds point, line, and/or polygon drawing tools to the APEX native map region. Drawing geometry 
+is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database.
+- **Mapbits Layer WMS** adds support for OGC Web Map Service (WMS) layers.
+- **Mapbits Layer ArcGIS REST GeoJSON** adds support for ArcGIS Rest vector data layers.
+
+# Requirements
+Oracle DBMS and Application Express 21.1 or later
+
+# Installation
+You can install individual plugins by selecting and downloadling the plugin of interest from the Downloads section below. In your application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Import' and follow the steps in the wizard. When prompted to upload an import file, use the plugin file you downloaded.
+
+Alternatively, you can install Mapbits by installing the Mapbits Demo application and importing the plugins into your application from the Demo application through the following steps: 
+
+1) Download the [Mapbits Demo Application](mapbits_demo_apex_application.sql).
+2) In your APEX AppBuilder, click the 'Import' button and follow the steps in the wizard. When prompted to upload an import file, use the Mapbits Demo Application from step 1.
+3) In your APEX application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Create' and, in the wizard, select 'As a Copy of an Existing Plug-in'. Reference the 'Mapbits Demo' Application and select the plugin you would like to use. You can choose between simplying 'Copying' the plugin to your application or 'Copy Subscribing', which will allow you to more easily push and pull plugin updates from the demo application to your application.
+
+# Usage
+After installation, the plugins will be available as a page item or dynamic action type when you create new page items or dynamic actions. For Mapbits page items and dynamic actions, make sure to add them to the map region on your page. They will not work if added to other region types. For additional plugin-specific direction, refer to the help available in the plugins themseles.
+
+# Downloads
+* [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all of plugins as well some sample data to show them in action.*
+* [Mapbits Drawing Controls Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_draw.sql)
+* [Mapbits Layer WMS Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_wms.sql)
+* [Mapbits Layer ArcGIS REST GeoJSON Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql)
