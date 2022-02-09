@@ -7,10 +7,12 @@ Mapbits is a family of plugins that add functionality to the APEX map region. Cu
 
 - **Mapbits Drawing Controls** adds point, line, and/or polygon drawing tools to the APEX native map region. Drawing geometry 
 is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database.
-- **Mapbits Geocoder** is a dynamic action that calculates a coordinate for an address defined in page items using the [Nominatim](https://nominatim.org/) geocoding service. It then sets the point geometry of the associated Mapbits Drawing Controls plugin
+- **Mapbits Geocoder** is a dynamic action that calculates a coordinate for an address defined in page items using the [Nominatim](https://nominatim.org/) geocoding service. It then sets the point geometry of the associated Mapbits Drawing Controls plugin.
 to this coordinate. 
 - **Mapbits Layer WMS** adds support for OGC Web Map Service (WMS) layers.
 - **Mapbits Layer ArcGIS REST GeoJSON** adds support for ArcGIS Rest vector data layers.
+- **Mapbits Layer Raster** adds support for image layers with extent coordinates
+- **Mapbits Zoom To** is a dynamic action that pans and zooms the map view to the extent of a feature. 
 
 # Requirements
 Oracle DBMS and Application Express 21.1 or later
