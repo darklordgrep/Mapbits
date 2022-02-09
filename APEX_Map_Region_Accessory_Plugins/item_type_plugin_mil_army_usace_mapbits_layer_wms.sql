@@ -28,7 +28,7 @@ prompt APPLICATION 101 - Mapbits Demo
 -- Application Export:
 --   Application:     101
 --   Name:            Mapbits Demo
---   Date and Time:   20:26 Monday February 7, 2022
+--   Date and Time:   19:24 Wednesday February 9, 2022
 --   Exported By:     GREP5
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -98,18 +98,19 @@ wwv_flow_api.create_plugin(
 'Add the plugin as an item under an APEX Map region and set the WMS URL to point to your layer''s web service and set the WMS Layer Names to the name of the layers in the service. The WMS url should include everything up to but excluding the quesiton m'
 ||'ark (?). For example, https://img.nj.gov/imagerywms/Natural2015. The WMS Layers Names are usually number for the ArcGIS implementation. Multiple layers can be combined using a comma (0,1).'))
 ,p_version_identifier=>'4.2.20220207'
+,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 Layer - WMS',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 17058 2022-02-07 20:34:59Z b2imimcf $',
-'Date     : $Date: 2022-02-07 14:34:59 -0600 (Mon, 07 Feb 2022) $',
-'Revision : $Revision: 17058 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 17061 2022-02-09 19:28:26Z b2imimcf $',
+'Date     : $Date: 2022-02-09 13:28:26 -0600 (Wed, 09 Feb 2022) $',
+'Revision : $Revision: 17061 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.2 Updates: ',
 '(2/07/2022) - Showing a spinner while data is loading.',
 'Version 4.1 Updates:',
 '(1/13/2022) - Added error handling. Display popup message if WMS is inaccessible.'))
-,p_files_version=>4
+,p_files_version=>5
 );
 wwv_flow_api.create_plugin_attribute(
  p_id=>wwv_flow_api.id(63406174877800358)

@@ -28,7 +28,7 @@ prompt APPLICATION 101 - Mapbits Demo
 -- Application Export:
 --   Application:     101
 --   Name:            Mapbits Demo
---   Date and Time:   20:26 Monday February 7, 2022
+--   Date and Time:   19:12 Wednesday February 9, 2022
 --   Exported By:     GREP5
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -143,11 +143,12 @@ wwv_flow_api.create_plugin(
 'Configure the basic appearance of your layer with the Style Type, Image Icon, Stoke Width, Stroke Color, Fill Opacity, and Fill Color attributes. If more intricate appearance is needed, define your symbology as javascript using the Advanced Configura'
 ||'tion attribute.'))
 ,p_version_identifier=>'4.2.20220207'
+,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 Layer - ArcGIS Rest API Vector',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql 17057 2022-02-07 20:34:38Z b2imimcf $',
-'Date     : $Date: 2022-02-07 14:34:38 -0600 (Mon, 07 Feb 2022) $',
-'Revision : $Revision: 17057 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql 17061 2022-02-09 19:28:26Z b2imimcf $',
+'Date     : $Date: 2022-02-09 13:28:26 -0600 (Wed, 09 Feb 2022) $',
+'Revision : $Revision: 17061 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.2 Updates: ',

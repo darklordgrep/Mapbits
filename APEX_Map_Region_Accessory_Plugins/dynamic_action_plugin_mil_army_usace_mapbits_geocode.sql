@@ -28,7 +28,7 @@ prompt APPLICATION 101 - Mapbits Demo
 -- Application Export:
 --   Application:     101
 --   Name:            Mapbits Demo
---   Date and Time:   19:12 Tuesday February 8, 2022
+--   Date and Time:   19:11 Wednesday February 9, 2022
 --   Exported By:     GREP5
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -226,7 +226,19 @@ wwv_flow_api.create_plugin(
 ||'th the same Map region as the Mapbits Drawing Controls plugin.'
 ,p_version_identifier=>'4.2.20220208'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
-,p_plugin_comment=>'Requires Mapbits Draw Drawing Controls Plugin version 4.1 or later.'
+,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Module   : Mapbits 4 - Geocoder',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 17061 2022-02-09 19:28:26Z b2imimcf $',
+'Date     : $Date: 2022-02-09 13:28:26 -0600 (Wed, 09 Feb 2022) $',
+'Revision : $Revision: 17061 $',
+'Requires : Application Express >= 21.1 and Mapbits Drawing Controls',
+'',
+'Version 4.2 Updates: ',
+'(2/8/2022) - Consolidated the geocoding call into the plugin body from the locator package. ',
+'Removed dependence on tables for caching. The plugin now uses APEX collections. Caching ',
+'was reworking to be specific to the session (fitting the natural limitation of collections).',
+'This does not result in a block from the server. Also using a new User-Agent on the calls',
+'identifying the call as from the Mapbits Geocoder with a session id.'))
 ,p_files_version=>9
 );
 wwv_flow_api.create_plugin_attribute(
