@@ -13,7 +13,7 @@ to this coordinate.
 - **Mapbits Layer ArcGIS REST GeoJSON** adds support for ArcGIS Rest vector data layers.
 - **Mapbits Layer Raster** adds support for image layers with extent coordinates
 - **Mapbits Zoom To** is a dynamic action that pans and zooms the map view to the extent of a feature. 
-
+- **Mapbits Labeler** labels a Map region native layer using the layer's tooltip or Info Window value. 
 # Requirements
 Oracle DBMS and Application Express 21.1 or later
 
