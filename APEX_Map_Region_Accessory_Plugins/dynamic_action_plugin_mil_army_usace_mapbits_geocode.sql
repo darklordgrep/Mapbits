@@ -14,29 +14,29 @@ whenever sqlerror exit sql.sqlcode rollback
 begin
 wwv_flow_api.import_begin (
  p_version_yyyy_mm_dd=>'2021.04.15'
-,p_release=>'21.1.7'
-,p_default_workspace_id=>9502877444580501
-,p_default_application_id=>101
-,p_default_id_offset=>0
-,p_default_owner=>'MTG'
+,p_release=>'21.1.0'
+,p_default_workspace_id=>2612926235066099
+,p_default_application_id=>130
+,p_default_id_offset=>195643661484660082
+,p_default_owner=>'MVDGIS'
 );
 end;
 /
  
-prompt APPLICATION 101 - Mapbits Demo
+prompt APPLICATION 130 - Mapbits Demo
 --
 -- Application Export:
---   Application:     101
+--   Application:     130
 --   Name:            Mapbits Demo
---   Date and Time:   19:11 Wednesday February 9, 2022
---   Exported By:     GREP5
+--   Date and Time:   09:14 Friday February 11, 2022
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 116813890980962346
+--     PLUGIN: 312457552465622428
 --   Manifest End
---   Version:         21.1.7
---   Instance ID:     9502674331986296
+--   Version:         21.1.0
+--   Instance ID:     61817619049184
 --
 
 begin
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_geocode
 begin
 wwv_flow_api.create_plugin(
- p_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312457552465622428)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOCODE'
 ,p_display_name=>'Mapbits Geocoder'
@@ -59,7 +59,9 @@ wwv_flow_api.create_plugin(
 '  p_street in varchar2 default null,',
 '  p_city_name in varchar2 default null,',
 '  p_state in varchar2 default null,',
-'  p_postal_code in varchar2 default null',
+'  p_postal_code in varchar2 default null,',
+'  p_wallet_path in varchar2 default null,',
+'  p_wallet_password in varchar2 default null',
 ') return clob is',
 '  l_geocode_url varchar2(2000) :=  ''https://nominatim.openstreetmap.org/search'';',
 '  rt clob;',
@@ -91,7 +93,7 @@ wwv_flow_api.create_plugin(
 '    p_value_01       => ''Mapbits Geocoder, Session : '' || APEX_CUSTOM_AUTH.GET_SESSION_ID,',
 '    p_reset          => false,',
 '    p_skip_if_exists => true );',
-'    rt := apex_web_service.make_rest_request(p_url => utl_url.escape(l_geocode_url), p_http_method => ''GET'');',
+'    rt := apex_web_service.make_rest_request(p_url => utl_url.escape(l_geocode_url), p_http_method => ''GET'', p_wallet_path => p_wallet_path, p_wallet_pwd => p_wallet_password);',
 '    select json_object(''type'' value ''FeatureCollection'', ''features'' value json_arrayagg(',
 '    json_object(''type'' value ''Feature'', ''geometry'' value json_object(''type'' value ''Point'', ''coordinates'' value json_array(longitude, latitude)), ',
 '    ''properties'' value json_object(''latitude'' value latitude, ''longitude'' value longitude,''display_name'' value display_name, ''house_number'' value house_number, ',
@@ -136,6 +138,8 @@ wwv_flow_api.create_plugin(
 '  l_locjson clob;',
 '  l_geomjson clob;',
 '  rt apex_plugin.t_dynamic_action_ajax_result;',
+'  l_wallet_path p_dynamic_action.attribute_06%type := p_dynamic_action.attribute_06;',
+'  l_wallet_password p_dynamic_action.attribute_07%type := p_dynamic_action.attribute_07;',
 'begin',
 '  -- callback function to lookup the coordinates from the address.',
 '  l_street := apex_application.g_x01; ',
@@ -148,7 +152,9 @@ wwv_flow_api.create_plugin(
 '    p_street => l_street,',
 '    p_city_name => l_city,',
 '    p_state => l_state,',
-'    p_postal_code => l_zipcode',
+'    p_postal_code => l_zipcode,',
+'    p_wallet_path => l_wallet_path,',
+'    p_wallet_password => l_wallet_password',
 '  );',
 '',
 '  -- get the geometry from the first feature',
@@ -224,16 +230,17 @@ wwv_flow_api.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing Controls plugin. The Mapbits Geocoder must be associated wi'
 ||'th the same Map region as the Mapbits Drawing Controls plugin.'
-,p_version_identifier=>'4.2.20220208'
+,p_version_identifier=>'4.2.20220211'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 17061 2022-02-09 19:28:26Z b2imimcf $',
-'Date     : $Date: 2022-02-09 13:28:26 -0600 (Wed, 09 Feb 2022) $',
-'Revision : $Revision: 17061 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 17067 2022-02-11 17:47:29Z b2imimcf $',
+'Date     : $Date: 2022-02-11 11:47:29 -0600 (Fri, 11 Feb 2022) $',
+'Revision : $Revision: 17067 $',
 'Requires : Application Express >= 21.1 and Mapbits Drawing Controls',
 '',
 'Version 4.2 Updates: ',
+'(2/11/2022) - Added attributes for Oracle wallet path and password.',
 '(2/8/2022) - Consolidated the geocoding call into the plugin body from the locator package. ',
 'Removed dependence on tables for caching. The plugin now uses APEX collections. Caching ',
 'was reworking to be specific to the session (fitting the natural limitation of collections).',
@@ -242,8 +249,8 @@ wwv_flow_api.create_plugin(
 ,p_files_version=>9
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(116815232736971335)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312458894221631417)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -253,8 +260,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(116815532517974219)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312459194002634301)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -264,8 +271,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(116815765073975652)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312459426558635734)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -275,8 +282,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(116816060097976823)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312459721582636905)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -286,8 +293,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(116825239121857711)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312468900606517793)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -295,6 +302,31 @@ wwv_flow_api.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
+);
+wwv_flow_api.create_plugin_attribute(
+ p_id=>wwv_flow_api.id(195962156583285040)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
+,p_attribute_scope=>'COMPONENT'
+,p_attribute_sequence=>6
+,p_display_sequence=>60
+,p_prompt=>'Wallet Path'
+,p_attribute_type=>'TEXT'
+,p_is_required=>false
+,p_is_translatable=>false
+,p_examples=>'file://orasoft/oracle/DB/wallets/wallet_SSL/'
+,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the path to that wallet with this attribute.'
+);
+wwv_flow_api.create_plugin_attribute(
+ p_id=>wwv_flow_api.id(195962847595286887)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
+,p_attribute_scope=>'COMPONENT'
+,p_attribute_sequence=>7
+,p_display_sequence=>70
+,p_prompt=>'Wallet Password'
+,p_attribute_type=>'TEXT'
+,p_is_required=>false
+,p_is_translatable=>false
+,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the password to that wallet with this attribute.'
 );
 end;
 /
@@ -329,8 +361,8 @@ end;
 /
 begin
 wwv_flow_api.create_plugin_file(
- p_id=>wwv_flow_api.id(116886289518703947)
-,p_plugin_id=>wwv_flow_api.id(116813890980962346)
+ p_id=>wwv_flow_api.id(312529951003364029)
+,p_plugin_id=>wwv_flow_api.id(312457552465622428)
 ,p_file_name=>'mapbits-geocode.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
