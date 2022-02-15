@@ -14,6 +14,7 @@ to this coordinate.
 - **Mapbits Layer Raster** adds support for image layers with extent coordinates
 - **Mapbits Zoom To** is a dynamic action that pans and zooms the map view to the extent of a feature. 
 - **Mapbits Labeler** labels a Map region native layer using the layer's tooltip or Info Window value. 
+- **Mapbits Geolocation** shows a pulsing dot on a map region reflecting the user's location if that feature is enabled in the user's browser. 
 # Requirements
 Oracle DBMS and Application Express 21.1 or later
 
