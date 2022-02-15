@@ -1,4 +1,4 @@
-# Mapbits
+# Mapbits for Oracle Application Express
 Oracle has added a native map region to Application Express (APEX) version 21.1. On its own, this new map region 
 can be used to visualize spatial data from the database in a pre-rendered basemap. However, APEX exposes an interface
 to the underlying map via javascript, offering possibilities beyond merely simple data visualization.
