@@ -1,4 +1,4 @@
-# Mapbits for Oracle Application Express
+# Mapbits
 Oracle has added a native map region to Application Express (APEX) version 21.1. On its own, this new map region 
 can be used to visualize spatial data from the database in a pre-rendered basemap. However, APEX exposes an interface
 to the underlying map via javascript, offering possibilities beyond merely simple data visualization.
@@ -15,6 +15,8 @@ to this coordinate.
 - **Mapbits Zoom To** is a dynamic action that pans and zooms the map view to the extent of a feature. 
 - **Mapbits Labeler** labels a Map region native layer using the layer's tooltip or Info Window value. 
 - **Mapbits Geolocation** shows a pulsing dot on a map region reflecting the user's location if that feature is enabled in the user's browser. 
+- **Mapbits Set Custom Marker** is a dynamic action that creates and updates a marker on the map based on a page item value.
+- **Mapbits Stationing Layer** adds stationing marks and labels to a 4d linear geometry in a map based on the visible domain values in a chart region.
 # Requirements
 Oracle DBMS and Application Express 21.1 or later
 
@@ -35,3 +37,9 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Drawing Controls Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_draw.sql)
 * [Mapbits Layer WMS Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_wms.sql)
 * [Mapbits Layer ArcGIS REST GeoJSON Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql)
+* [Mapbits Layer Raster] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_raster.sql)
+* [Mapbits Zoom To] (APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql)
+* [Mapbits Labeler] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_labeler.sql)
+* [Mapbits Geolocation] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_geolocation.sql)
+* [Mapbits Set Custom Marker] (APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql)
+* [Mapbits Stationing Layer] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
