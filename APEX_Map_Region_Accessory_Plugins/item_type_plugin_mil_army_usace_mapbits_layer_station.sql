@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:34 Tuesday February 22, 2022
+--   Date and Time:   05:51 Friday March 11, 2022
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -193,9 +193,9 @@ wwv_flow_api.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Stationing',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 17082 2022-02-22 21:35:34Z b2imimcf $',
-'Date     : $Date: 2022-02-22 15:35:34 -0600 (Tue, 22 Feb 2022) $',
-'Revision : $Revision: 17082 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 17121 2022-03-11 12:06:26Z b2imimcf $',
+'Date     : $Date: 2022-03-11 06:06:26 -0600 (Fri, 11 Mar 2022) $',
+'Revision : $Revision: 17121 $',
 'Requires : Application Express >= 21.1'))
 ,p_files_version=>114
 );

@@ -14,29 +14,29 @@ whenever sqlerror exit sql.sqlcode rollback
 begin
 wwv_flow_api.import_begin (
  p_version_yyyy_mm_dd=>'2021.04.15'
-,p_release=>'21.1.7'
-,p_default_workspace_id=>9502877444580501
-,p_default_application_id=>101
-,p_default_id_offset=>0
-,p_default_owner=>'MTG'
+,p_release=>'21.1.0'
+,p_default_workspace_id=>2612926235066099
+,p_default_application_id=>107981
+,p_default_id_offset=>197864740331967674
+,p_default_owner=>'MVDGIS'
 );
 end;
 /
  
-prompt APPLICATION 101 - Mapbits Demo
+prompt APPLICATION 107981 - Mapbits Demo
 --
 -- Application Export:
---   Application:     101
+--   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   13:31 Sunday February 20, 2022
---   Exported By:     GREP5
+--   Date and Time:   05:51 Friday March 11, 2022
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 38204056886082977
+--     PLUGIN: 236068797218050651
 --   Manifest End
---   Version:         21.1.7
---   Instance ID:     9502674331986296
+--   Version:         21.1.0
+--   Instance ID:     61817619049184
 --
 
 begin
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_custommarker
 begin
 wwv_flow_api.create_plugin(
- p_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(236068797218050651)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.CUSTOMMARKER'
 ,p_display_name=>'Mapbits Set Custom Marker'
@@ -108,9 +108,9 @@ wwv_flow_api.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Set Custom Marker',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql 17077 2022-02-20 13:46:36Z b2imimcf $',
-'Date     : $Date: 2022-02-20 07:46:36 -0600 (Sun, 20 Feb 2022) $',
-'Revision : $Revision: 17077 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql 17121 2022-03-11 12:06:26Z b2imimcf $',
+'Date     : $Date: 2022-03-11 06:06:26 -0600 (Fri, 11 Mar 2022) $',
+'Revision : $Revision: 17121 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.2 Changes',
@@ -119,8 +119,8 @@ wwv_flow_api.create_plugin(
 ,p_files_version=>9
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(38206497683082992)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(236071238015050666)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>60
@@ -133,57 +133,57 @@ wwv_flow_api.create_plugin_attribute(
 ,p_help_text=>'The style attribute defines the color of the marker. If set to ''Define with Custom Javascript'', the marker can be customized with a Mapbox style definition.'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38206907348082992)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236071647680050666)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>10
 ,p_display_value=>'Gray'
 ,p_return_value=>'gray'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38207352286082993)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236072092618050667)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>20
 ,p_display_value=>'Blue'
 ,p_return_value=>'blue'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38207839413082993)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236072579745050667)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>30
 ,p_display_value=>'Red'
 ,p_return_value=>'red'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38208371564082993)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236073111896050667)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>40
 ,p_display_value=>'Green'
 ,p_return_value=>'green'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38208866663082994)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236073606995050668)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>50
 ,p_display_value=>'Purple'
 ,p_return_value=>'purple'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38209412479082994)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236074152811050668)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>60
 ,p_display_value=>'Yellow'
 ,p_return_value=>'yellow'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(38294575427121651)
-,p_plugin_attribute_id=>wwv_flow_api.id(38206497683082992)
+ p_id=>wwv_flow_api.id(236159315759089325)
+,p_plugin_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_display_sequence=>70
 ,p_display_value=>'Define with Custom Javascript'
 ,p_return_value=>'javascript'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(13842735706402975)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(211707476038370649)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>30
@@ -193,15 +193,15 @@ wwv_flow_api.create_plugin_attribute(
 ,p_display_length=>15
 ,p_max_length=>400
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_api.id(13821067554489873)
+,p_depending_on_attribute_id=>wwv_flow_api.id(211685807886457547)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'N'
 ,p_help_text=>'Text to display when marker is selected.'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(38293402348043882)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(236158142680011556)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>9
 ,p_display_sequence=>90
@@ -209,7 +209,7 @@ wwv_flow_api.create_plugin_attribute(
 ,p_attribute_type=>'JAVASCRIPT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_api.id(38206497683082992)
+,p_depending_on_attribute_id=>wwv_flow_api.id(236071238015050666)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'javascript'
@@ -226,8 +226,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_help_text=>'Custom style based on the Mapbox layer style specification (https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/).'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(42029197950229307)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(239893938282196981)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>10
 ,p_display_sequence=>35
@@ -235,15 +235,15 @@ wwv_flow_api.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEM'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_api.id(13821067554489873)
+,p_depending_on_attribute_id=>wwv_flow_api.id(211685807886457547)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'NOT_EQUALS'
 ,p_depending_on_expression=>'N'
 ,p_help_text=>'Page item to use for marker popup text.'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(13692296607911498)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(211557036939879172)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>12
 ,p_display_sequence=>10
@@ -261,8 +261,8 @@ wwv_flow_api.create_plugin_attribute(
 ,p_help_text=>'Page item containing a geojson point geometry.'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(13821067554489873)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(211685807886457547)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>13
 ,p_display_sequence=>20
@@ -275,15 +275,15 @@ wwv_flow_api.create_plugin_attribute(
 ,p_help_text=>'Set to Yes if you are using a page item to set the Title, No if you are using a static value.'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(13821720499490991)
-,p_plugin_attribute_id=>wwv_flow_api.id(13821067554489873)
+ p_id=>wwv_flow_api.id(211686460831458665)
+,p_plugin_attribute_id=>wwv_flow_api.id(211685807886457547)
 ,p_display_sequence=>10
 ,p_display_value=>'Yes'
 ,p_return_value=>'Y'
 );
 wwv_flow_api.create_plugin_attr_value(
- p_id=>wwv_flow_api.id(13822103192491502)
-,p_plugin_attribute_id=>wwv_flow_api.id(13821067554489873)
+ p_id=>wwv_flow_api.id(211686843524459176)
+,p_plugin_attribute_id=>wwv_flow_api.id(211685807886457547)
 ,p_display_sequence=>20
 ,p_display_value=>'No'
 ,p_return_value=>'N'
@@ -310,8 +310,8 @@ end;
 /
 begin
 wwv_flow_api.create_plugin_file(
- p_id=>wwv_flow_api.id(41782845723088144)
-,p_plugin_id=>wwv_flow_api.id(38204056886082977)
+ p_id=>wwv_flow_api.id(239647586055055818)
+,p_plugin_id=>wwv_flow_api.id(236068797218050651)
 ,p_file_name=>'mapbits-setcustommarker.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
