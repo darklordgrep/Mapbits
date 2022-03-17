@@ -6,7 +6,7 @@ to the underlying map via javascript, offering possibilities beyond merely simpl
 Mapbits is a family of plugins that add functionality to the APEX map region. Currently available plugins include:
 
 - **Mapbits Drawing Controls** adds point, line, and/or polygon drawing tools to the APEX native map region. Drawing geometry 
-is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database.
+is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database. If geolocation is enabled and available in the browser, then a user can click a tool button to create and modify geometries based on the user's location.
 - **Mapbits Geocoder** is a dynamic action that calculates a coordinate for an address defined in page items using the [Nominatim](https://nominatim.org/) geocoding service. It then sets the point geometry of the associated Mapbits Drawing Controls plugin.
 to this coordinate. 
 - **Mapbits Layer WMS** adds support for OGC Web Map Service (WMS) layers.
@@ -37,9 +37,9 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Drawing Controls Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_draw.sql)
 * [Mapbits Layer WMS Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_wms.sql)
 * [Mapbits Layer ArcGIS REST GeoJSON Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_rest_gjs.sql)
-* [Mapbits Layer Raster](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_raster.sql)
-* [Mapbits Zoom To](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql)
-* [Mapbits Labeler](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_labeler.sql)
-* [Mapbits Geolocation](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_geolocation.sql)
-* [Mapbits Set Custom Marker](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql)
-* [Mapbits Stationing Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
+* [Mapbits Layer Raster] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_raster.sql)
+* [Mapbits Zoom To] (APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql)
+* [Mapbits Labeler] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_labeler.sql)
+* [Mapbits Geolocation] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_geolocation.sql)
+* [Mapbits Set Custom Marker] (APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql)
+* [Mapbits Stationing Layer] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
