@@ -30,7 +30,7 @@ Alternatively, you can install Mapbits by installing the Mapbits Demo applicatio
 3) In your APEX application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Create' and, in the wizard, select 'As a Copy of an Existing Plug-in'. Reference the 'Mapbits Demo' Application and select the plugin you would like to use. You can choose between simplying 'Copying' the plugin to your application or 'Copy Subscribing', which will allow you to more easily push and pull plugin updates from the demo application to your application.
 
 # Usage
-After installation, the plugins will be available as a page item or dynamic action type when you create new page items or dynamic actions. For Mapbits page items and dynamic actions, make sure to add them to the map region on your page. They will not work if added to other region types. For additional plugin-specific direction, refer to the help available in the plugins themseles.
+After installation, the plugins will be available as a page item or dynamic action type when you create new page items or dynamic actions. For Mapbits page items and dynamic actions, make sure to add them to the map region on your page. They will not work if added to other region types. For additional plugin-specific direction, refer to the help available in the plugins themselves.
 
 # Downloads
 * [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all plugins as well as sample data to show them in action.*
