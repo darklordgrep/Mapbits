@@ -45,4 +45,4 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Stationing Layer] (APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
 
 # Demonstration
-[View Mapbits in Action] (https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/mtg/mapbits-demo/)
+[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/mtg/mapbits-demo/)
