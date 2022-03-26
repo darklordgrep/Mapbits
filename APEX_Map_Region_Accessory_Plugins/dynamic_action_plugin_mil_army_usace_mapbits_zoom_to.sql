@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   05:53 Friday March 11, 2022
+--   Date and Time:   07:00 Saturday March 26, 2022
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -70,6 +70,7 @@ wwv_flow_api.create_plugin(
 '  l_column_value_list   apex_plugin_util.t_column_value_list;',
 '  i integer;',
 '  l_shape sdo_geometry;',
+'  l_dim sdo_dim_array;',
 'begin',
 '    APEX_UTIL.SET_SESSION_STATE(l_pits, apex_application.g_x01);',
 '',
@@ -80,10 +81,14 @@ wwv_flow_api.create_plugin(
 '            p_max_columns      => 1,',
 '            p_component_name   => p_plugin.name',
 '            );',
+'           ',
 '   if l_column_value_list(1).count > 0 then',
+'     if l_column_value_list(1)(1) is null then',
+'       raise_application_error(-20981, ''Could not create geometry. One reason for this could be the size of the GeoJSON data, which is limited to 32767 characters. Consider using the function SDO_GEOM.SDO_MBR return a smaller geometry.'');',
+'     end if;',
 '     l_shape := sdo_util.from_geojson(l_column_value_list(1)(1));',
-'     select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape, 1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape, 2),',
-'       SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
+'     select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  2),',
+'       SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
 '       into xmin,ymin,xmax,ymax   from dual;',
 '     htp.prn(''['' || xmin || '','' || ymin || '','' || xmax || '','' || ymax || '']'');',
 '   else',
@@ -128,14 +133,16 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item.'
-,p_version_identifier=>'4.2.20220209'
+,p_version_identifier=>'4.2.20220326'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 17121 2022-03-11 12:06:26Z b2imimcf $',
-'Date     : $Date: 2022-03-11 06:06:26 -0600 (Fri, 11 Mar 2022) $',
-'Revision : $Revision: 17121 $',
-'Requires : Application Express >= 21.1'))
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 17147 2022-03-26 12:02:01Z b2imimcf $',
+'Date     : $Date: 2022-03-26 07:02:01 -0500 (Sat, 26 Mar 2022) $',
+'Revision : $Revision: 17147 $',
+'Requires : Application Express >= 21.1',
+'',
+'3/24/2022 - Added error message if geometry is too large. Edited help text to encourage use of MBR.'))
 ,p_files_version=>7
 );
 wwv_flow_api.create_plugin_attribute(
@@ -168,7 +175,10 @@ wwv_flow_api.create_plugin_attribute(
 ,p_attribute_type=>'SQL'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_help_text=>'Query Returning Extent Geometry. This query should consists of one row and one column where the value is in GeoJSON format.'
+,p_examples=>'select sdo_util.to_geojson(sdo_geom.sdo_mbr(shape)) from mb4_usace_districts where rownum = 1'
+,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Query Returning Extent Geometry. This query should consists of one row and one column where the value is in GeoJSON format. There is a 32,767 character limit on the size of the GeoJSON text. It is strongly advised to use the ',
+'sdo_geom.sdo_mbr function.'))
 );
 end;
 /
