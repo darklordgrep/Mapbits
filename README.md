@@ -18,7 +18,7 @@ to this coordinate.
 - **Mapbits Set Custom Marker** is a dynamic action that creates and updates a marker on the map based on a page item value.
 - **Mapbits Stationing Layer** adds stationing marks and labels to a 4d linear geometry in a map based on the visible domain values in a chart region.
 # Requirements
-Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Apex Express 22.1, you will need version 4.3 or later of the plugins.
+Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Application Express 22.1, you will need version 4.3 or later of the plugins.
 
 # Installation
 You can install individual plugins by selecting and downloadling the plugin of interest from the Downloads section below. In your application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Import' and follow the steps in the wizard. When prompted to upload an import file, use the plugin file you downloaded.
