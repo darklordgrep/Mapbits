@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   07:00 Saturday March 26, 2022
+--   Date and Time:   23:02 Saturday August 13, 2022
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -133,14 +133,17 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item.'
-,p_version_identifier=>'4.2.20220326'
+,p_version_identifier=>'4.3.20220813'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 17147 2022-03-26 12:02:01Z b2imimcf $',
-'Date     : $Date: 2022-03-26 07:02:01 -0500 (Sat, 26 Mar 2022) $',
-'Revision : $Revision: 17147 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 17455 2022-08-14 04:11:56Z b2imimcf $',
+'Date     : $Date: 2022-08-13 23:11:56 -0500 (Sat, 13 Aug 2022) $',
+'Revision : $Revision: 17455 $',
 'Requires : Application Express >= 21.1',
+'',
+'Version 4.3 Updates:',
+'(8/13/2022) - Test with maplibre. No changes. Bumping version.',
 '',
 '3/24/2022 - Added error message if geometry is too large. Edited help text to encourage use of MBR.'))
 ,p_files_version=>7

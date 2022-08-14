@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   05:48 Friday March 11, 2022
+--   Date and Time:   22:44 Saturday August 13, 2022
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -160,7 +160,7 @@ wwv_flow_api.create_plugin(
 '  -- get the geometry from the first feature',
 '  select geom into l_geomjson from json_table(l_locjson, ''$.features[0]'' COLUMNS(geom FORMAT JSON PATH ''$.geometry''));',
 '  ',
-'  -- set the apex_collection with the input collection name (this originally comes from the plugin attribute 5, Mapbits Drawing Control Collection Name)',
+'  -- set the apex_collection with the input collection name (this originally comes from the plugin attribute 5, Mapbits Drawing Collection Name)',
 '  -- to the geojson geometry. Otherwise, don''t set anything and return an error.',
 '  if not l_geomjson is null then',
 '    if apex_collection.collection_exists(p_collection_name => l_collection_name) then',
@@ -193,7 +193,7 @@ wwv_flow_api.create_plugin(
 '    l_active_extent varchar2(400);',
 'begin',
 '  -- check that the plugin is associated to a map region and that the same map region',
-'  -- also has a Mapbits Drawing Controls plugin. Those values are to be passed to the javascript call.',
+'  -- also has a Mapbits Drawing  plugin. Those values are to be passed to the javascript call.',
 '  begin',
 '   select nvl(r.static_id, ''R''||da.affected_region_id) region, i.item_name item into l_region_id, l_draw_item',
 '    from apex_application_page_da_acts da ',
@@ -228,16 +228,19 @@ wwv_flow_api.create_plugin(
 ,p_standard_attributes=>'REGION:REQUIRED'
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
-,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing Controls plugin. The Mapbits Geocoder must be associated wi'
-||'th the same Map region as the Mapbits Drawing Controls plugin.'
-,p_version_identifier=>'4.2.20220310'
+,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing plugin. The Mapbits Geocoder must be associated with the sa'
+||'me map region as the Mapbits Drawing plugin.'
+,p_version_identifier=>'4.3.20220813'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 17121 2022-03-11 12:06:26Z b2imimcf $',
-'Date     : $Date: 2022-03-11 06:06:26 -0600 (Fri, 11 Mar 2022) $',
-'Revision : $Revision: 17121 $',
-'Requires : Application Express >= 21.1 and Mapbits Drawing Controls',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 17455 2022-08-14 04:11:56Z b2imimcf $',
+'Date     : $Date: 2022-08-13 23:11:56 -0500 (Sat, 13 Aug 2022) $',
+'Revision : $Revision: 17455 $',
+'Requires : Application Express >= 21.1 and Mapbits Drawing plugin',
+'',
+'Version 4.3 Updates:',
+'(8/13/2022) - Test with maplibre. No changes. Bumping version.',
 '',
 'Version 4.2 Updates: ',
 '(3/10/2022) - Added attribute help text.',
@@ -307,12 +310,12 @@ wwv_flow_api.create_plugin_attribute(
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
-,p_prompt=>'Mapbits Drawing  Control Collection Name'
+,p_prompt=>'Mapbits Drawing  Collection Name'
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_help_text=>'Instances of the Mapbits Drawing Controls stores its geometries in APEX collections. Set this attribute to the name of the Mapbits Drawing Controls collection and when this dynamic action is executed, the output geometry will be stored in that collec'
-||'tion, making it available in the Mapbits Drawing Controls instance.'
+,p_help_text=>'Instances of the Mapbits Drawing plugin store geometries in APEX collections. Set this attribute to the name of the Mapbits Drawing collection and, when this dynamic action is executed, the output geometry will be stored in that collection, making it'
+||' available in the Mapbits Drawing plugin item.'
 );
 wwv_flow_api.create_plugin_attribute(
  p_id=>wwv_flow_api.id(406566254000997081)

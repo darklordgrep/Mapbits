@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   05:50 Friday March 11, 2022
+--   Date and Time:   23:03 Saturday August 13, 2022
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -107,14 +107,17 @@ wwv_flow_api.create_plugin(
 'The Mapbits Layer Raster plugin adds support for url-based raster layers to APEX Map regions that are not managed by a web service. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-'
 ||'in layer selector.',
 'Add the plugin as an item under an APEX Map region and set the URL to point to image source.'))
-,p_version_identifier=>'4.2.20220310'
+,p_version_identifier=>'4.3.20220813'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Raster Layer',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 17121 2022-03-11 12:06:26Z b2imimcf $',
-'Date     : $Date: 2022-03-11 06:06:26 -0600 (Fri, 11 Mar 2022) $',
-'Revision : $Revision: 17121 $',
-'Requires : Application Express >= 21.1'))
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 17455 2022-08-14 04:11:56Z b2imimcf $',
+'Date     : $Date: 2022-08-13 23:11:56 -0500 (Sat, 13 Aug 2022) $',
+'Revision : $Revision: 17455 $',
+'Requires : Application Express >= 21.1',
+'',
+'Version 4.3 Updates:',
+'(8/13/2022) - Test with maplibre. No changes. Bumping version.'))
 ,p_files_version=>14
 );
 wwv_flow_api.create_plugin_attribute(
