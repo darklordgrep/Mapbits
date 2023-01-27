@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   08:11 Wednesday December 7, 2022
+--   Date and Time:   12:52 Friday January 27, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -186,7 +186,7 @@ wwv_flow_api.create_plugin(
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
 '',
 '  -- Call the javascript',
-'  apex_javascript.add_onload_code(p_code => ''apex.jQuery(apex.gPageContext$).on("apexreadyend", function(){',
+'  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
 '    mapbits_station("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", "'' || l_sequence_no || ''", "'' || l_chart_id || ''", {"icon" : "'' || p_plugin.file_prefix  || ''cross.png"});',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.STATION'');',
 'end;'))
@@ -199,18 +199,18 @@ wwv_flow_api.create_plugin(
 'Add a Mapbits Stationing plugin to a map region to show station labels based on visible domain values in a chart region. As the chart region viewport changes, so shall',
 'the station labels on the map. You will need to specify a query that returns a line sdo_geometry with measure values (4d) and if you have more than one chart, you will have',
 'to specify the chart id.'))
-,p_version_identifier=>'4.3.20221207'
+,p_version_identifier=>'4.3.20230127'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Stationing',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 17629 2022-12-07 14:13:43Z b2imimcf $',
-'Date     : $Date: 2022-12-07 08:13:43 -0600 (Wed, 07 Dec 2022) $',
-'Revision : $Revision: 17629 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 17828 2023-01-27 19:10:20Z b2imimcf $',
+'Date     : $Date: 2023-01-27 13:10:20 -0600 (Fri, 27 Jan 2023) $',
+'Revision : $Revision: 17828 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.3 Updates',
+'1/27/2023 To work with APEX 22.2, changed event hook to the map region''s spatialmapinitialized event in place of the page''s apexreadyend event.',
 '8/13/2022 Modified to work with both mapbox and maplibre.',
-'',
 '12/7/2022 Fixed hard coded reference to region. Added missing sequence parameter.'))
 ,p_files_version=>121
 );

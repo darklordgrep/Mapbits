@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:12 Monday December 19, 2022
+--   Date and Time:   12:51 Friday January 27, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -101,7 +101,7 @@ wwv_flow_api.create_plugin(
 '    l_sourceType := ''image'';',
 '  end if;',
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
-'  apex_javascript.add_onload_code(p_code => ''apex.jQuery(apex.gPageContext$).on("apexreadyend", function(){',
+'  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
 '    mapbits_rasterlayer("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", "'' || l_title || ''", "'' || l_url || ''", "'' || l_extent || ''", '' || l_sequence_no || '', "'' || l_sourceType || ''", "'' || l_checkbox_c'
 ||'olor || ''", "'' || l_initVisibility || ''", "'' || l_error || ''");',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.RASTER'' || p_item.name);',
@@ -114,16 +114,17 @@ wwv_flow_api.create_plugin(
 'The Mapbits Layer Raster plugin adds support for url-based raster layers to APEX Map regions that are not managed by a web service. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-'
 ||'in layer selector.',
 'Add the plugin as an item under an APEX Map region and set the URL to point to image source.'))
-,p_version_identifier=>'4.3.20221219'
+,p_version_identifier=>'4.3.20230127'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Raster Layer',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 17737 2022-12-19 21:47:38Z b2imimcf $',
-'Date     : $Date: 2022-12-19 15:47:38 -0600 (Mon, 19 Dec 2022) $',
-'Revision : $Revision: 17737 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 17828 2023-01-27 19:10:20Z b2imimcf $',
+'Date     : $Date: 2023-01-27 13:10:20 -0600 (Fri, 27 Jan 2023) $',
+'Revision : $Revision: 17828 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.3 Updates:',
+'1/27/2023 To work with APEX 22.2, changed event hook to the map region''s spatialmapinitialized event in place of the page''s apexreadyend event.',
 '12/19/2022 Added option to use tiled raster sources. Removed spurious js parameter and variables.',
 '12/07/2022 Using render (once) event instead of the load event to load the raster. Fixed the waiting animation by adding the wait gif to the html and using jquery to remove it upon ',
 'dataloading event. Changed ''WMS'' names and references to ''Raster''.',

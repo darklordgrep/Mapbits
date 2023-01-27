@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   23:02 Saturday August 13, 2022
+--   Date and Time:   12:52 Friday January 27, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -97,7 +97,7 @@ wwv_flow_api.create_plugin(
 '  end if;',
 '',
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
-'  apex_javascript.add_onload_code(p_code => ''apex.jQuery(apex.gPageContext$).on("apexreadyend", function(){',
+'  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
 '    mapbits_labeler("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", {p_layer_name : "''  || l_layer_name || ''", p_info_source : "'' || l_info_source || ''", p_zoom_range : "'' || l_zoomRange ||''", p_offset :'
 ||' ['' || l_offset || ''], p_anchor : "'' || l_anchor || ''", p_suppress_info_window : '' || l_suppress || ''});});'', ',
 '    p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.RASTER'' || p_item.name);',
@@ -108,18 +108,18 @@ wwv_flow_api.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Labeler plugin uses the tooltip or the Info Window of a Map region native layer to display labels for that layer. Add the plugin as an item under an APEX Map region and set the <b>Layer Name</b> to the name of a native layer in the map re'
 ||'gion.'
-,p_version_identifier=>'4.3.20220813'
+,p_version_identifier=>'4.3.20230127'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Labeler',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 17455 2022-08-14 04:11:56Z b2imimcf $',
-'Date     : $Date: 2022-08-13 23:11:56 -0500 (Sat, 13 Aug 2022) $',
-'Revision : $Revision: 17455 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 17828 2023-01-27 19:10:20Z b2imimcf $',
+'Date     : $Date: 2023-01-27 13:10:20 -0600 (Fri, 27 Jan 2023) $',
+'Revision : $Revision: 17828 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.3 Updates:',
+'1/27/2023 To work with APEX 22.2, changed event hook to the map region''s spatialmapinitialized event in place of the page''s apexreadyend event.',
 '8/13/2022 Modified to work with both mapbox and maplibre.',
-'',
 '5/6/2022 - Changed labeling implementation to work when rendered features are changed (like with a facet for instance). Added an option to suppress Info Windows.',
 ''))
 ,p_files_version=>88

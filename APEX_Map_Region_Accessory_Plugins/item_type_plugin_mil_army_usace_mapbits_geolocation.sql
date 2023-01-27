@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   22:44 Saturday August 13, 2022
+--   Date and Time:   12:48 Friday January 27, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -109,7 +109,7 @@ wwv_flow_api.create_plugin(
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
 '',
 '  -- Call the javascript',
-'  apex_javascript.add_onload_code(p_code => ''apex.jQuery(apex.gPageContext$).on("apexreadyend", function(){',
+'  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
 '    mapbits_geolocation("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", {"enableDefault" : '' || l_defaultEnabled || '', "trackUserLocation" : '' || l_track || '', "showUserHeading" : ''  || l_heading || ''});',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.GEOLOCATION'');',
 'end;'))
@@ -120,17 +120,20 @@ wwv_flow_api.create_plugin(
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<p>If the browser has geolocation enabled, the Mapbits Geolocation plugin can show the user''s location as a pulsing dot.</p>',
 '<p>Add the plugin in to the map region in which you wish to show the user''s location. This plugin relays events from Mapbox Geolocation as application express events.</p>'))
-,p_version_identifier=>'4.3.20220813'
+,p_version_identifier=>'4.3.20230127'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geolocation',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 17455 2022-08-14 04:11:56Z b2imimcf $',
-'Date     : $Date: 2022-08-13 23:11:56 -0500 (Sat, 13 Aug 2022) $',
-'Revision : $Revision: 17455 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 17828 2023-01-27 19:10:20Z b2imimcf $',
+'Date     : $Date: 2023-01-27 13:10:20 -0600 (Fri, 27 Jan 2023) $',
+'Revision : $Revision: 17828 $',
 'Requires : Application Express >= 21.1',
 '',
+'Version 4.3',
+'1/27/2023 To work with APEX 22.2, changed event hook to the map region''s spatialmapinitialized event in place of the page''s apexreadyend event.',
+'',
 'Version 4.2',
-'3/10/2022 : Added default on option.',
+'3/10/2022 Added default on option.',
 '',
 ''))
 ,p_files_version=>48

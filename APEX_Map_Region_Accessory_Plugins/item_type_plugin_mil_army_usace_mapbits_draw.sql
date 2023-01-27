@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:11 Monday December 19, 2022
+--   Date and Time:   12:48 Friday January 27, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -183,7 +183,7 @@ wwv_flow_api.create_plugin(
 '  htp.prn('';</script>'');',
 '',
 '  -- Call the javascript',
-'  apex_javascript.add_onload_code(p_code => ''apex.jQuery(apex.gPageContext$).on("apexreadyend", function(){',
+'  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
 '    mapbits_draw("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", l_drawingClob_'' || l_region_id  || '', {geometry_modes : "'' || l_geometry_modes || ''", readonly : '' ||  l_readonly || '', show_coords : '' ||'
 ||'  l_show_coords || '', enable_geolocate: '' || l_enable_geo || '', point_zoom_level : '' || l_pointZoomLevel || ''},"'' ||  l_error || ''");',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.DRAW'');',
@@ -221,16 +221,17 @@ wwv_flow_api.create_plugin(
 '</p>',
 '',
 '<p>Mapbits Drawing is implemented using the mapbox-gl-draw library. For more information, review the map-gl-draw Github site (<a href="https://github.com/mapbox/mapbox-gl-draw">https://github.com/mapbox/mapbox-gl-draw</a>).<p>'))
-,p_version_identifier=>'4.3.20221219'
+,p_version_identifier=>'4.3.20230127'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Draw',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 17737 2022-12-19 21:47:38Z b2imimcf $',
-'Date     : $Date: 2022-12-19 15:47:38 -0600 (Mon, 19 Dec 2022) $',
-'Revision : $Revision: 17737 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 17828 2023-01-27 19:10:20Z b2imimcf $',
+'Date     : $Date: 2023-01-27 13:10:20 -0600 (Fri, 27 Jan 2023) $',
+'Revision : $Revision: 17828 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.3 Updates:',
+'1/27/2023 To work with APEX 22.2, changed event hook to the map region''s spatialmapinitialized event in place of the page''s apexreadyend event.',
 '12/19/2022 Added missing getbounds function.',
 '8/13/2022 Modified to work with both mapbox and maplibre.',
 '8/13/2022 Using mapbox-draw-gl version 1.2.2.',
