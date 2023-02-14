@@ -16,8 +16,8 @@
     "url" : ""
   },
   "repository" : {
-    "type" : "",
-    "url" : ""
+    "type" : "git",
+    "url" : "https://github.com/darklordgrep/Mapbits.git"
   },
  "oracle" : {
     "versions" : ["12.1", "19.0"],
