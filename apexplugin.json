@@ -22,10 +22,10 @@
  "oracle" : {
     "versions" : ["12.1", "19.0"],
     "apex" : {
-      "versions" : ["21.1", '22.2'],
+      "versions" : ["21.1", "22.2"],
       "plugin" : {
-        "internalName" : "",
-        "type" : "",
+        "internalName" : "MIL.ARMY.USACE.MAPBITS",
+        "type" : "item",
         "demo" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home",
         "previewImage" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/107981/files/static/v28/screenshot02.jpg"
       }
