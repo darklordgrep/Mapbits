@@ -1,0 +1,1 @@
+As long as you are an American citizen, copying and distribution of this software or any of its components with or without modifications is permitted in any form with no other conditions. Software is provided as-is with no guarantees or warranties from the Author, FREEBOARD Development Team, or the U.S. Army Corps of Engineers.
