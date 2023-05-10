@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   11:17 Wednesday December 7, 2022
+--   Date and Time:   11:25 Wednesday May 10, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -72,30 +72,32 @@ wwv_flow_api.create_plugin(
 '  l_shape sdo_geometry;',
 '  l_dim sdo_dim_array;',
 'begin',
+'  if not l_pits is null then ',
 '    APEX_UTIL.SET_SESSION_STATE(l_pits, apex_application.g_x01);',
+'  end if;',
 '',
-'    l_column_value_list :=',
-'        apex_plugin_util.get_data (',
-'            p_sql_statement    => l_query,',
-'            p_min_columns      => 1,',
-'            p_max_columns      => 1,',
-'            p_component_name   => p_plugin.name',
-'            );',
+'  l_column_value_list :=',
+'    apex_plugin_util.get_data (',
+'      p_sql_statement    => l_query,',
+'      p_min_columns      => 1,',
+'      p_max_columns      => 1,',
+'      p_component_name   => p_plugin.name',
+'  );',
 '           ',
-'   if l_column_value_list(1).count > 0 then',
-'     if l_column_value_list(1)(1) is null then',
-'       raise_application_error(-20981, ''Could not create geometry. One reason for this could be the size of the GeoJSON data, which is limited to 32767 characters. Consider using the function SDO_GEOM.SDO_MBR return a smaller geometry.'');',
-'     end if;',
-'     l_shape := sdo_util.from_geojson(l_column_value_list(1)(1));',
-'     select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  2),',
-'       SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
-'       into xmin,ymin,xmax,ymax   from dual;',
-'     htp.prn(''['' || xmin || '','' || ymin || '','' || xmax || '','' || ymax || '']'');',
-'   else',
-'     -- No data found',
-'     raise_application_error(-20520, ''ERROR: Map Layer Zoom To - No data found from query results.'');',
-'   end if;',
-'   return rt;',
+'  if l_column_value_list(1).count > 0 then',
+'    if l_column_value_list(1)(1) is null then',
+'      raise_application_error(-20981, ''Could not create geometry. One reason for this could be the size of the GeoJSON data, which is limited to 32767 characters. Consider using the function SDO_GEOM.SDO_MBR return a smaller geometry.'');',
+'    end if;',
+'    l_shape := sdo_util.from_geojson(l_column_value_list(1)(1));',
+'    select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  2),',
+'    SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
+'      into xmin,ymin,xmax,ymax   from dual;',
+'    htp.prn(''['' || xmin || '','' || ymin || '','' || xmax || '','' || ymax || '']'');',
+'  else',
+'    -- No data found',
+'    raise_application_error(-20520, ''ERROR: Map Layer Zoom To - No data found from query results.'');',
+'  end if;',
+'  return rt;',
 'end;',
 '',
 'function mapbits_zoom (',
@@ -105,7 +107,7 @@ wwv_flow_api.create_plugin(
 '    l_region_id varchar2(4000);',
 '    l_error varchar2(4000);',
 '    rt apex_plugin.t_dynamic_action_render_result;',
-'    l_pits p_dynamic_action.attribute_01%type := p_dynamic_action.attribute_01;',
+'    l_vpits p_dynamic_action.attribute_01%type;',
 'begin',
 '  begin',
 '   select nvl(r.static_id, ''R''||da.affected_region_id) into l_region_id',
@@ -123,7 +125,8 @@ wwv_flow_api.create_plugin(
 '      );',
 '      l_error := l_error || ''Configuration ERROR: Map Layer Zoom to Boundary DA is not associated with a Map region.'';',
 '  end;',
-'  rt.javascript_function := ''function () {mapbits_zoom("'' || p_dynamic_action.id || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", $v("'' || l_pits || ''"));}'';',
+'  select decode(p_dynamic_action.attribute_01, null, ''""'', ''$v("'' || p_dynamic_action.attribute_01 || ''")'') into l_vpits from dual;',
+'  rt.javascript_function := ''function () {mapbits_zoom("'' || p_dynamic_action.id || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", '' || l_vpits || '');}'';',
 '  return rt;',
 'end;'))
 ,p_api_version=>2
@@ -133,20 +136,23 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item.'
-,p_version_identifier=>'4.3.20221207'
+,p_version_identifier=>'4.4.20230328'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 17633 2022-12-07 17:21:02Z b2imimcf $',
-'Date     : $Date: 2022-12-07 11:21:02 -0600 (Wed, 07 Dec 2022) $',
-'Revision : $Revision: 17633 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 18134 2023-05-10 16:29:39Z b2imimcf $',
+'Date     : $Date: 2023-05-10 11:29:39 -0500 (Wed, 10 May 2023) $',
+'Revision : $Revision: 18134 $',
 'Requires : Application Express >= 21.1',
 '',
+'Version 4.4 Updates:',
+'03/28/2023 Removed requirement to have a ''Page Item to Submit'' attribute. ',
+'',
 'Version 4.3 Updates:',
-'8/13/2022 Test with maplibre. No changes. Bumping version.',
-'3/24/2022 Added error message if geometry is too large. Edited help text to encourage use of MBR.',
+'08/13/2022 Test with maplibre. No changes. Bumping version.',
+'03/24/2022 Added error message if geometry is too large. Edited help text to encourage use of MBR.',
 '12/07/2022 Break out of javascript function if the region is null to avoid javascript errors breaking the rest of page. This is common for ''load'' dynamic actions. '))
-,p_files_version=>13
+,p_files_version=>14
 );
 wwv_flow_api.create_plugin_attribute(
  p_id=>wwv_flow_api.id(210357495496155351)
@@ -156,7 +162,7 @@ wwv_flow_api.create_plugin_attribute(
 ,p_display_sequence=>50
 ,p_prompt=>'Page Item to Submit'
 ,p_attribute_type=>'PAGE ITEM'
-,p_is_required=>true
+,p_is_required=>false
 ,p_is_translatable=>false
 ,p_examples=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'If the ''Query Returning Extent Geometry'' is',
