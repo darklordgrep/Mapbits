@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   11:27 Wednesday May 10, 2023
+--   Date and Time:   08:15 Tuesday June 6, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -189,7 +189,7 @@ unistr('    setTimeout(function() {\00A0\00A0'),
 '    mapbits_draw("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", l_drawingClob_'' || l_region_id  || '', {geometry_modes : "'' || l_geometry_modes || ''", readonly : '' ||  l_readonly || '', show_coords : '' ||'
 ||'  l_show_coords || '', enable_geolocate: '' || l_enable_geo || '', point_zoom_level : '' || l_pointZoomLevel || ''},"'' ||  l_error || ''");',
 '    }, 5);',
-'    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.DRAW'');',
+'    });'');',
 'end;',
 '',
 'procedure map_drawing_validate (',
@@ -224,16 +224,17 @@ unistr('    setTimeout(function() {\00A0\00A0'),
 '</p>',
 '',
 '<p>Mapbits Drawing is implemented using the mapbox-gl-draw library. For more information, review the map-gl-draw Github site (<a href="https://github.com/mapbox/mapbox-gl-draw">https://github.com/mapbox/mapbox-gl-draw</a>).<p>'))
-,p_version_identifier=>'4.4.20230510'
+,p_version_identifier=>'4.4.20230606'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Draw',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 18134 2023-05-10 16:29:39Z b2imimcf $',
-'Date     : $Date: 2023-05-10 11:29:39 -0500 (Wed, 10 May 2023) $',
-'Revision : $Revision: 18134 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 18237 2023-06-06 13:17:42Z b2imimcf $',
+'Date     : $Date: 2023-06-06 08:17:42 -0500 (Tue, 06 Jun 2023) $',
+'Revision : $Revision: 18237 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.4 Updates:',
+'6/6/2023 Removed p_key => ''MIL.ARMY.USACE.MAPBITS.DRAW'' argument from call to apex_javascript.add_onload_code. This will separate drawing items for multiple map regions on the same page.',
 '5/10/2023 Removed unneeded library, mapbits-restgjslayer.js.',
 '4/12/2023 Delay load by a fraction of a second to allow other layers to load. This should prevent other layers from loading on top of the drawing feature. ',
 '',
