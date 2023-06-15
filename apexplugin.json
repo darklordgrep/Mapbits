@@ -1,6 +1,6 @@
 {
   "name" : "Mapbits",
-  "version" : "4.3",
+  "version" : "4.4",
   "description" : "Oracle Application Express (APEX) plugins to enhance Map region functionality.",
   "keywords" : ["map", "maps", "mapbox", "map region", "gis", "geocode", "plan and profile", "draw", "geolocation", "geojson", "wms", "geocoder", "zoom", "raster", "vector"],
   "homepage" : "https://github.com/darklordgrep/Mapbits",
