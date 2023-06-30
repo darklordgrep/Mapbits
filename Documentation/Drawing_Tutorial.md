@@ -4,6 +4,7 @@ For more information on the Map Region itself, please consult Oracle's guide to 
 ).
 
 Once you have created a Map Region, create a Page Item in that Map Region and set the item's type to "Mapbits Drawing [Plug-In]" as shown in Figure 1. Notably, if you create a Mapbits Drawing page item and is not under a Map Region, you will see no effect.
+
 ![Mapbits Drawing Configuration](tutorial_plate_01.png "Figure 1")
 Figure 1
 
