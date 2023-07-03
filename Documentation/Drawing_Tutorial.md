@@ -19,7 +19,8 @@ Figure 2
 
 You can click one of the buttons to turn on a drawing tool. There are different buttons for drawing points, lines, and polygons. Once you complete the drawing of a geometry, it will replace the previous geometry shown in the Map Region. The configurations options allow to pick which drawings tool to show, which is useful if you only want to draw one type of geometry.
 
-
+## Editing Geometry Data
+The Drawing Plug-in uses an [APEX Collection](https://docs.oracle.com/en/database/oracle/application-express/21.1/aeapi/APEX_COLLECTION.html) to persist geometry data in the CLOB001 column using geojson format. To edit geometries in your application, you will need to take three steps: 1) Set the collection name, 2) create a load process to loading existing geometry into the collection, 3) create a save process to write the geometry from the collection to its intended target.
 
 
 
