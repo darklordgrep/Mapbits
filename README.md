@@ -32,6 +32,8 @@ Alternatively, you can install Mapbits by installing the Mapbits Demo applicatio
 # Usage
 After installation, the plugins will be available as a page item or dynamic action type when you create new page items or dynamic actions. For Mapbits page items and dynamic actions, make sure to add them to the map region on your page. They will not work if added to other region types. For additional plugin-specific direction, refer to the help available in the plugins themseles.
 
+* [Mapbits Drawing Tutorial](Documentation/Drawing_Tutorial.md)
+  
 # Downloads
 * [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all plugins as well as sample data to show them in action.*
 * [Mapbits Drawing Plugin](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_draw.sql)
