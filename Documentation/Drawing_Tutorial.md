@@ -22,5 +22,9 @@ You can click one of the buttons to turn on a drawing tool. There are different 
 ## Editing Geometry Data
 The Drawing Plug-in uses an [APEX Collection](https://docs.oracle.com/en/database/oracle/application-express/21.1/aeapi/APEX_COLLECTION.html) to persist geometry data in the CLOB001 column using geojson format. To edit geometries in your application, you will need to take three steps: 1) Set the collection name, 2) create a load process to loading existing geometry into the collection, 3) create a save process to write the geometry from the collection to its intended target.
 
+First determine a name for the collection to be used to persist the geometry. Set the **Geometry Collection Name** to that name as shown in Figure 3. You will use this name in PL/SQL in the next steps.
 
+![Mapbits Configuration Settings](tutorial_plate_03.png "Figure 3")
+
+Figure 3
 
