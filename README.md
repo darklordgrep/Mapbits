@@ -5,7 +5,7 @@ to the underlying map via javascript, offering possibilities beyond merely simpl
 
 Mapbits is a family of plugins that add functionality to the APEX map region. Currently available plugins include:
 
-- **Mapbits Drawing** adds point, line, and/or polygon drawing tools to the APEX native map region. Drawing geometry 
+- **Mapbits Drawing** adds point, line, and/or polygon drawing tools to the APEX native map region using [mapbox-gl-draw](https://github.com/mapbox/mapbox-gl-draw). Drawing geometry 
 is stored in a collection in GeoJSON format. A developer can write processes to initialize the drawing geometry from the database, as well as write geometry back to the database. If geolocation is enabled and available in the browser, then a user can click a tool button to create and modify geometries based on the user's location.
 - **Mapbits Geocoder** is a dynamic action that calculates a coordinate for an address defined in page items using the [Nominatim](https://nominatim.org/) geocoding service. It then sets the point geometry of the associated Mapbits Drawing plugin.
 to this coordinate. 
