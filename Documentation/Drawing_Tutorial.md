@@ -22,9 +22,35 @@ You can click one of the buttons to turn on a drawing tool. There are different 
 ## Editing Geometry Data
 The Drawing Plug-in uses an [APEX Collection](https://docs.oracle.com/en/database/oracle/application-express/21.1/aeapi/APEX_COLLECTION.html) to persist geometry data in the CLOB001 column using geojson format. To edit geometries in your application, you will need to take three steps: 1) Set the collection name, 2) create a load process to loading existing geometry into the collection, 3) create a save process to write the geometry from the collection to its intended target.
 
-First determine a name for the collection to be used to persist the geometry. Set the **Geometry Collection Name** to that name as shown in Figure 3. This example uses the name, PAGE_4_SHAPE. You will use this name in PL/SQL in the next steps.
+First determine a name for the collection to be used to persist the geometry. Set the **Geometry Collection Name** to that name as shown in Figure 3. This example uses the name, PAGE_4_SHAPE. You will use this name in the PL/SQL for the next steps.
 
 ![Mapbits Configuration Settings](tutorial_plate_03.png "Figure 3")
 
 Figure 3
 
+Next, create a new Process of **Type**, *Execute Code*, and **Execution Point**, *Before Header*. Using the language type of PL/SQL, code the process to create the collection and load it with geometry in geojson format.
+Using the collection name PAGE_4_SHAPE from the previous step and an existing table, MB4_LOCKS, with a Page Item, P4_LOCK_ID, used for the primary key, you can load geometry from an existing record on a typical data entry 
+with the following code:
+~~~
+declare
+    cdata clob;
+begin
+    apex_collection.create_or_truncate_collection('PAGE_4_SHAPE');
+    if :P4_LOCK_ID is not null then
+        select sdo_util.to_geojson(shape) into cdata from mb4_locks where lock_id = :P4_LOCK_ID;
+        apex_collection.add_member(p_collection_name => 'PAGE_4_SHAPE', p_clob001 => cdata);
+    end if;
+end;
+~~~
+
+Finally, create a Process at the **Point** *Processing* that is to be run on page submission that updates the geometry. Once again using the collection name PAGE_4_SHAPE and table MB4_LOCKS:
+~~~
+declare
+    cdata clob;
+begin
+    select clob001 into cdata from apex_collections where collection_name = 'PAGE_4_SHAPE';
+    update mb4_locks set shape = sdo_cs.transform(sdo_util.from_geojson(cdata), 8265) where lock_id = :P4_LOCK_ID;
+end;
+~~~
+
+You can see this example in action by installing the Mapbits Demo Application into your own Application Express instance.
