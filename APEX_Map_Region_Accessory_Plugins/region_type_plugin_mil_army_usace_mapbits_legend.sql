@@ -16,24 +16,24 @@ wwv_flow_imp.import_begin (
  p_version_yyyy_mm_dd=>'2022.10.07'
 ,p_release=>'22.2.8'
 ,p_default_workspace_id=>2612926235066099
-,p_default_application_id=>211
-,p_default_id_offset=>0
+,p_default_application_id=>107981
+,p_default_id_offset=>197864740331967674
 ,p_default_owner=>'MVDGIS'
 );
 end;
 /
  
-prompt APPLICATION 211 - FREEBOARD Ultra
+prompt APPLICATION 107981 - Mapbits Demo
 --
 -- Application Export:
---   Application:     211
---   Name:            FREEBOARD Ultra
---   Date and Time:   08:02 Sunday July 9, 2023
+--   Application:     107981
+--   Name:            Mapbits Demo
+--   Date and Time:   15:36 Saturday July 15, 2023
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 17915044013133904
+--     PLUGIN: 608292219067261232
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/region_type/mil_army_usace_mapbits_legend
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(17915044013133904)
+ p_id=>wwv_flow_imp.id(608292219067261232)
 ,p_plugin_type=>'REGION TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LEGEND'
 ,p_display_name=>'Mapbits Legend'
@@ -385,7 +385,6 @@ wwv_flow_imp_shared.create_plugin(
 ,p_api_version=>2
 ,p_render_function=>'map_legend_render'
 ,p_substitute_attributes=>true
-,p_reference_id=>212562738403325884
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<p>Mapbits Legend is a Region that displays symbology and names for the layers shown in an associated Map Region. ',
@@ -401,13 +400,13 @@ wwv_flow_imp_shared.create_plugin(
 '<p>',
 'Cartocolors configuration taken from https://github.com/CartoDB/CartoColor/tree/master on 7/5/2023. (Converted from javascript to json data file.)',
 '</p>'))
-,p_version_identifier=>'4.5-dev.20230706'
+,p_version_identifier=>'4.5.20230706'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Legend',
-'Location : $Id$',
-'Date     : $Date$',
-'Revision : $Revision$',
+'Location : $Id: mapbits_demo_apex_application.sql 18331 2023-07-14 17:27:38Z b2imimcf $',
+'Date     : $Date: 2023-07-14 12:27:38 -0500 (Fri, 14 Jul 2023) $',
+'Revision : $Revision: 18331 $',
 'Requires : Application Express >= 22.2',
 '',
 'Version 4.5 Updates:',
@@ -415,11 +414,11 @@ wwv_flow_imp_shared.create_plugin(
 'SVG icons now use the layer scale and color. Using the SVG Icon view box now so that they fix in the legend entries. Polygons now use the layer fill opacity. ',
 '7/7/2023 Removed entries in legend for layers that are not rendered in the map region (based on server-side condition, etc.)',
 '7/6/2023 Initially added Legend Plugin'))
-,p_files_version=>5
+,p_files_version=>4
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(17947558456749525)
-,p_plugin_id=>wwv_flow_imp.id(17915044013133904)
+ p_id=>wwv_flow_imp.id(609909669645990677)
+,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -436,8 +435,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'If you do not use a label column, then the numeric column used to divide the layer into different symbols will be used.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(17947872355749527)
-,p_plugin_id=>wwv_flow_imp.id(17915044013133904)
+ p_id=>wwv_flow_imp.id(610043594874261930)
+,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -836,8 +835,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(17948830622749547)
-,p_plugin_id=>wwv_flow_imp.id(17915044013133904)
+ p_id=>wwv_flow_imp.id(608355924871482363)
+,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
 ,p_file_name=>'cartocolors.json'
 ,p_mime_type=>'application/octet-stream'
 ,p_file_charset=>'utf-8'
