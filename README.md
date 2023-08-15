@@ -17,8 +17,10 @@ to this coordinate.
 - **Mapbits Geolocation** shows a pulsing dot on a map region reflecting the user's location if that feature is enabled in the user's browser. 
 - **Mapbits Set Custom Marker** is a dynamic action that creates and updates a marker on the map based on a page item value.
 - **Mapbits Stationing Layer** adds stationing marks and labels to a 4d linear geometry in a map based on the visible domain values in a chart region.
+- **Mapbits Legend** is a region that shows a map's layer names together and associated symbology. 
 # Requirements
-Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Apex Express 22.1 or 22.2, you will need version 4.3 or later of the plugins.
+Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Apex Express 22.1 or 22.2, you will need version 4.5 or later of the plugins.
+Mapbits version 4.5 was not tested on Application Express versions prior to 22.1.
 
 # Installation
 You can install individual plugins by selecting and downloadling the plugin of interest from the Downloads section below. In your application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Import' and follow the steps in the wizard. When prompted to upload an import file, use the plugin file you downloaded.
@@ -45,6 +47,7 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Geolocation](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_geolocation.sql)
 * [Mapbits Set Custom Marker](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql)
 * [Mapbits Stationing Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
+* [Mapbits Stationing Layer](APEX_Map_Region_Accessory_Plugins/region_type_plugin_mil_army_usace_mapbits_legend.sql)
 
 # Demonstration
 [View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home)
