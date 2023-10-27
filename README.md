@@ -47,7 +47,7 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Geolocation](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_geolocation.sql)
 * [Mapbits Set Custom Marker](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_custommarker.sql)
 * [Mapbits Stationing Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_station.sql)
-* [Mapbits Stationing Layer](APEX_Map_Region_Accessory_Plugins/region_type_plugin_mil_army_usace_mapbits_legend.sql)
+* [Mapbits Legend](APEX_Map_Region_Accessory_Plugins/region_type_plugin_mil_army_usace_mapbits_legend.sql)
 
 # Demonstration
 [View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home)
