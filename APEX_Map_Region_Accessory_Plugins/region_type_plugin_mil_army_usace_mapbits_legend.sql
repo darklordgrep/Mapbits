@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:36 Saturday July 15, 2023
---   Exported By:     GREP
+--   Date and Time:   16:36 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 608292219067261232
+--     PLUGIN: 491459037924583657
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,14 +47,14 @@ end;
 prompt --application/shared_components/plugins/region_type/mil_army_usace_mapbits_legend
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(608292219067261232)
+ p_id=>wwv_flow_imp.id(491459037924583657)
 ,p_plugin_type=>'REGION TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LEGEND'
 ,p_display_name=>'Mapbits Legend'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'function polysvg(fill_color in varchar2, stroke_color in varchar2, fill_opacity in number) return varchar2 is',
 'begin',
-'  return '' <br/><svg width="20" height="20" viewbox = "0 0 120 90" style="display: inline-block;vertical-align: middle;"><path',
+'  return '' <svg width="20" height="20" viewbox = "0 0 120 90" style="display: inline-block;vertical-align: middle;"><path',
 '                d="M 30.795756,19.814323 L 91.909814,24.827586 L 100.26525,63.501326 L 21.007958,70.66313 L 30.795756,19.814323 z "',
 '                style="fill:'' || fill_color || '';fill-opacity:'' || fill_opacity || '';fill-rule:evenodd;stroke:'' || stroke_color || '';stroke-width:2.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-op'
 ||'acity:1"/></svg> '';',
@@ -110,9 +110,26 @@ wwv_flow_imp_shared.create_plugin(
 '    nvl(fill_opacity, 1) fill_opacity_d',
 '    from apex_appl_page_map_layers l ',
 '    inner join apex_application_page_regions r on l.region_id = r.region_id',
-'    where l.application_id = :APP_ID and l.page_id = :APP_PAGE_ID and (p_region.attribute_02 is null or r.static_id = p_region.attribute_02)',
+'    where l.application_id = :APP_ID and l.page_id = :APP_PAGE_ID and (p_region.attribute_02 is null or r.static_id = p_region.attribute_02) and l.display_in_legend = ''Yes''',
 '    order by l.display_sequence desc;',
 '  citem c%rowtype;',
+'  cursor c2 is select ',
+'    p.item_name item_name,',
+'    p.attribute_01 title,',
+'    p.attribute_05 icon,',
+'    p.attribute_06 color,',
+'    p.attribute_12 opacity,',
+'    p.attribute_13 outline_color,',
+'    p.attribute_10 layer_type',
+'    from apex_application_page_items p',
+'    inner join apex_application_page_regions r on p.region_id = r.region_id',
+'    where',
+'      p.application_id = :APP_ID',
+'      and p.page_id = :APP_PAGE_ID',
+'      and (p_region.attribute_02 is null or r.static_id = p_region.attribute_02)',
+'      and p.display_as_code = ''PLUGIN_MIL.ARMY.USACE.MAPBITS.LAYER.LODESTAR''',
+'    order by p.display_sequence desc;',
+'  c2item c2%rowtype;',
 '  l_colormaps clob;',
 '  l_colorj json_object_t;',
 '  l_cstyles varchar2(4000);',
@@ -190,8 +207,14 @@ wwv_flow_imp_shared.create_plugin(
 '  l_paths(''Flag Swallowtail'') := ''<path d="M13.2 7l3.7-4.2c.2-.2.2-.5 0-.7-.2-.1-.3-.1-.4-.1h-13c-.3 0-.5.2-.5.5v15c0 .3.2.5.5.5s.5-.2.5-.5V12h12.5c.3 0 .5-.2.5-.5 0-.1 0-.2-.1-.3L13.2 7z"></path>'';',
 '  ',
 '  -- add custom styles',
-'  select custom_svg_styles into l_cstyles from APEX_APPL_PAGE_MAPS m inner join apex_application_page_regions r on m.region_id = r.region_id where m.page_id = :APP_PAGE_ID and m.application_id = :APP_ID and (p_region.attribute_02 is null or p_region.'
-||'attribute_02 = r.static_id);',
+'  begin',
+'    select nvl(custom_svg_styles, ''[]'') into l_cstyles from APEX_APPL_PAGE_MAPS m inner join apex_application_page_regions r on m.region_id = r.region_id where m.page_id = :APP_PAGE_ID and m.application_id = :APP_ID and (p_region.attribute_02 is null'
+||' or p_region.attribute_02 = r.static_id);',
+'  exception',
+'    when NO_DATA_FOUND then',
+'      raise_application_error(-20653, ''Could not find region "'' || p_region.attribute_02 || ''"'');',
+'  end;',
+'  ',
 '  l_cstylej := json_array_t.parse(l_cstyles);',
 '  for i in 0..l_cstylej.get_size() - 1 loop',
 '    l_cstyleobj := treat(l_cstylej.get(i) AS JSON_OBJECT_T);',
@@ -208,6 +231,22 @@ wwv_flow_imp_shared.create_plugin(
 ' ',
 '  -- create the legend as HTML list. Iterate through layers to create the list items.',
 '  htp.p(''<ul data-role="listview" class="a-ListView">'');',
+'',
+'  -- Lodestar layers',
+'  for c2item in c2 loop',
+'    case c2item.layer_type',
+'      when ''symbol'' then',
+'        l_symbol := ''<span style="color:'' || c2item.color || '';margin:0;padding-right:20px;display: inline-block;vertical-align: middle;opacity: '' || nvl(c2item.opacity, 1) || ''" class="fa '' || c2item.icon || ''"></span>'';',
+'      when ''line'' then',
+'        l_symbol := ''<svg width="20" height="20"  style="stroke:'' || c2item.color || '';stroke-width:2.2;display: inline-block;vertical-align: middle;opacity: '' || nvl(c2item.opacity, 1) || ''"><path d="M 18,14 2,6"/></svg>'';',
+'      when ''fill'' then',
+'        l_symbol := polysvg(c2item.color, c2item.outline_color, nvl(c2item.opacity, 1));',
+'      else',
+'        l_symbol := ''<span style="margin:0;padding-right:20px;display: inline-block;vertical-align: middle;" class="fa fa-heat-map"></span>'';',
+'    end case;',
+'    htp.p(''<li class="a-ListView-item ui-body-inherit">'' || l_symbol || '' '' || nvl(c2item.title, c2item.item_name) || ''</li>'');',
+'  end loop;',
+'',
 '  for citem in c loop',
 '    -- check if layer is rendered in the map region. If not, it doesn''t need a legend entry.',
 '    if not APEX_PLUGIN_UTIL.IS_COMPONENT_USED(citem.build_option_id, citem.authorization_scheme_id, citem.condition_type, citem.condition_expr1, citem.condition_expr2, null) then',
@@ -357,6 +396,9 @@ wwv_flow_imp_shared.create_plugin(
 '',
 '          for i in 1..l_column_value_list(1).count loop',
 '            if i <= l_colors_custom.count then',
+'              if i > 1 then',
+'                 l_fill_symbols := l_fill_symbols || ''<br/>'';',
+'              end if;',
 '              l_fill_symbols := l_fill_symbols || polysvg(l_colors_custom(i), citem.stroke_color_d, citem.fill_opacity_d) || l_column_value_list(1)(i);',
 '            end if;',
 '          end loop;',
@@ -365,8 +407,11 @@ wwv_flow_imp_shared.create_plugin(
 '          l_colors := l_colorj.get_object(citem.fill_color_spectrum_name).get_array(''7''); -- hmmm',
 '',
 '          for i in 1..l_column_value_list(1).count loop',
+'             if i > 1 then',
+'               l_fill_symbols := l_fill_symbols || ''<br/>'';',
+'             end if;',
 '            if i < l_colors.get_size() then',
-'              l_fill_symbols := l_fill_symbols || polysvg(l_colors.get_string(i), citem.stroke_color_d, citem.fill_opacity_d) || l_column_value_list(1)(i);',
+'               l_fill_symbols := l_fill_symbols || polysvg(l_colors.get_string(i), citem.stroke_color_d, citem.fill_opacity_d) || l_column_value_list(1)(i);',
 '            end if;',
 '          end loop;',
 '        end if;',
@@ -377,8 +422,12 @@ wwv_flow_imp_shared.create_plugin(
 '    else ',
 '      l_symbol := '''';',
 '    end case;',
+'    if l_fill_symbols is not null then',
+'      l_fill_symbols := ''<br/>'' || l_fill_symbols;',
+'    end if;',
 '    htp.p(''<li class="a-ListView-item ui-body-inherit">'' || l_symbol || '' '' || citem.label || l_fill_symbols || ''</li>'');',
 '  end loop;',
+'',
 '  htp.p(''</ul>'');',
 '  return rt;',
 'end;'))
@@ -400,7 +449,7 @@ wwv_flow_imp_shared.create_plugin(
 '<p>',
 'Cartocolors configuration taken from https://github.com/CartoDB/CartoColor/tree/master on 7/5/2023. (Converted from javascript to json data file.)',
 '</p>'))
-,p_version_identifier=>'4.5.20230706'
+,p_version_identifier=>'4.6.20231107'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Legend',
@@ -408,6 +457,10 @@ wwv_flow_imp_shared.create_plugin(
 'Date     : $Date: 2023-07-14 12:27:38 -0500 (Fri, 14 Jul 2023) $',
 'Revision : $Revision: 18331 $',
 'Requires : Application Express >= 22.2',
+'',
+'Version 4.6 Updates:',
+'11/07/2023 Removed entries for layers that are not shown in the built-in legend. Added fill outline for Lodestar layers. Fixed a bug where all page items, not just Lodestar layer items, appeared in the legend.',
+'11/03/2023 Added support for Lodestar Layers. Removed extra space before single-symbol polygon layer legend items.',
 '',
 'Version 4.5 Updates:',
 '7/9/2023 Added color for Icon (Class), Refactored polygon svg creation into function. Fixed to use application and page id for the source of the legend layer (also correctly using the static id if multiple map regions on the same page).',
@@ -417,8 +470,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>4
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(609909669645990677)
-,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
+ p_id=>wwv_flow_imp.id(493076488503313102)
+,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -435,8 +488,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'If you do not use a label column, then the numeric column used to divide the layer into different symbols will be used.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(610043594874261930)
-,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
+ p_id=>wwv_flow_imp.id(493210413731584355)
+,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -835,8 +888,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(608355924871482363)
-,p_plugin_id=>wwv_flow_imp.id(608292219067261232)
+ p_id=>wwv_flow_imp.id(491522743728804788)
+,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
 ,p_file_name=>'cartocolors.json'
 ,p_mime_type=>'application/octet-stream'
 ,p_file_charset=>'utf-8'

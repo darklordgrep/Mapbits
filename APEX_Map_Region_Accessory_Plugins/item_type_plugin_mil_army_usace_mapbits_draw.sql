@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   12:22 Friday July 14, 2023
---   Exported By:     GREP
+--   Date and Time:   16:35 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 712595028269166861
+--     PLUGIN: 1306189249265069883
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_draw
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.DRAW'
 ,p_display_name=>'Mapbits Drawing'
@@ -221,13 +221,13 @@ wwv_flow_imp_shared.create_plugin(
 '</p>',
 '',
 '<p>Mapbits Drawing is implemented using the mapbox-gl-draw library. For more information, review the map-gl-draw Github site (<a href="https://github.com/mapbox/mapbox-gl-draw">https://github.com/mapbox/mapbox-gl-draw</a>).<p>'))
-,p_version_identifier=>'4.5.20230714'
+,p_version_identifier=>'4.6.20230714'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Draw',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 18331 2023-07-14 17:27:38Z b2imimcf $',
-'Date     : $Date: 2023-07-14 12:27:38 -0500 (Fri, 14 Jul 2023) $',
-'Revision : $Revision: 18331 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.5 Updates:',
@@ -254,8 +254,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>86
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(712597827676479736)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1306192048672382758)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -268,29 +268,29 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Choose whether to add point, line, or polygon tools to the Map region.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(712598732452480549)
-,p_plugin_attribute_id=>wwv_flow_imp.id(712597827676479736)
+ p_id=>wwv_flow_imp.id(1306192953448383571)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1306192048672382758)
 ,p_display_sequence=>10
 ,p_display_value=>'Point'
 ,p_return_value=>'POINT'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(712599181549481180)
-,p_plugin_attribute_id=>wwv_flow_imp.id(712597827676479736)
+ p_id=>wwv_flow_imp.id(1306193402545384202)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1306192048672382758)
 ,p_display_sequence=>20
 ,p_display_value=>'Line'
 ,p_return_value=>'LINE'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(712599533677481952)
-,p_plugin_attribute_id=>wwv_flow_imp.id(712597827676479736)
+ p_id=>wwv_flow_imp.id(1306193754673384974)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1306192048672382758)
 ,p_display_sequence=>30
 ,p_display_value=>'Polygon'
 ,p_return_value=>'POLYGON'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(700159920940457495)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1293754141936360517)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -308,8 +308,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of the APEX Collection from which to read and write the drawing geometry. This geometry is stored in the clob001 column in geojson geometry format.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(599116814557925667)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1192711035553828689)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>90
@@ -322,8 +322,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||'ve a selected vertex point to the geolocation-determined coordinate.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(698527649100272871)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1292121870096175893)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -336,8 +336,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||' region will be hidden.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(698534222392669978)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1292128443388573000)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -348,8 +348,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If the selected Page Item evaluates to ''Y'' then the Drawing Tools are set up and rendered in Read-only mode with no controls or ability to modify the geometry. Otherwise, set up and render the drawing tools as normal.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(677466809945137329)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1271061030941040351)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -369,8 +369,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||'cases. The value should be set between 0 and 24. Higher values show more detail in a smaller area, while lower values show a wider area with less detail.'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(713569641597160464)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1307163862593063486)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_name=>'mil_army_usace_mapbits_drawcreate'
 ,p_display_name=>'Draw / Create'
 );
@@ -496,8 +496,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(21374329111324221)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(614968550107227243)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'mapbits-draw.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -571,8 +571,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(600475449540138856)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1194069670536041878)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'mapbits-draw-style.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
@@ -817,8 +817,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(643111738732082520)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1236705959727985542)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'mapbits-draw.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -849,8 +849,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(699217839202639911)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1292812060198542933)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'lonlat.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
@@ -1840,8 +1840,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(699970173995843283)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1293564394991746305)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'mapbox-gl-draw.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
@@ -2186,8 +2186,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(699970588115844682)
-,p_plugin_id=>wwv_flow_imp.id(712595028269166861)
+ p_id=>wwv_flow_imp.id(1293564809111747704)
+,p_plugin_id=>wwv_flow_imp.id(1306189249265069883)
 ,p_file_name=>'mapbox-gl-draw.css'
 ,p_mime_type=>'text/css'
 ,p_file_charset=>'utf-8'

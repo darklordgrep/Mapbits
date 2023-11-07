@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   08:26 Friday July 14, 2023
---   Exported By:     GREP
+--   Date and Time:   16:38 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 645492881223450638
+--     PLUGIN: 1239087102219353660
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,10 +47,10 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_wms
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.WMS'
-,p_display_name=>'Mapbits Layer WMS'
+,p_display_name=>'Mapbits WMS Layer'
 ,p_supported_component_types=>'APEX_APPLICATION_PAGE_ITEMS:APEX_APPL_PAGE_IG_COLUMNS'
 ,p_javascript_file_urls=>'#PLUGIN_FILES#mapbits-wmslayer.js'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
@@ -97,14 +97,17 @@ wwv_flow_imp_shared.create_plugin(
 'The Mapbits Layer WMS plugin adds support for OGC Web Map Service (WMS) raster layers to APEX Map regions. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-in layer selector.',
 'Add the plugin as an item under an APEX Map region and set the WMS URL to point to your layer''s web service and set the WMS Layer Names to the name of the layers in the service. The WMS url should include everything up to but excluding the quesiton m'
 ||'ark (?). For example, https://img.nj.gov/imagerywms/Natural2015. The WMS Layers Names are usually number for the ArcGIS implementation. Multiple layers can be combined using a comma (0,1).'))
-,p_version_identifier=>'4.5.20230713'
+,p_version_identifier=>'4.6.20231106'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 Layer - WMS',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 18326 2023-07-14 13:28:57Z b2imimcf $',
-'Date     : $Date: 2023-07-14 08:28:57 -0500 (Fri, 14 Jul 2023) $',
-'Revision : $Revision: 18326 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 21.1',
+'',
+'Version 4.6 Updates:',
+'Renamed plugin to ''Mapbits WMS Layer''',
 '',
 'Version 4.5 Updates:',
 '7/13/2023 Removed use of the ''render'' event to wait for a ready map. This does not appear to be necessary since the spatialmapinitialized event is already at the javascript entry point. Using setinterval instead of settimeout to add layer to legend i'
@@ -128,8 +131,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>31
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(657000395873703380)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1250594616869606402)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -141,8 +144,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'URL of the OGC Web Map Service (WMS) up to but excluding the question mark (?).'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(657000742241704178)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1250594963237607200)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -153,8 +156,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of the layer as defined in the Name tag under the Layer tag in the WMS GetCapabilities response. Multiple layers from WMS can be combined into one under this plugin by delimiting the layer names with a comma (,).'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(657759526557544122)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1251353747553447144)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -165,8 +168,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(659103649696172892)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1252697870692075914)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -178,8 +181,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Color of the checkbox to be displayed for this layer in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(662304261185075902)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1255898482180978924)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -191,8 +194,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If ''Y'', then this layer will be turned on the first time a user visits this page, otherwise it will be off. After the initial page visit, the layer visibility will be persisted.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(724514828432378260)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1318109049428281282)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -205,36 +208,36 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Height and width of the tiles requested from the WMS server in pixels. Default value is 256px.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(724515395194379242)
-,p_plugin_attribute_id=>wwv_flow_imp.id(724514828432378260)
+ p_id=>wwv_flow_imp.id(1318109616190282264)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1318109049428281282)
 ,p_display_sequence=>10
 ,p_display_value=>'128'
 ,p_return_value=>'128'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(724515794424380039)
-,p_plugin_attribute_id=>wwv_flow_imp.id(724514828432378260)
+ p_id=>wwv_flow_imp.id(1318110015420283061)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1318109049428281282)
 ,p_display_sequence=>20
 ,p_display_value=>'256'
 ,p_return_value=>'256'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(724516268613382935)
-,p_plugin_attribute_id=>wwv_flow_imp.id(724514828432378260)
+ p_id=>wwv_flow_imp.id(1318110489609285957)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1318109049428281282)
 ,p_display_sequence=>30
 ,p_display_value=>'384'
 ,p_return_value=>'384'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(724516633726383533)
-,p_plugin_attribute_id=>wwv_flow_imp.id(724514828432378260)
+ p_id=>wwv_flow_imp.id(1318110854722286555)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1318109049428281282)
 ,p_display_sequence=>40
 ,p_display_value=>'512'
 ,p_return_value=>'512'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(724517077623384295)
-,p_plugin_attribute_id=>wwv_flow_imp.id(724514828432378260)
+ p_id=>wwv_flow_imp.id(1318111298619287317)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1318109049428281282)
 ,p_display_sequence=>50
 ,p_display_value=>'1024'
 ,p_return_value=>'1024'
@@ -298,8 +301,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(20804682661419582)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(614398903657322604)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_file_name=>'mapbits-wmslayer.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -395,8 +398,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(793108960000612383)
-,p_plugin_id=>wwv_flow_imp.id(645492881223450638)
+ p_id=>wwv_flow_imp.id(1386703180996515405)
+,p_plugin_id=>wwv_flow_imp.id(1239087102219353660)
 ,p_file_name=>'mapbits-wmslayer.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   08:26 Friday July 14, 2023
---   Exported By:     GREP
+--   Date and Time:   16:37 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 711109811539611342
+--     PLUGIN: 1304704032535514364
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,10 +47,10 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_raster
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.RASTER'
-,p_display_name=>'Mapbits Layer Raster'
+,p_display_name=>'Mapbits Raster Layer'
 ,p_supported_component_types=>'APEX_APPLICATION_PAGE_ITEMS:APEX_APPL_PAGE_IG_COLUMNS'
 ,p_javascript_file_urls=>'#PLUGIN_FILES#mapbits-raster.js'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
@@ -113,14 +113,16 @@ wwv_flow_imp_shared.create_plugin(
 'The Mapbits Layer Raster plugin adds support for url-based raster layers to APEX Map regions that are not managed by a web service. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-'
 ||'in layer selector.',
 'Add the plugin as an item under an APEX Map region and set the URL to point to image source.'))
-,p_version_identifier=>'4.5.20230713'
+,p_version_identifier=>'4.6.20231106'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Raster Layer',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 18326 2023-07-14 13:28:57Z b2imimcf $',
-'Date     : $Date: 2023-07-14 08:28:57 -0500 (Fri, 14 Jul 2023) $',
-'Revision : $Revision: 18326 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_raster.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 21.1',
+'',
+'Version 4.6 Updates: Renamed plugin to ''Mapbits Raster Layer''',
 '',
 'Version 4.5 Updates:',
 '7/13/2023 Removed use of the ''render'' event to wait for a ready map. This does not appear to be necessary since the spatialmapinitialized event is already at the javascript entry point. ',
@@ -138,8 +140,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>26
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711110089777611342)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304704310773514364)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -147,15 +149,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEM'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'Y'
 ,p_help_text=>'Page item containing the URL of the image file.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711110478436611343)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304704699432514365)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -163,15 +165,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEM'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'Y'
 ,p_help_text=>'Page item whose value is the extent of the raster in Longitude, Latitude formatted as XMin,YMin,XMax,YMax.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711110885786611343)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304705106782514365)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -179,15 +181,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEM'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'Y'
 ,p_help_text=>'Page item whose value is the name of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711111262374611343)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304705483370514365)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -199,8 +201,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Color of the checkbox to be displayed for this layer in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711111651166611344)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304705872162514366)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -212,8 +214,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If ''Y'', then this layer will be turned on the first time a user visits this page, otherwise it will be off. After the initial page visit, the layer visibility will be persisted.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711112078596611344)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304706299592514366)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>5
@@ -221,7 +223,7 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'N'
@@ -229,8 +231,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'URL of the image file.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711112484086611345)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304706705082514367)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>7
 ,p_display_sequence=>15
@@ -238,15 +240,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'N'
 ,p_help_text=>'Extent of the raster in Longitude, Latitude formatted as XMin,YMin,XMax,YMax.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711112934223611345)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304707155219514367)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>8
 ,p_display_sequence=>3
@@ -257,8 +259,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(711113277152611345)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1304707498148514367)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>9
 ,p_display_sequence=>25
@@ -266,15 +268,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(711112934223611345)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(1304707155219514367)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'N'
 ,p_help_text=>'Name of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(688885365744433485)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1282479586740336507)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>10
 ,p_display_sequence=>100
@@ -338,8 +340,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(20831008447760179)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(614425229443663201)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_file_name=>'mapbits-raster.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -423,8 +425,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(687691536566899379)
-,p_plugin_id=>wwv_flow_imp.id(711109811539611342)
+ p_id=>wwv_flow_imp.id(1281285757562802401)
+,p_plugin_id=>wwv_flow_imp.id(1304704032535514364)
 ,p_file_name=>'mapbits-raster.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

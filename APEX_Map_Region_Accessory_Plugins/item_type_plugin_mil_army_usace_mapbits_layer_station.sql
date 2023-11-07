@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   08:40 Friday July 14, 2023
---   Exported By:     GREP
+--   Date and Time:   16:38 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 804256223634911603
+--     PLUGIN: 1397850444630814625
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_station
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.STATION'
 ,p_display_name=>'Mapbits Stationing Layer'
@@ -199,13 +199,13 @@ wwv_flow_imp_shared.create_plugin(
 'Add a Mapbits Stationing plugin to a map region to show station labels based on visible domain values in a chart region. As the chart region viewport changes, so shall',
 'the station labels on the map. You will need to specify a query that returns a line sdo_geometry with measure values (4d) and if you have more than one chart, you will have',
 'to specify the chart id.'))
-,p_version_identifier=>'4.5.20230713'
+,p_version_identifier=>'4.6.20230713'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Stationing',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 18327 2023-07-14 13:41:21Z b2imimcf $',
-'Date     : $Date: 2023-07-14 08:41:21 -0500 (Fri, 14 Jul 2023) $',
-'Revision : $Revision: 18327 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.5 Updates',
@@ -222,8 +222,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>185
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(607254294447759750)
-,p_plugin_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(1200848515443662772)
+,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -234,8 +234,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If your page has more than one chart, set the ''Static Id'' of the chart region to use for stationing and set this attribute to that static id.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(685920867097934387)
-,p_plugin_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(1279515088093837409)
+,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>10
@@ -281,8 +281,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(21310178908167164)
-,p_plugin_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(614904399904070186)
+,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_file_name=>'mapbits-station.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -358,8 +358,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(687686788901815945)
-,p_plugin_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(1281281009897718967)
+,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_file_name=>'mapbits-station.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -380,8 +380,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(804497221630021982)
-,p_plugin_id=>wwv_flow_imp.id(804256223634911603)
+ p_id=>wwv_flow_imp.id(1398091442625925004)
+,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
 ,p_file_name=>'cross.png'
 ,p_mime_type=>'image/png'
 ,p_file_charset=>'utf-8'

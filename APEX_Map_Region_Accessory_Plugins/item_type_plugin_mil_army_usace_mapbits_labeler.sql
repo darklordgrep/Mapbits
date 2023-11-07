@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:37 Saturday July 15, 2023
---   Exported By:     GREP
+--   Date and Time:   16:36 Tuesday November 7, 2023
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 429737232290311329
+--     PLUGIN: 825466712954246677
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_labeler
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825466712954246677)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LABELER'
 ,p_display_name=>'Mapbits Labeler'
@@ -107,13 +107,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Labeler plugin uses the tooltip or the Info Window of a Map region native layer to display labels for that layer. Add the plugin as an item under an APEX Map region and set the <b>Layer Name</b> to the name of a native layer in the map re'
 ||'gion.'
-,p_version_identifier=>'4.4.20230510'
+,p_version_identifier=>'4.6.20230510'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Labeler',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 18340 2023-07-15 20:43:05Z b2imimcf $',
-'Date     : $Date: 2023-07-15 15:43:05 -0500 (Sat, 15 Jul 2023) $',
-'Revision : $Revision: 18340 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.4 Updates:',
@@ -127,8 +127,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>89
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(429765373085103818)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825494853749039166)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -139,8 +139,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of map region native layer to be labeled.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(429765964091106468)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825495444755041816)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -153,22 +153,22 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If set to ''Tooltip'', use the layer''s tooltip region for the label contents. If set to ''Info Window'', use the layer''s Info Window for the label contents.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429766628619107537)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429765964091106468)
+ p_id=>wwv_flow_imp.id(825496109283042885)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825495444755041816)
 ,p_display_sequence=>10
 ,p_display_value=>'Tooltip'
 ,p_return_value=>'tooltip'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429767052825112518)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429765964091106468)
+ p_id=>wwv_flow_imp.id(825496533489047866)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825495444755041816)
 ,p_display_sequence=>20
 ,p_display_value=>'Info Window'
 ,p_return_value=>'infoWindow'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(429770922552521505)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825500403216456853)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -180,8 +180,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Set the minimum and maximum zoom levels for which the layer is visible. Format is comma delimited: MIN,MAX. Levels can range from 0 to 24, where 0 is the entire Earth and 24 is individual buildings.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(429795830920489926)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825525311584425274)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -193,8 +193,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Map label offset in pixels as X,Y'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(429799712698530033)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825529193362465381)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -207,71 +207,71 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Offset reference used for placement of labels.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429800927158530784)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825530407822466132)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>10
 ,p_display_value=>'center'
 ,p_return_value=>'center'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429801301967531316)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825530782631466664)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>20
 ,p_display_value=>'top'
 ,p_return_value=>'top'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429801739270531968)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825531219934467316)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>30
 ,p_display_value=>'bottom'
 ,p_return_value=>'bottom'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429802135046532541)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825531615710467889)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>40
 ,p_display_value=>'left'
 ,p_return_value=>'left'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429802488488533109)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825531969152468457)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>50
 ,p_display_value=>'right'
 ,p_return_value=>'right'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429802912483533857)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825532393147469205)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>60
 ,p_display_value=>'top-left'
 ,p_return_value=>'top-left'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429803298160534722)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825532778824470070)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>70
 ,p_display_value=>'top-right'
 ,p_return_value=>'top-right'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429803667163535718)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825533147827471066)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>80
 ,p_display_value=>'bottom-left'
 ,p_return_value=>'bottom-left'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(429804065187537104)
-,p_plugin_attribute_id=>wwv_flow_imp.id(429799712698530033)
+ p_id=>wwv_flow_imp.id(825533545851472452)
+,p_plugin_attribute_id=>wwv_flow_imp.id(825529193362465381)
 ,p_display_sequence=>90
 ,p_display_value=>'bottom-right'
 ,p_return_value=>'bottom-right'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(438954205251177687)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(834683685915113035)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -280,7 +280,7 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_required=>false
 ,p_default_value=>'N'
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(429765964091106468)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(825495444755041816)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'infoWindow'
@@ -356,8 +356,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(429759001502015113)
-,p_plugin_id=>wwv_flow_imp.id(429737232290311329)
+ p_id=>wwv_flow_imp.id(825488482165950461)
+,p_plugin_id=>wwv_flow_imp.id(825466712954246677)
 ,p_file_name=>'mapbits-labeler.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'
