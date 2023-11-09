@@ -5,7 +5,7 @@
 The Mapbits Lodestar Plug-in is a Page Item that adds an advanced map layer, with more access to
 the MapLibre library than APEX's built-in map layers.
 
-![lodestar_plate_0](https://github.com/darklordgrep/Mapbits/assets/24497353/6bb1c6ae-a01f-4bc6-aaf3-93d6cdb68158)
+![lodestar_plate_0](./lodestar_plate_0.png)
 
 ## Adding a Lodestar Layer
 
@@ -18,7 +18,7 @@ with no layers. A good pattern for getting around this is to add a single built-
 "Source / Type" as "SQL Query" and "Source / SQL Query" as `select cast(null as sdo_geometry) from dual where 1=0`,
 as shown in Figure 1.
 
-![lodestar_plate_1](https://github.com/darklordgrep/Mapbits/assets/24497353/fc073b46-4c11-4f46-a479-4a23149f58b3 "Figure 1")  
+![lodestar_plate_1](lodestar_plate_1.png "Figure 1")  
 Figure 1
 
 ## Configuring Your Layer
@@ -42,16 +42,20 @@ The proper Layer Type depends on the geometry type of your query. Point features
 "Symbol", lines should use "Line", and polygons should use "Fill". If you don't set the layer type
 properly, your features may not appear on the map. If there are different geometry types in your
 query, you may want to use a "Custom" layer type with multiple layers (more on custom layers below).
+The settings for the three basic layer types are shown in Figure 2.
+
+![Figure 2A](./lodestar_plate_symbol_settings.png "Figure 2A")![Figure 2B](./lodestar_plate_line_settings.png "Figure 2B")![Figure 2C](./lodestar_plate_fill_settings.png "Figure 2C")  
+Figure 2
 
 You can set the opacity of the features in a layer with the Opacity attribute. Note that the
 opacity applies to each feature individually, not to the layer as a whole. If features overlap,
 the opacities stack like in Figure 2. Also, the opacity does not apply to the fill outline for Fill layers. That is
 always opaque.
 
-![lodestar_plate_2](https://github.com/darklordgrep/Mapbits/assets/24497353/08899c7c-981d-40ca-9d22-7e485257020d "Figure 2")  
-Figure 2
+![lodestar_plate_2](./lodestar_plate_2.png "Figure 3")  
+Figure 3
 
-Symbol layers can have a Label Column. This feature property will be used as the symbol's
+Symbol and line layers can have a Label Column. This feature property will be used as the layer's
 text. Like other feature properties, this name is case-sensitive.
 
 ### The Custom Option
@@ -82,8 +86,8 @@ Icons referenced this way are compatible with "icon-color" and "icon-halo-color"
 Figure 3 combines many of these features in one example. It has both a line and symbol layer,
 and the symbol layer uses the "fa-chevron-right" icon.
 
-![lodestar_plate_3](https://github.com/darklordgrep/Mapbits/assets/24497353/8c86e4d1-989d-42dd-b508-98dde41de67f "Figure 3")  
-Figure 3
+![Figure 4](./lodestar_plate_3.png "Figure 4")  
+Figure 4
 
 ### MapLibre Source Options
 
@@ -95,8 +99,8 @@ Figure 4 shows the default appearance of clustered points.
 Another option is `attribution`, which adds text to the attribution panel in the bottom-right when
 the layer is visible, also shown in Figure 4.
 
-![lodestar_plate_4](https://github.com/darklordgrep/Mapbits/assets/24497353/1d958b23-cd4f-40af-a72d-ab5a7acf5ff2 "Figure 4")  
-Figure 4
+![Figure 5](./lodestar_plate_4.png "Figure 5")  
+Figure 5
 
 MapLibre's documentation for source options is here: <https://maplibre.org/maplibre-style-spec/sources/#geojson>.
 Do not try to use the `type` or `data` options, since those will be overridden by Lodestar.
@@ -133,7 +137,7 @@ of the Lodestar Layer.
 
 Figure 6 shows the dynamic action used to highlight locks in a particular district.
 
-![lodestar_plate_6](https://github.com/darklordgrep/Mapbits/assets/24497353/cc2c5586-d56a-4228-9ba3-cf3d76c5b8a6 "Figure 6")  
+![Figure 6](./lodestar_plate_6.png "Figure 6")  
 Figure 6
 
 
