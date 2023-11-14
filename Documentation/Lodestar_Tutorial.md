@@ -49,7 +49,7 @@ Figure 2
 
 You can set the opacity of the features in a layer with the Opacity attribute. Note that the
 opacity applies to each feature individually, not to the layer as a whole. If features overlap,
-the opacities stack like in Figure 2. Also, the opacity does not apply to the fill outline for Fill layers. That is
+the opacities stack like in Figure 3. Also, the opacity does not apply to the fill outline for Fill layers. That is
 always opaque.
 
 ![lodestar_plate_2](./lodestar_plate_2.png "Figure 3")  
@@ -83,7 +83,7 @@ Font APEX icons may be used in the "icon-image" property. Just use the icon name
 "fa-map-marker", and Lodestar will add the icon to MapLibre for you the first time it is used.
 Icons referenced this way are compatible with "icon-color" and "icon-halo-color".
 
-Figure 3 combines many of these features in one example. It has both a line and symbol layer,
+Figure 4 combines many of these features in one example. It has both a line and symbol layer,
 and the symbol layer uses the "fa-chevron-right" icon.
 
 ![Figure 4](./lodestar_plate_3.png "Figure 4")  
@@ -97,7 +97,7 @@ particularly useful for clustering points in symbol layers, which can be done by
 Figure 4 shows the default appearance of clustered points.
 
 Another option is `attribution`, which adds text to the attribution panel in the bottom-right when
-the layer is visible, also shown in Figure 4.
+the layer is visible, also shown in Figure 5.
 
 ![Figure 5](./lodestar_plate_4.png "Figure 5")  
 Figure 5
