@@ -86,7 +86,7 @@ Icons referenced this way are compatible with "icon-color" and "icon-halo-color"
 Figure 4 combines many of these features in one example. It has both a line and symbol layer,
 and the symbol layer uses the "fa-chevron-right" icon.
 
-![Figure 4](./lodestar_plate_3.png "Figure 4")  
+![Figure 4](./lodestar_plate_3.png "Figure 4") ![Figure 4 configuration](./lodestar_plate_3_settings.png)  
 Figure 4
 
 ### MapLibre Source Options
@@ -99,7 +99,7 @@ Figure 4 shows the default appearance of clustered points.
 Another option is `attribution`, which adds text to the attribution panel in the bottom-right when
 the layer is visible, also shown in Figure 5.
 
-![Figure 5](./lodestar_plate_4.png "Figure 5")  
+![Figure 5](./lodestar_plate_4.png "Figure 5") ![Figure 5 settings](./lodestar_plate_4_settings.png)  
 Figure 5
 
 MapLibre's documentation for source options is here: <https://maplibre.org/maplibre-style-spec/sources/#geojson>.
