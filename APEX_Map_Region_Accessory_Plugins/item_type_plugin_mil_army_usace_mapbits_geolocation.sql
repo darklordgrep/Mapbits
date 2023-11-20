@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:36 Tuesday November 7, 2023
+--   Date and Time:   16:54 Monday November 20, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1199969159900398195
+--     PLUGIN: 1595698640564333543
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_geolocation
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOLOCATION'
 ,p_display_name=>'Mapbits Geolocation'
@@ -105,7 +105,7 @@ wwv_flow_imp_shared.create_plugin(
 '      );',
 '      l_error := l_error || ''Configuration ERROR: Geolocation ['' || p_item.name || ''] is not associated with a Map region.'';',
 '  end;',
-'  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
+'  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''" style="display: none;"></div>'');',
 '',
 '  -- Call the javascript',
 '  apex_javascript.add_onload_code(p_code => ''apex.jQuery('' || l_region_id || '').on("spatialmapinitialized", function(){',
@@ -123,10 +123,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geolocation',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
-'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
-'Revision : $Revision: 18694 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 18720 2023-11-20 22:57:09Z b2eddjw9 $',
+'Date     : $Date: 2023-11-20 16:57:09 -0600 (Mon, 20 Nov 2023) $',
+'Revision : $Revision: 18720 $',
 'Requires : Application Express >= 21.1',
+'',
+'Version 4.6 Updates:',
+'11/20/2023 Hide the JSON text that appeared when geolocation was triggered.',
 '',
 'Version 4.5 Updates:',
 '7/13/2023 Removed use of the ''load'' event to wait for a ready map to activate the control. This does not appear to be necessary since the spatialmapinitialized event is already at the javascript entry point. ',
@@ -145,8 +148,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>53
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1199992096296089331)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595721576960024679)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -158,8 +161,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, move the map with the user, keeping his location in the center of the map.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1199992682943091607)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595722163607026955)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -171,8 +174,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, show the direction in which the user is moving when he is moving.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1192714080671864907)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1588443561335800255)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -184,26 +187,26 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, the Geolocation tool will be enabled when the page renders. Otherwise, the user will have to click a button to start the tool.'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1199974395901398210)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595703876565333558)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_name=>'mil_army_usace_mapbits_geolocate'
 ,p_display_name=>'Geolocate'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1199990483787897738)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595719964451833086)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_name=>'mil_army_usace_mapbits_geolocate_error'
 ,p_display_name=>'Error'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1199991302472897740)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595720783136833088)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_name=>'mil_army_usace_mapbits_geolocate_trackend'
 ,p_display_name=>'Track End'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1199990844342897740)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595720325006833088)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_name=>'mil_army_usace_mapbits_geolocate_trackstart'
 ,p_display_name=>'Track Start'
 );
@@ -228,8 +231,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(614418498085578911)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1010147978749514259)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_file_name=>'mapbits-geolocation.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -264,8 +267,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1199978104709469530)
-,p_plugin_id=>wwv_flow_imp.id(1199969159900398195)
+ p_id=>wwv_flow_imp.id(1595707585373404878)
+,p_plugin_id=>wwv_flow_imp.id(1595698640564333543)
 ,p_file_name=>'mapbits-geolocation.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
