@@ -42,7 +42,7 @@ After installation, the plugins will be available as a page item or dynamic acti
 
 # Tutorials
 * [Mapbits Drawing Tutorial](Documentation/Drawing_Tutorial.md)
-* [Mapbits Lodestar Layer Tutorial] (Documentation/Lodestar_Tutorial.md)
+* [Mapbits Lodestar Layer Tutorial](Documentation/Lodestar_Tutorial.md)
   
 # Downloads
 * [Mapbits Demo Application](mapbits_demo_apex_application.sql) *This application contains all plugins as well as sample data to show them in action.*
