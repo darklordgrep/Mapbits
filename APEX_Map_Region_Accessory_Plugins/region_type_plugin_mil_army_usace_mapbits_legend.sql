@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:36 Tuesday November 7, 2023
+--   Date and Time:   09:09 Tuesday November 14, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 491459037924583657
+--     PLUGIN: 689323778256551331
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/region_type/mil_army_usace_mapbits_legend
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(491459037924583657)
+ p_id=>wwv_flow_imp.id(689323778256551331)
 ,p_plugin_type=>'REGION TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LEGEND'
 ,p_display_name=>'Mapbits Legend'
@@ -242,7 +242,11 @@ wwv_flow_imp_shared.create_plugin(
 '      when ''fill'' then',
 '        l_symbol := polysvg(c2item.color, c2item.outline_color, nvl(c2item.opacity, 1));',
 '      else',
-'        l_symbol := ''<span style="margin:0;padding-right:20px;display: inline-block;vertical-align: middle;" class="fa fa-heat-map"></span>'';',
+'        if c2item.icon is not null then',
+'          l_symbol := ''<span style="color:'' || c2item.color || '';margin:0;padding-right:20px;display: inline-block;vertical-align: middle;opacity: '' || nvl(c2item.opacity, 1) || ''" class="fa '' || c2item.icon || ''"></span>'';',
+'        else',
+'          l_symbol := ''<span style="margin:0;padding-right:20px;display: inline-block;vertical-align: middle;" class="fa fa-heat-map"></span>'';',
+'        end if;',
 '    end case;',
 '    htp.p(''<li class="a-ListView-item ui-body-inherit">'' || l_symbol || '' '' || nvl(c2item.title, c2item.item_name) || ''</li>'');',
 '  end loop;',
@@ -449,16 +453,17 @@ wwv_flow_imp_shared.create_plugin(
 '<p>',
 'Cartocolors configuration taken from https://github.com/CartoDB/CartoColor/tree/master on 7/5/2023. (Converted from javascript to json data file.)',
 '</p>'))
-,p_version_identifier=>'4.6.20231107'
+,p_version_identifier=>'4.6.20231114'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Legend',
-'Location : $Id: mapbits_demo_apex_application.sql 18331 2023-07-14 17:27:38Z b2imimcf $',
-'Date     : $Date: 2023-07-14 12:27:38 -0500 (Fri, 14 Jul 2023) $',
-'Revision : $Revision: 18331 $',
+'Location : $Id: mapbits_demo_apex_application.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
+'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
+'Revision : $Revision: 18694 $',
 'Requires : Application Express >= 22.2',
 '',
 'Version 4.6 Updates:',
+'11/14/2023 Show icons for Lodestar custom layers',
 '11/07/2023 Removed entries for layers that are not shown in the built-in legend. Added fill outline for Lodestar layers. Fixed a bug where all page items, not just Lodestar layer items, appeared in the legend.',
 '11/03/2023 Added support for Lodestar Layers. Removed extra space before single-symbol polygon layer legend items.',
 '',
@@ -470,8 +475,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>4
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(493076488503313102)
-,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
+ p_id=>wwv_flow_imp.id(690941228835280776)
+,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -488,8 +493,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'If you do not use a label column, then the numeric column used to divide the layer into different symbols will be used.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(493210413731584355)
-,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
+ p_id=>wwv_flow_imp.id(691075154063552029)
+,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -888,8 +893,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(491522743728804788)
-,p_plugin_id=>wwv_flow_imp.id(491459037924583657)
+ p_id=>wwv_flow_imp.id(689387484060772462)
+,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
 ,p_file_name=>'cartocolors.json'
 ,p_mime_type=>'application/octet-stream'
 ,p_file_charset=>'utf-8'
