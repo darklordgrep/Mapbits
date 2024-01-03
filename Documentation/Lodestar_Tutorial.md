@@ -109,11 +109,17 @@ Do not try to use the `type` or `data` options, since those will be overridden b
 
 You can use Dynamic Actions to respond when a feature in a layer is clicked. Right-click the
 Lodestar Layer page item and click "Create Dynamic Action". Set "When / Event" to "Component
-Events / Feature Clicked [Mapbits Lodestar Layer]". If you attach an Execute JavaScript Code
-action, then the JavaScript code can access the feature that was clicked using 'this.feature', which
+Events / Feature Clicked [Mapbits Lodestar Layer]".
+
+If you attach an Execute JavaScript Code
+action, then the JavaScript code can access the feature that was clicked using `this.data.feature`, which
 is a [MapGeoJSONFeature](https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapGeoJSONFeature/).
 It has a "properties" field with the extra columns from the layer's query, an "id" field with
 the ID column (if any), and references to other relevant MapLibre objects.
+
+The JavaScript code also has a `this.data.isTopmostLayer` property. This is true if the feature
+is the topmost thing that was clicked, or false if there is another feature rendered above it at
+the clicked point. This can be used to filter out duplicate events if there are multiple layers.
 
 If a map layer has any Feature Clicked dynamic actions, then the cursor will change to a "pointer"
 appearance when you hover over a feature in that layer.

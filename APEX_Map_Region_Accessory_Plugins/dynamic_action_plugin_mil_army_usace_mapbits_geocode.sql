@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:35 Tuesday November 7, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1512385351543172839
+--     PLUGIN: 1908114832207108187
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_geocode
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOCODE'
 ,p_display_name=>'Mapbits Geocoder'
@@ -182,7 +182,8 @@ wwv_flow_imp_shared.create_plugin(
 '  return apex_plugin.t_dynamic_action_render_result is',
 '    l_region_id varchar2(400); --apex_application_page_regions.region_id%type;',
 '    l_draw_item varchar2(40);',
-'    l_error varchar2(4000);',
+'    l_region_type varchar2(40);',
+'    l_action_name varchar2(80);',
 '    rt apex_plugin.t_dynamic_action_render_result;',
 '    l_street_item p_dynamic_action.attribute_01%type := p_dynamic_action.attribute_01;',
 '    l_city_item p_dynamic_action.attribute_02%type := p_dynamic_action.attribute_02;   ',
@@ -194,20 +195,23 @@ wwv_flow_imp_shared.create_plugin(
 '  -- check that the plugin is associated to a map region and that the same map region',
 '  -- also has a Mapbits Drawing  plugin. Those values are to be passed to the javascript call.',
 '  begin',
-'   select nvl(r.static_id, ''R''||da.affected_region_id) region, i.item_name item into l_region_id, l_draw_item',
+'   select nvl(r.static_id, ''R''||da.affected_region_id) region, i.item_name item, r.source_type, da.dynamic_action_name into l_region_id, l_draw_item, l_region_type, l_action_name',
 '    from apex_application_page_da_acts da ',
 '    inner join apex_application_page_regions r on da.affected_region_id = r.region_id',
-'    inner join apex_application_page_items i on da.application_id = i.application_id and da.page_id = i.page_id and i.region_id = da.affected_region_id and i.display_as_code = ''PLUGIN_MIL.ARMY.USACE.MAPBITS.DRAW''',
+'    left join apex_application_page_items i on da.application_id = i.application_id and da.page_id = i.page_id and i.region_id = da.affected_region_id and i.display_as_code = ''PLUGIN_MIL.ARMY.USACE.MAPBITS.DRAW''',
 '    where',
-'    da.application_id = v(''APP_ID'') and da.page_id = v(''APP_PAGE_ID'') and da.action_id = p_dynamic_action.id and r.source_type = ''Map'';',
+'    da.application_id = v(''APP_ID'') and da.page_id = v(''APP_PAGE_ID'') and da.action_id = p_dynamic_action.id; -- and r.source_type = ''Map'';',
+'    if not l_region_type = ''Map'' then',
+'      raise_application_error(-20341, ''Configuration ERROR: Mapbits Geocoder DA for "'' || l_action_name ||  ''" ['' || p_dynamic_action.id || ''] is associated with the wrong type of region. It must be associated with a Map region.  Check the Affected E'
+||'lements section of the plugin settings.'');',
+'    end if;',
+'    if l_draw_item is null then',
+'      raise_application_error(-20341, ''Configuration ERROR: Mapbits Geocoder DA for "'' || l_action_name ||  ''" ['' || p_dynamic_action.id || ''] is associated to a Map region that does not have a Drawing plugin. Add a Mapbits Drawing plugin to that Map'
+||' region.'');',
+'    end if;',
 '  exception',
 '    when NO_DATA_FOUND then ',
-'      apex_debug.message(',
-'        p_message => ''ERROR: Map Layer Zoom to Boundary DA [%s] is not associated with a Map region.'',',
-'        p0      => p_dynamic_action.id,',
-'        p_level   => apex_debug.c_log_level_error',
-'      );',
-'      l_error := l_error || ''Configuration ERROR: Map Layer Zoom to Boundary DA is not associated with a Map region.'';',
+'      raise_application_error(-20341, ''Configuration ERROR: Mapbits Geocoder DA ['' || p_dynamic_action.id || ''] is not associated with a region.  Check the Affected Elements section of the plugin settings.'');',
 '  end;',
 '  ',
 '  -- set up and run the javascript to run the geocoder.',
@@ -229,14 +233,17 @@ wwv_flow_imp_shared.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing plugin. The Mapbits Geocoder must be associated with the sa'
 ||'me map region as the Mapbits Drawing plugin.'
-,p_version_identifier=>'4.6.20230510'
+,p_version_identifier=>'4.6.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
-'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
-'Revision : $Revision: 18694 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 18773 2023-12-04 18:42:11Z b2eddjw9 $',
+'Date     : $Date: 2023-12-04 12:42:11 -0600 (Mon, 04 Dec 2023) $',
+'Revision : $Revision: 18773 $',
 'Requires : Application Express >= 21.1 and Mapbits Drawing plugin',
+'',
+'Version 4.6 Updates:',
+'12/01/2023 Raising exceptions if the plugin is not assoicated with a map region or the map region does not have a drawing item plugin.',
 '',
 'Version 4.4 Updates:',
 '5/10/2023 Preventing javascript execution if the parent region is hidden.',
@@ -257,8 +264,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>13
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1512386693299181828)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908116173963117176)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -270,8 +277,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the street address component to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1512386993080184712)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908116473744120060)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -283,8 +290,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the city to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1512387225636186145)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908116706300121493)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -296,8 +303,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the state to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1512387520660187316)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908117001324122664)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -309,8 +316,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the zip code to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1512396699684068204)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1908126180348003552)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -322,8 +329,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||' available in the Mapbits Drawing plugin item.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1395889955660835451)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1791619436324770799)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -335,8 +342,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the path to that wallet with this attribute.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1395890646672837298)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1791620127336772646)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>7
 ,p_display_sequence=>70
@@ -381,8 +388,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1281321137769542592)
-,p_plugin_id=>wwv_flow_imp.id(1512385351543172839)
+ p_id=>wwv_flow_imp.id(1677050618433477940)
+,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
 ,p_file_name=>'mapbits-geocode.js'
 ,p_mime_type=>'application/javascript'
 ,p_file_charset=>'utf-8'

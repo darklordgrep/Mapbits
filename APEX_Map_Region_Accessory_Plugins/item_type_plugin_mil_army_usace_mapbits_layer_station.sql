@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:38 Tuesday November 7, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1397850444630814625
+--     PLUGIN: 1793579925294749973
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_station
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.STATION'
 ,p_display_name=>'Mapbits Stationing Layer'
@@ -135,7 +135,6 @@ wwv_flow_imp_shared.create_plugin(
 '    l_page_id integer;',
 '    l_sequence_no apex_application_page_items.display_sequence%type;',
 '    l_chart_id varchar2(200) := p_item.attribute_02;',
-'    l_error varchar2(1000);',
 '    l_ncharts integer;',
 'begin',
 '  -- Get the map region id for which this item is associated. If this failed, propagate an error.',
@@ -146,12 +145,7 @@ wwv_flow_imp_shared.create_plugin(
 '      where i.item_id = p_item.id and r.source_type = ''Map'';',
 '  exception',
 '    when NO_DATA_FOUND then ',
-'      apex_debug.message(',
-'        p_message => ''Configuration ERROR: Mapbits Drawing Item [%s] is not associated with a Map region.'',',
-'        p0      => p_item.name,',
-'        p_level   => apex_debug.c_log_level_error',
-'      );',
-'      l_error := l_error || ''Configuration ERROR: Mapbits Drawing Item ['' || p_item.name || ''] is not associated with a Map region.'';',
+'      raise_application_error(-20421, ''Configuration ERROR:  Mapbits Stationing Layer Item ['' || p_item.name || ''] is not associated with a Map region.'');',
 '  end;',
 '  -- get the chart id if the user doesn''t specify the chart region id. If there is only one chart on the page, use that. If there are two, ',
 '  -- raise an error telling the user to specify the chart region id. If there is no chart, raise an error that there is no chart.',
@@ -160,25 +154,23 @@ wwv_flow_imp_shared.create_plugin(
 '      from apex_application_page_regions r',
 '      where source_type_plugin_name = ''NATIVE_JET_CHART'' and page_id = l_page_id and application_id = :APP_ID;',
 '    if l_ncharts > 1 then',
-'      apex_debug.message(',
-'        p_message => ''ERROR: Map Stationing ['' || p_item.name || ''] can not be associated to a chart. There is more than one on the page. Set the plugin chart id to the chart static id.'',',
-'        p0      => p_item.name,',
-'        p_level   => apex_debug.c_log_level_error',
-'      );',
-'      l_error := l_error || ''ERROR: Map Stationing ['' || p_item.name || ''] can not be associated to a chart. There is more than one on the page. Set the plugin chart id to the chart static id.'';',
+'      raise_application_error(-20422, ''Configuration ERROR:  Mapbits Stationing Layer Item ['' || p_item.name || ''] can not be associated to a chart. There is more than one on the page. Set the plugin chart id to the target chart''''s static id.'');',
 '    elsif l_ncharts = 0 then',
-'      apex_debug.message(',
-'        p_message => ''ERROR: Map Stationing ['' || p_item.name || ''] can not be associated to a chart. There is no chart on the page.'',',
-'        p0      => p_item.name,',
-'        p_level   => apex_debug.c_log_level_error',
-'      );',
-'      l_error := l_error || ''ERROR: Map Stationing ['' || p_item.name || ''] can not be associated to a chart. There is no chart on the page.'';',
+'      raise_application_error(-20423, ''Configuration ERROR:  Mapbits Stationing Layer Item ['' || p_item.name || ''] can not be associated to a chart. No chart was found on the page.'');',
 '    else',
 '      -- Get the chart region.',
 '      select nvl(r.static_id, ''R'' || r.region_id) into l_chart_id ',
 '      from apex_application_page_regions r',
 '      where source_type_plugin_name = ''NATIVE_JET_CHART'' and page_id = l_page_id and application_id = :APP_ID;',
 '    end if;',
+'  else',
+'    begin',
+'      select r.static_id into l_chart_id ',
+'        from apex_application_page_regions r',
+'        where source_type_plugin_name = ''NATIVE_JET_CHART'' and page_id = l_page_id and application_id = :APP_ID and r.static_id = l_chart_id;',
+'    exception when NO_DATA_FOUND then',
+'      raise_application_error(-20423, ''Configuration ERROR:  Mapbits Stationing Layer Item ['' || p_item.name || ''] can not be associated to a chart. A chart with static id ['' || l_chart_id || ''] was not found.'');',
+'    end;',
 '  end if;',
 '',
 '  -- item placeholder',
@@ -199,14 +191,17 @@ wwv_flow_imp_shared.create_plugin(
 'Add a Mapbits Stationing plugin to a map region to show station labels based on visible domain values in a chart region. As the chart region viewport changes, so shall',
 'the station labels on the map. You will need to specify a query that returns a line sdo_geometry with measure values (4d) and if you have more than one chart, you will have',
 'to specify the chart id.'))
-,p_version_identifier=>'4.6.20230713'
+,p_version_identifier=>'4.6.20231204'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Stationing',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
-'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
-'Revision : $Revision: 18694 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 18773 2023-12-04 18:42:11Z b2eddjw9 $',
+'Date     : $Date: 2023-12-04 12:42:11 -0600 (Mon, 04 Dec 2023) $',
+'Revision : $Revision: 18773 $',
 'Requires : Application Express >= 21.1',
+'',
+'Version 4.6 Updates',
+'12/04/2023 Raise an application error if this plugin item is not associated with a Map region or if there is no chart or if there is more than one chart and no static id is set. Also, raise application error if the static id is invalid.',
 '',
 'Version 4.5 Updates',
 '7/13/2023 Stationing layer wasn''t rendering in the map and stations weren''t being formatted in the chart. Removed use of afterapexrefresh and map load event callbacks for initalization.',
@@ -222,8 +217,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>185
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1200848515443662772)
-,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1596577996107598120)
+,p_plugin_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -234,8 +229,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If your page has more than one chart, set the ''Static Id'' of the chart region to use for stationing and set this attribute to that static id.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1279515088093837409)
-,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1675244568757772757)
+,p_plugin_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>10
@@ -281,8 +276,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(614904399904070186)
-,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1010633880568005534)
+,p_plugin_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_file_name=>'mapbits-station.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -358,8 +353,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1281281009897718967)
-,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1677010490561654315)
+,p_plugin_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_file_name=>'mapbits-station.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -380,8 +375,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1398091442625925004)
-,p_plugin_id=>wwv_flow_imp.id(1397850444630814625)
+ p_id=>wwv_flow_imp.id(1793820923289860352)
+,p_plugin_id=>wwv_flow_imp.id(1793579925294749973)
 ,p_file_name=>'cross.png'
 ,p_mime_type=>'image/png'
 ,p_file_charset=>'utf-8'

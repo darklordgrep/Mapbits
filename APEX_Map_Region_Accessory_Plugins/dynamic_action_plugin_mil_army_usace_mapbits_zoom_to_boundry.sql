@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:40 Tuesday November 7, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1140607274712108254
+--     PLUGIN: 1536336755376043602
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_zoom_to_boundry
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1140607274712108254)
+ p_id=>wwv_flow_imp.id(1536336755376043602)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.ZOOM_TO_BOUNDRY'
 ,p_display_name=>'Mapbits Zoom to Boundary USACE'
@@ -158,8 +158,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>9
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1141023268175229520)
-,p_plugin_id=>wwv_flow_imp.id(1140607274712108254)
+ p_id=>wwv_flow_imp.id(1536752748839164868)
+,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -189,8 +189,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(448447961402737482)
-,p_plugin_id=>wwv_flow_imp.id(1140607274712108254)
+ p_id=>wwv_flow_imp.id(844177442066672830)
+,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
 ,p_file_name=>'mapbits-zoomtoboundary.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -221,8 +221,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1141669008250841518)
-,p_plugin_id=>wwv_flow_imp.id(1140607274712108254)
+ p_id=>wwv_flow_imp.id(1537398488914776866)
+,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
 ,p_file_name=>'mapbits-zoomtoboundary.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

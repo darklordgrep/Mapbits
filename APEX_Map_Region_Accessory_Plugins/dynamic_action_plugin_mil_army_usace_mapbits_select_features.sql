@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:37 Tuesday November 7, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 119444397322956291
+--     PLUGIN: 515173877986891639
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_select_features
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(515173877986891639)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.SELECT_FEATURES'
 ,p_display_name=>'Mapbits Lodestar Select Features'
@@ -61,17 +61,25 @@ wwv_flow_imp_shared.create_plugin(
 'is',
 '  affected_page_items varchar2(4000);',
 '  l_error varchar2(4000);',
+'  l_nlayers integer;',
+'  l_action_name varchar2(40);',
 '  rt apex_plugin.t_dynamic_action_render_result;',
 '  action_type varchar2(100) := p_dynamic_action.attribute_03;',
 'begin',
-' select affected_elements',
-'  into affected_page_items',
-'  from apex_application_page_da_acts',
+'  ',
+'  select affected_elements, dynamic_action_name',
+'    into affected_page_items, l_action_name',
+'    from apex_application_page_da_acts',
 '  where',
 '    application_id = v(''APP_ID'')',
 '    and page_id = v(''APP_PAGE_ID'')',
 '    and action_id = p_dynamic_action.id;',
-'',
+'  select count(*) into l_nlayers from (select column_value from table(apex_string.split(affected_page_items, '',''))) ai',
+'    inner join  apex_application_page_items i on ai.column_value = i.item_name and  i.application_id = v(''APP_ID'') and i.page_id = v(''APP_PAGE_ID'')',
+'    and i.display_as_code = ''PLUGIN_MIL.ARMY.USACE.MAPBITS.LAYER.LODESTAR'';    ',
+'  if l_nlayers = 0 then',
+'    raise_application_error(-20431, ''Configuration ERROR: Mapbits Lodestar Select Feature DA for "'' || l_action_name ||  ''" ['' || p_dynamic_action.id || ''] is not assoicated with a valid Lodestar Layer.'');    ',
+'  end if;',
 '  rt.javascript_function := ''function () {'' ||',
 '    ''mapbits_select_features({''',
 '      || apex_javascript.add_attribute(''id'', p_dynamic_action.id)',
@@ -136,16 +144,17 @@ wwv_flow_imp_shared.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Lodestar Select Features plugin is a dynamic action used to modify the symbology of a subset Mapbits Lodestar Layer features to appear "selected". The selected feature subset is based on a sql query that returns ''ids'' from the Lodestar Layer.'
-,p_version_identifier=>'4.6.20231107'
+,p_version_identifier=>'4.6.20231204'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Lodestar Select Features',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_select_features.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
-'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
-'Revision : $Revision: 18694 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_select_features.sql 18773 2023-12-04 18:42:11Z b2eddjw9 $',
+'Date     : $Date: 2023-12-04 12:42:11 -0600 (Mon, 04 Dec 2023) $',
+'Revision : $Revision: 18773 $',
 'Requires : Application Express >= 22.2',
 '',
 'Version 4.6 Updates:',
+'12/04/2023 Raise an application error if this plugin item is not associated with at least one Lodestar layer item.',
 '11/07/2023 Made the plugin work when multiple affected page items are given.',
 '11/03/2023 Initial Implementation',
 '',
@@ -153,8 +162,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>51
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(82265692696584951)
-,p_plugin_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(477995173360520299)
+,p_plugin_id=>wwv_flow_imp.id(515173877986891639)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -162,15 +171,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEMS'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(119519836197128703)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'IN_LIST'
 ,p_depending_on_expression=>'set,add,remove'
 ,p_help_text=>'If the IDs query includes any page items that may need to be passed to the database for the query to work properly, specify them here as a comma-separated list.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(119445083344965066)
-,p_plugin_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(515174564008900414)
+,p_plugin_id=>wwv_flow_imp.id(515173877986891639)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>5
@@ -178,15 +187,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'SQL'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(119519836197128703)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'IN_LIST'
 ,p_depending_on_expression=>'set,add,remove'
 ,p_help_text=>'SQL query returning a single column of ids from the affected layer, corresponding to the column specified in the ''Id Column'' attribute of the Lodestar Layer.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(119519836197128703)
-,p_plugin_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(515249316861064051)
+,p_plugin_id=>wwv_flow_imp.id(515173877986891639)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>4
@@ -200,8 +209,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||'ve From Selection'' will remove features returned by the query from the existing selection. ''Select All'' and ''Deselect All'' do not use the query, but rather select all features and deselect all features from the affected layer, respectively.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(119521180781132360)
-,p_plugin_attribute_id=>wwv_flow_imp.id(119519836197128703)
+ p_id=>wwv_flow_imp.id(515250661445067708)
+,p_plugin_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_display_sequence=>10
 ,p_display_value=>'Set Selection'
 ,p_return_value=>'set'
@@ -209,8 +218,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Select the specified features, and unselect all other features.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(119521529103134538)
-,p_plugin_attribute_id=>wwv_flow_imp.id(119519836197128703)
+ p_id=>wwv_flow_imp.id(515251009767069886)
+,p_plugin_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_display_sequence=>20
 ,p_display_value=>'Add To Selection'
 ,p_return_value=>'add'
@@ -218,8 +227,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Adds the specified features to the layer''s selection.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(119521920302138717)
-,p_plugin_attribute_id=>wwv_flow_imp.id(119519836197128703)
+ p_id=>wwv_flow_imp.id(515251400966074065)
+,p_plugin_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_display_sequence=>30
 ,p_display_value=>'Remove From Selection'
 ,p_return_value=>'remove'
@@ -227,8 +236,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Deselect the specified features.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(119522316365141015)
-,p_plugin_attribute_id=>wwv_flow_imp.id(119519836197128703)
+ p_id=>wwv_flow_imp.id(515251797029076363)
+,p_plugin_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_display_sequence=>40
 ,p_display_value=>'Select All'
 ,p_return_value=>'select_all'
@@ -236,8 +245,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Select all features in the layer.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(119522718338142851)
-,p_plugin_attribute_id=>wwv_flow_imp.id(119519836197128703)
+ p_id=>wwv_flow_imp.id(515252199002078199)
+,p_plugin_attribute_id=>wwv_flow_imp.id(515249316861064051)
 ,p_display_sequence=>50
 ,p_display_value=>'Deselect All'
 ,p_return_value=>'deselect_all'
@@ -263,8 +272,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(82732974011352313)
-,p_plugin_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(478462454675287661)
+,p_plugin_id=>wwv_flow_imp.id(515173877986891639)
 ,p_file_name=>'mapbits-select-features.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -295,8 +304,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(119446015021119296)
-,p_plugin_id=>wwv_flow_imp.id(119444397322956291)
+ p_id=>wwv_flow_imp.id(515175495685054644)
+,p_plugin_id=>wwv_flow_imp.id(515173877986891639)
 ,p_file_name=>'mapbits-select-features.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

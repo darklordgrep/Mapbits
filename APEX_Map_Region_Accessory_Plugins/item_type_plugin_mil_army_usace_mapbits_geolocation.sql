@@ -28,7 +28,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:54 Monday November 20, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -64,7 +64,6 @@ wwv_flow_imp_shared.create_plugin(
 '    l_geom_collection_name p_item.attribute_02%type := p_item.attribute_02;',
 '    l_readonly varchar2(5);',
 '    l_geojson clob;',
-'    l_error varchar2(4000) := '''';',
 '    l_show_coords p_item.attribute_04%type := p_item.attribute_04;',
 '    l_buffersize number:=80;',
 '    l_offset integer;',
@@ -98,12 +97,7 @@ wwv_flow_imp_shared.create_plugin(
 '      where i.item_id = p_item.id and r.source_type = ''Map'';',
 '  exception',
 '    when NO_DATA_FOUND then ',
-'      apex_debug.message(',
-'        p_message => ''ERROR: Geolocation [%s] is not associated with a Map region.'',',
-'        p0      => p_item.name,',
-'        p_level   => apex_debug.c_log_level_error',
-'      );',
-'      l_error := l_error || ''Configuration ERROR: Geolocation ['' || p_item.name || ''] is not associated with a Map region.'';',
+'      raise_application_error(-20424, ''Configuration ERROR: Geolocation ['' || p_item.name || ''] is not associated with a Map region.'');',
 '  end;',
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''" style="display: none;"></div>'');',
 '',
@@ -119,16 +113,17 @@ wwv_flow_imp_shared.create_plugin(
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<p>If the browser has geolocation enabled, the Mapbits Geolocation plugin can show the user''s location as a pulsing dot.</p>',
 '<p>Add the plugin in to the map region in which you wish to show the user''s location. This plugin relays events from Mapbox Geolocation as application express events.</p>'))
-,p_version_identifier=>'4.6.20230713'
+,p_version_identifier=>'4.6.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geolocation',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 18720 2023-11-20 22:57:09Z b2eddjw9 $',
-'Date     : $Date: 2023-11-20 16:57:09 -0600 (Mon, 20 Nov 2023) $',
-'Revision : $Revision: 18720 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 18773 2023-12-04 18:42:11Z b2eddjw9 $',
+'Date     : $Date: 2023-12-04 12:42:11 -0600 (Mon, 04 Dec 2023) $',
+'Revision : $Revision: 18773 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates:',
+'12/01/2023 Raise an application error if this plugin item is not associated with a Map region.',
 '11/20/2023 Hide the JSON text that appeared when geolocation was triggered.',
 '',
 'Version 4.5 Updates:',

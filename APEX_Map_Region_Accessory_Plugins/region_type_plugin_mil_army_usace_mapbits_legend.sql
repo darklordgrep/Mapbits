@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:09 Tuesday November 14, 2023
+--   Date and Time:   12:36 Monday December 4, 2023
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 689323778256551331
+--     PLUGIN: 887188518588519005
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/region_type/mil_army_usace_mapbits_legend
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(689323778256551331)
+ p_id=>wwv_flow_imp.id(887188518588519005)
 ,p_plugin_type=>'REGION TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LEGEND'
 ,p_display_name=>'Mapbits Legend'
@@ -457,9 +457,9 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Legend',
-'Location : $Id: mapbits_demo_apex_application.sql 18694 2023-11-07 22:47:20Z b2eddjw9 $',
-'Date     : $Date: 2023-11-07 16:47:20 -0600 (Tue, 07 Nov 2023) $',
-'Revision : $Revision: 18694 $',
+'Location : $Id: mapbits_demo_apex_application.sql 18714 2023-11-17 16:08:44Z b2imimcf $',
+'Date     : $Date: 2023-11-17 10:08:44 -0600 (Fri, 17 Nov 2023) $',
+'Revision : $Revision: 18714 $',
 'Requires : Application Express >= 22.2',
 '',
 'Version 4.6 Updates:',
@@ -475,8 +475,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>4
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(690941228835280776)
-,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
+ p_id=>wwv_flow_imp.id(888805969167248450)
+,p_plugin_id=>wwv_flow_imp.id(887188518588519005)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -493,8 +493,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'If you do not use a label column, then the numeric column used to divide the layer into different symbols will be used.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(691075154063552029)
-,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
+ p_id=>wwv_flow_imp.id(888939894395519703)
+,p_plugin_id=>wwv_flow_imp.id(887188518588519005)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -893,8 +893,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(689387484060772462)
-,p_plugin_id=>wwv_flow_imp.id(689323778256551331)
+ p_id=>wwv_flow_imp.id(887252224392740136)
+,p_plugin_id=>wwv_flow_imp.id(887188518588519005)
 ,p_file_name=>'cartocolors.json'
 ,p_mime_type=>'application/octet-stream'
 ,p_file_charset=>'utf-8'
