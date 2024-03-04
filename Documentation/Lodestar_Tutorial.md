@@ -25,10 +25,11 @@ Figure 1
 
 ### Data Source
 
-The two options for your data source are "SQL Query" and "Region Source". If "SQL Query" is specified, 
+The three options for your data source are "SQL Query", "Region Source", and "JavaScript". If "SQL Query" is specified, 
 then you will be able to specify your data query in the lodestar layer page item's Source Query attribute. If 
 "Region Source" is specified, the lodestar layer will use query source from its map region.
-Regardless of your data source, you must have a geometry column at minimum,
+The "JavaScript" option is discussed in the "JavaScript Data Source" section.
+Except for JavaScript sources, you must have a geometry column at minimum,
 which must be specified in the "Geometry Column" attribute. The ID column is optional. If specified,
 it will populate the feature ID in the MapLibre data source, and it is also necessary for the
 Mapbits Lodestar Select Features plug-in.
@@ -104,6 +105,24 @@ Figure 5
 
 MapLibre's documentation for source options is here: <https://maplibre.org/maplibre-style-spec/sources/#geojson>.
 Do not try to use the `type` or `data` options, since those will be overridden by Lodestar.
+
+The JavaScript code here may evaluate to the options object itself, or to a (possibly async)
+function that returns the options object.
+
+### JavaScript Data Source
+
+Usually, geographic data is queried on the server and sent to the client. In some cases, though,
+even more flexibility is required. In this case, you can set your data source type to "JavaScript"
+and provide raw GeoJSON using client-side code. This is useful if:
+
+- You need to use PL/SQL to generate the GeoJSON
+- The data requires further processing that's easier to do in JavaScript than in a SQL query
+- You are storing data in localStorage or IndexedDB for offline use
+- You have a static GeoJSON blob to display
+
+By setting the data source type to "JavaScript", you are responsible for providing the `data` option
+from the "MapLibre Source Options" code. The data should be a GeoJSON FeatureCollection. Remember,
+this code can be an async function. If that is the case, it will be re-run whenever the item is refreshed.
 
 ### Handling Click Events
 
