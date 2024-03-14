@@ -22,7 +22,7 @@
  "oracle" : {
     "versions" : ["12.1", "19.0"],
     "apex" : {
-      "versions" : ["21.1", "22.2"],
+      "versions" : ["21.1", "22.2", "23.2"],
       "plugin" : {
         "internalName" : "MIL.ARMY.USACE.MAPBITS",
         "type" : "item",
