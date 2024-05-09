@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   14:58 Friday December 29, 2023
+--   Date and Time:   09:58 Thursday May 9, 2024
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 352633889691403999
+--     PLUGIN: 550498630023371673
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_export_to_image
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(550498630023371673)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.EXPORT_TO_IMAGE'
 ,p_display_name=>'Mapbits Export To Image'
@@ -158,13 +158,13 @@ wwv_flow_imp_shared.create_plugin(
 '<p>The collection only uses one member; Multiple executions of the dynamic action will overwrite the same member in the Apex Collection.</p>',
 '<p>The export process happens asynchronously. When export is complete, the plugin will trigger a ''Map Export Completed'' event, indicating that the image is completely written into the Collection. If you',
 'take additional steps, such as generating a PDF, after exporting a map image, you will need to make a dynamic action responding to this event or else you will find a null or partial image in the Collection.</p>'))
-,p_version_identifier=>'4.6.20231201'
+,p_version_identifier=>'4.7.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Export To Image',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_export_to_image.sql 18808 2023-12-29 20:58:50Z b2eddjw9 $',
-'Date     : $Date: 2023-12-29 14:58:50 -0600 (Fri, 29 Dec 2023) $',
-'Revision : $Revision: 18808 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_export_to_image.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
+'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
+'Revision : $Revision: 19115 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates:',
@@ -174,8 +174,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>180
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(352637955361428530)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(550502695693396204)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -183,15 +183,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(191964375520253636)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(389829115852221310)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'collection'
 ,p_help_text=>'Name of Apex Collection to which the map image is exported.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(352638445921430398)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(550503186253398072)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -203,22 +203,22 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_lov_type=>'STATIC'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(352638808794431387)
-,p_plugin_attribute_id=>wwv_flow_imp.id(352638445921430398)
+ p_id=>wwv_flow_imp.id(550503549126399061)
+,p_plugin_attribute_id=>wwv_flow_imp.id(550503186253398072)
 ,p_display_sequence=>10
 ,p_display_value=>'PNG (Portable Network Graphics)'
 ,p_return_value=>'image/png'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(352639204968434127)
-,p_plugin_attribute_id=>wwv_flow_imp.id(352638445921430398)
+ p_id=>wwv_flow_imp.id(550503945300401801)
+,p_plugin_attribute_id=>wwv_flow_imp.id(550503186253398072)
 ,p_display_sequence=>20
 ,p_display_value=>'JPEG (Joint Photographic Experts Group)'
 ,p_return_value=>'image/jpeg'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(191964375520253636)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(389829115852221310)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>5
@@ -230,24 +230,24 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_lov_type=>'STATIC'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(191967175431255346)
-,p_plugin_attribute_id=>wwv_flow_imp.id(191964375520253636)
+ p_id=>wwv_flow_imp.id(389831915763223020)
+,p_plugin_attribute_id=>wwv_flow_imp.id(389829115852221310)
 ,p_display_sequence=>10
 ,p_display_value=>'Collection'
 ,p_return_value=>'collection'
 ,p_help_text=>'Upload the image to an APEX collection.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(191967516966257335)
-,p_plugin_attribute_id=>wwv_flow_imp.id(191964375520253636)
+ p_id=>wwv_flow_imp.id(389832257298225009)
+,p_plugin_attribute_id=>wwv_flow_imp.id(389829115852221310)
 ,p_display_sequence=>20
 ,p_display_value=>'Download'
 ,p_return_value=>'download'
 ,p_help_text=>'Download the image to the user''s computer.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(191971563997354571)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(389836304329322245)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>10
@@ -255,15 +255,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEM'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(191964375520253636)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(389829115852221310)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'download'
 ,p_help_text=>'A page item containing the name to give the downloaded file.'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(352652352135737797)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(550517092467705471)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_name=>'mil_army_usace_mapbits_export_create'
 ,p_display_name=>'Map Export Completed'
 );
@@ -302,8 +302,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(197511430388155608)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(395376170720123282)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_file_name=>'mapbits-export.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -383,8 +383,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(352636085574404007)
-,p_plugin_id=>wwv_flow_imp.id(352633889691403999)
+ p_id=>wwv_flow_imp.id(550500825906371681)
+,p_plugin_id=>wwv_flow_imp.id(550498630023371673)
 ,p_file_name=>'mapbits-export.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

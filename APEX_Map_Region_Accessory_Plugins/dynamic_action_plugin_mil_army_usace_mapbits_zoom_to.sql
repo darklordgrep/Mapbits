@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:19 Friday December 29, 2023
+--   Date and Time:   09:58 Thursday May 9, 2024
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1595410516795929066
+--     PLUGIN: 1793275257127896740
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_zoom_to
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.ZOOM_TO'
 ,p_display_name=>'Mapbits Zoom To'
@@ -142,13 +142,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item.'
-,p_version_identifier=>'4.6.20231201'
+,p_version_identifier=>'4.7.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 18809 2023-12-29 21:21:49Z b2eddjw9 $',
-'Date     : $Date: 2023-12-29 15:21:49 -0600 (Fri, 29 Dec 2023) $',
-'Revision : $Revision: 18809 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
+'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
+'Revision : $Revision: 19115 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates:',
@@ -169,8 +169,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>56
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1595410677819929069)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(1793275418151896743)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>50
@@ -181,8 +181,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Use ''Page Items To Submit'' (plural) instead.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1595414208213683075)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(1793278948545650749)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -196,8 +196,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'sdo_geom.sdo_mbr function.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(477998674086626476)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(675863414418594150)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -216,8 +216,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item to submit prior to running the query in ''Query Returning Extent Geometry''. This page item is usually referenced in the where clause of the Zoom To query attribute.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(191959734025148678)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(389824474357116352)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -228,8 +228,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(197520896017178429)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(395385636349146103)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>10
@@ -242,16 +242,16 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'The data type that the query returns.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(197521939440179354)
-,p_plugin_attribute_id=>wwv_flow_imp.id(197520896017178429)
+ p_id=>wwv_flow_imp.id(395386679772147028)
+,p_plugin_attribute_id=>wwv_flow_imp.id(395385636349146103)
 ,p_display_sequence=>10
 ,p_display_value=>'GeoJSON'
 ,p_return_value=>'GeoJSON'
 ,p_help_text=>'The query returns a single text column containing GeoJSON.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(197522394055181150)
-,p_plugin_attribute_id=>wwv_flow_imp.id(197520896017178429)
+ p_id=>wwv_flow_imp.id(395387134387148824)
+,p_plugin_attribute_id=>wwv_flow_imp.id(395385636349146103)
 ,p_display_sequence=>20
 ,p_display_value=>'SDO_GEOMETRY'
 ,p_return_value=>'sdo_geometry'
@@ -273,8 +273,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(191962873592154410)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(389827613924122084)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_file_name=>'mapbits-zoomto.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -307,8 +307,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1677051342049490213)
-,p_plugin_id=>wwv_flow_imp.id(1595410516795929066)
+ p_id=>wwv_flow_imp.id(1874916082381457887)
+,p_plugin_id=>wwv_flow_imp.id(1793275257127896740)
 ,p_file_name=>'mapbits-zoomto.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

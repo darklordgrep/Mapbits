@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   12:36 Monday December 4, 2023
+--   Date and Time:   09:58 Thursday May 9, 2024
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1908114832207108187
+--     PLUGIN: 2105979572539075861
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_geocode
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOCODE'
 ,p_display_name=>'Mapbits Geocoder'
@@ -233,14 +233,17 @@ wwv_flow_imp_shared.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing plugin. The Mapbits Geocoder must be associated with the sa'
 ||'me map region as the Mapbits Drawing plugin.'
-,p_version_identifier=>'4.6.20231201'
+,p_version_identifier=>'4.7.20240509'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 18773 2023-12-04 18:42:11Z b2eddjw9 $',
-'Date     : $Date: 2023-12-04 12:42:11 -0600 (Mon, 04 Dec 2023) $',
-'Revision : $Revision: 18773 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
+'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
+'Revision : $Revision: 19115 $',
 'Requires : Application Express >= 21.1 and Mapbits Drawing plugin',
+'',
+'Version 4.7 Updates:',
+'05/02/2024 Trigger "Draw/Create" event on the drawing item',
 '',
 'Version 4.6 Updates:',
 '12/01/2023 Raising exceptions if the plugin is not assoicated with a map region or the map region does not have a drawing item plugin.',
@@ -261,11 +264,11 @@ wwv_flow_imp_shared.create_plugin(
 'This does not result in a block from the server. Also using a new User-Agent on the calls',
 'identifying the call as from the Mapbits Geocoder with a session id.',
 ''))
-,p_files_version=>13
+,p_files_version=>15
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1908116173963117176)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105980914295084850)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -277,8 +280,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the street address component to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1908116473744120060)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105981214076087734)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -290,8 +293,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the city to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1908116706300121493)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105981446632089167)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -303,8 +306,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the state to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1908117001324122664)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105981741656090338)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -316,8 +319,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the zip code to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1908126180348003552)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(2105990920679971226)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -329,8 +332,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||' available in the Mapbits Drawing plugin item.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1791619436324770799)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(1989484176656738473)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -342,8 +345,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the path to that wallet with this attribute.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1791620127336772646)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(1989484867668740320)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>7
 ,p_display_sequence=>70
@@ -352,6 +355,35 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_required=>false
 ,p_is_translatable=>false
 ,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the password to that wallet with this attribute.'
+);
+end;
+/
+begin
+wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
+wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F67656F636F646528652C742C722C612C732C6E2C6F2C692C6C297B66756E6374696F6E20752874297B617065782E6A5175657279282866756E6374696F6E28297B617065782E6D6573736167652E616C657274';
+wwv_flow_imp.g_varchar2_table(2) := '2874292C636F6E736F6C652E6C6F6728652B2220222B74297D29297D76617220673D617065782E726567696F6E2872293B6966286E756C6C213D67297B76617220643D672E63616C6C28226765744D61704F626A65637422293B642E67657443616E7661';
+wwv_flow_imp.g_varchar2_table(3) := '7328292E7374796C652E637572736F723D226E6F742D616C6C6F776564222C617065782E7365727665722E706C7567696E28742C7B7830313A612C7830323A732C7830333A6E2C7830343A6F2C7830353A697D2C7B737563636573733A66756E6374696F';
+wwv_flow_imp.g_varchar2_table(4) := '6E2865297B226572726F7222696E20653F7528657272293A2873657454696D656F7574282866756E6374696F6E28297B666F722876617220653D642E647261772E676574416C6C28292C743D303B743C652E66656174757265732E6C656E6774682D313B';
+wwv_flow_imp.g_varchar2_table(5) := '742B2B29642E647261772E64656C65746528652E66656174757265735B745D2E6964293B2166756E6374696F6E2865297B6966282128652E636F6F7264696E617465732E6C656E6774683C3129262622506F696E74223D3D652E74797065297B76617220';
+wwv_flow_imp.g_varchar2_table(6) := '743D652E636F6F7264696E617465735B305D2C723D652E636F6F7264696E617465735B315D3B617065782E6A5175657279282223222B6C2B225F6C6F6E6769747564655F6465677265657322292E76616C286765745F64656772656573287429292C6170';
+wwv_flow_imp.g_varchar2_table(7) := '65782E6A5175657279282223222B6C2B225F6C6F6E6769747564655F6D696E7574657322292E76616C286765745F6D696E75746573287429292C617065782E6A5175657279282223222B6C2B225F6C6F6E6769747564655F7365636F6E647322292E7661';
+wwv_flow_imp.g_varchar2_table(8) := '6C286765745F7365636F6E6473287429292C617065782E6A5175657279282223222B6C2B225F6C617469747564655F6465677265657322292E76616C286765745F64656772656573287229292C617065782E6A5175657279282223222B6C2B225F6C6174';
+wwv_flow_imp.g_varchar2_table(9) := '69747564655F6D696E7574657322292E76616C286765745F6D696E75746573287229292C617065782E6A5175657279282223222B6C2B225F6C617469747564655F7365636F6E647322292E76616C286765745F7365636F6E6473287229297D7D2828653D';
+wwv_flow_imp.g_varchar2_table(10) := '642E647261772E676574416C6C2829292E66656174757265735B305D2E67656F6D65747279297D292C313030292C642E647261772E6164642865292C642E73657443656E74657228652E636F6F7264696E61746573292C642E67657443616E7661732829';
+wwv_flow_imp.g_varchar2_table(11) := '2E7374796C652E637572736F723D22706F696E746572222C617065782E6576656E742E7472696767657228617065782E6A5175657279282223222B6C292C226D696C5F61726D795F75736163655F6D6170626974735F647261776372656174652229297D';
+wwv_flow_imp.g_varchar2_table(12) := '2C6572726F723A66756E6374696F6E28652C742C72297B752872292C642E67657443616E76617328292E7374796C652E637572736F723D22706F696E746572227D7D297D656C736520636F6E736F6C652E6C6F6728226D6170626974735F67656F636F64';
+wwv_flow_imp.g_varchar2_table(13) := '6520222B652B22203A20526567696F6E205B222B722B225D2069732068696464656E206F72206D697373696E672E22297D';
+null;
+end;
+/
+begin
+wwv_flow_imp_shared.create_plugin_file(
+ p_id=>wwv_flow_imp.id(262026536268420190)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+,p_file_name=>'mapbits-geocode.min.js'
+,p_mime_type=>'text/javascript'
+,p_file_charset=>'utf-8'
+,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
 );
 end;
 /
@@ -381,17 +413,18 @@ wwv_flow_imp.g_varchar2_table(21) := '2020202020766172206665617473203D206D61702E
 wwv_flow_imp.g_varchar2_table(22) := '20202020206D61702E647261772E64656C6574652866656174732E66656174757265735B695D2E6964293B0D0A202020202020202020207D0D0A0920202020202020206665617473203D206D61702E647261772E676574416C6C28293B0D0A2020202020';
 wwv_flow_imp.g_varchar2_table(23) := '20202020207661722067656F6D203D2066656174732E66656174757265735B305D2E67656F6D657472793B0D0A2020202020202020202073796E63436F6F72647346726F6D47656F6D657472792867656F6D293B0D0A0909202020207D2C20313030293B';
 wwv_flow_imp.g_varchar2_table(24) := '0D0A20202020202020206D61702E647261772E616464287044617461293B0D0A0909202020206D61702E73657443656E7465722870446174612E636F6F7264696E61746573293B0D0A20202020202020206D61702E67657443616E76617328292E737479';
-wwv_flow_imp.g_varchar2_table(25) := '6C652E637572736F72203D2027706F696E746572273B0D0A2020202020207D0D0A0920207D2C0D0A202020206572726F723A2066756E6374696F6E20286A717868722C207374617475732C2065727229207B0D0A202020202020617065785F616C657274';
-wwv_flow_imp.g_varchar2_table(26) := '28657272293B0D0A2020202020206D61702E67657443616E76617328292E7374796C652E637572736F72203D2027706F696E746572273B0D0A202020207D0D0A20207D293B0D0A7D';
+wwv_flow_imp.g_varchar2_table(25) := '6C652E637572736F72203D2027706F696E746572273B0D0A2020202020202020617065782E6576656E742E7472696767657228617065782E6A517565727928222322202B20705F647261775F6974656D292C20226D696C5F61726D795F75736163655F6D';
+wwv_flow_imp.g_varchar2_table(26) := '6170626974735F6472617763726561746522293B0D0A2020202020207D0D0A0920207D2C0D0A202020206572726F723A2066756E6374696F6E20286A717868722C207374617475732C2065727229207B0D0A202020202020617065785F616C6572742865';
+wwv_flow_imp.g_varchar2_table(27) := '7272293B0D0A2020202020206D61702E67657443616E76617328292E7374796C652E637572736F72203D2027706F696E746572273B0D0A202020207D0D0A20207D293B0D0A7D';
 null;
 end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1677050618433477940)
-,p_plugin_id=>wwv_flow_imp.id(1908114832207108187)
+ p_id=>wwv_flow_imp.id(1874915358765445614)
+,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
 ,p_file_name=>'mapbits-geocode.js'
-,p_mime_type=>'application/javascript'
+,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
 );

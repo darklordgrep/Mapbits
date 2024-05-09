@@ -28,12 +28,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   12:36 Monday December 4, 2023
+--   Date and Time:   09:58 Thursday May 9, 2024
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1536336755376043602
+--     PLUGIN: 1734201495708011276
 --   Manifest End
 --   Version:         22.2.8
 --   Instance ID:     61817619049184
@@ -47,7 +47,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_zoom_to_boundry
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1536336755376043602)
+ p_id=>wwv_flow_imp.id(1734201495708011276)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.ZOOM_TO_BOUNDRY'
 ,p_display_name=>'Mapbits Zoom to Boundary USACE'
@@ -151,15 +151,15 @@ wwv_flow_imp_shared.create_plugin(
 'Mapbits Zoom to Boundary is a dynamic action plugin that zooms and re-centers an APEX map to the bounds of USACE District, USACE Division, Parish/County, or State',
 'based on an five letter USACE code or a FIPS code in the Item Containing the Location Code. Examples of the codes are CEMVN for New Orleans USACE District, CEMVD for Mississippi Valley USACE Division, 22055 for Lafayette parish, and 22 for Louisiana '
 ||'State.'))
-,p_version_identifier=>'4.6.20230720'
+,p_version_identifier=>'4.7.20230720'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '07/20/2023 - If the extent code page item has no value when passed to the ajax callback, then get the extent code value from the session state in the ajax callback.',
 '07/13/2023 - Modified to match Zoom to plugin.'))
 ,p_files_version=>9
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1536752748839164868)
-,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
+ p_id=>wwv_flow_imp.id(1734617489171132542)
+,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -189,8 +189,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(844177442066672830)
-,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
+ p_id=>wwv_flow_imp.id(1042042182398640504)
+,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
 ,p_file_name=>'mapbits-zoomtoboundary.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -221,8 +221,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1537398488914776866)
-,p_plugin_id=>wwv_flow_imp.id(1536336755376043602)
+ p_id=>wwv_flow_imp.id(1735263229246744540)
+,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
 ,p_file_name=>'mapbits-zoomtoboundary.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
