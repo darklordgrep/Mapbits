@@ -64,4 +64,4 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Export To Image](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_export_to_image.sql)
 
 # Demonstration
-[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home)
+[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/usacedemo/mapbits-demo/home)
