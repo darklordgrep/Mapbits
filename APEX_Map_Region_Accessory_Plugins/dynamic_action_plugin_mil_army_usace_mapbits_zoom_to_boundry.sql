@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:18 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1734201495708011276
+--     PLUGIN: 1932066236039978950
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_zoom_to_boundry
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1734201495708011276)
+ p_id=>wwv_flow_imp.id(1932066236039978950)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.ZOOM_TO_BOUNDRY'
 ,p_display_name=>'Mapbits Zoom to Boundary USACE'
@@ -141,6 +146,7 @@ wwv_flow_imp_shared.create_plugin(
 '  rt.javascript_function := ''function () {mapbits_zoomtoboundary("'' || p_dynamic_action.id || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", $v("'' || l_extent_code || ''"));}'';',
 '  return rt;',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'mapbits_zoomTo'
 ,p_ajax_function=>'mapbits_zoomTo_ajax'
@@ -151,15 +157,15 @@ wwv_flow_imp_shared.create_plugin(
 'Mapbits Zoom to Boundary is a dynamic action plugin that zooms and re-centers an APEX map to the bounds of USACE District, USACE Division, Parish/County, or State',
 'based on an five letter USACE code or a FIPS code in the Item Containing the Location Code. Examples of the codes are CEMVN for New Orleans USACE District, CEMVD for Mississippi Valley USACE Division, 22055 for Lafayette parish, and 22 for Louisiana '
 ||'State.'))
-,p_version_identifier=>'4.7.20230720'
+,p_version_identifier=>'4.8.20230720'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '07/20/2023 - If the extent code page item has no value when passed to the ajax callback, then get the extent code value from the session state in the ajax callback.',
 '07/13/2023 - Modified to match Zoom to plugin.'))
 ,p_files_version=>9
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1734617489171132542)
-,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
+ p_id=>wwv_flow_imp.id(1932482229503100216)
+,p_plugin_id=>wwv_flow_imp.id(1932066236039978950)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -189,8 +195,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1042042182398640504)
-,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
+ p_id=>wwv_flow_imp.id(1239906922730608178)
+,p_plugin_id=>wwv_flow_imp.id(1932066236039978950)
 ,p_file_name=>'mapbits-zoomtoboundary.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -221,8 +227,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1735263229246744540)
-,p_plugin_id=>wwv_flow_imp.id(1734201495708011276)
+ p_id=>wwv_flow_imp.id(1933127969578712214)
+,p_plugin_id=>wwv_flow_imp.id(1932066236039978950)
 ,p_file_name=>'mapbits-zoomtoboundary.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

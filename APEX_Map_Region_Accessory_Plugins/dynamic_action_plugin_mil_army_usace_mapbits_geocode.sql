@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:17 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 2105979572539075861
+--     PLUGIN: 2303844312871043535
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_geocode
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOCODE'
 ,p_display_name=>'Mapbits Geocoder'
@@ -225,6 +230,7 @@ wwv_flow_imp_shared.create_plugin(
 '    || '');}'';',
 '  return rt;',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'mapbits_geocode'
 ,p_ajax_function=>'mapbits_geocode_ajax'
@@ -233,13 +239,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing plugin. The Mapbits Geocoder must be associated with the sa'
 ||'me map region as the Mapbits Drawing plugin.'
-,p_version_identifier=>'4.7.20240509'
+,p_version_identifier=>'4.8.20240509'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
-'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
-'Revision : $Revision: 19115 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
+'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
+'Revision : $Revision: 20090 $',
 'Requires : Application Express >= 21.1 and Mapbits Drawing plugin',
 '',
 'Version 4.7 Updates:',
@@ -267,8 +273,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>15
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(2105980914295084850)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303845654627052524)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -280,8 +286,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the street address component to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(2105981214076087734)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303845954408055408)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -293,8 +299,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the city to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(2105981446632089167)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303846186964056841)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -306,8 +312,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the state to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(2105981741656090338)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303846481988058012)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -319,8 +325,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item with the zip code to be used in the geocoder query.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(2105990920679971226)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2303855661011938900)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -332,8 +338,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||' available in the Mapbits Drawing plugin item.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1989484176656738473)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2187348916988706147)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -345,8 +351,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Queries to the geocoding service are performed from the database server, not the client. If you need a database wallet to access Nominatim, you can set the path to that wallet with this attribute.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1989484867668740320)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2187349608000707994)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>7
 ,p_display_sequence=>70
@@ -378,8 +384,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(262026536268420190)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(459891276600387864)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_file_name=>'mapbits-geocode.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -421,8 +427,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1874915358765445614)
-,p_plugin_id=>wwv_flow_imp.id(2105979572539075861)
+ p_id=>wwv_flow_imp.id(2072780099097413288)
+,p_plugin_id=>wwv_flow_imp.id(2303844312871043535)
 ,p_file_name=>'mapbits-geocode.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

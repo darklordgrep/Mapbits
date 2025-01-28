@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:18 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1832681323215256682
+--     PLUGIN: 2030546063547224356
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_wms
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.WMS'
 ,p_display_name=>'Mapbits WMS Layer'
@@ -94,6 +99,7 @@ wwv_flow_imp_shared.create_plugin(
 '      || apex_javascript.add_attribute(''p_error'', l_error)',
 '    || ''});'', p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.WMS'' || p_item.name);',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'mapbits_wmslayer'
 ,p_substitute_attributes=>true
@@ -102,13 +108,13 @@ wwv_flow_imp_shared.create_plugin(
 'The Mapbits Layer WMS plugin adds support for OGC Web Map Service (WMS) raster layers to APEX Map regions. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-in layer selector.',
 'Add the plugin as an item under an APEX Map region and set the WMS URL to point to your layer''s web service and set the WMS Layer Names to the name of the layers in the service. The WMS url should include everything up to but excluding the quesiton m'
 ||'ark (?). For example, https://img.nj.gov/imagerywms/Natural2015. The WMS Layers Names are usually number for the ArcGIS implementation. Multiple layers can be combined using a comma (0,1).'))
-,p_version_identifier=>'4.7.20240509'
+,p_version_identifier=>'4.8.20240509'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 Layer - WMS',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
-'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
-'Revision : $Revision: 19115 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
+'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
+'Revision : $Revision: 20090 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.7 Updates:',
@@ -141,8 +147,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>83
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1844188837865509424)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2042053578197477098)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -154,8 +160,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'URL of the OGC Web Map Service (WMS) up to but excluding the question mark (?).'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1844189184233510222)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2042053924565477896)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -166,8 +172,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of the layer as defined in the Name tag under the Layer tag in the WMS GetCapabilities response. Multiple layers from WMS can be combined into one under this plugin by delimiting the layer names with a comma (,).'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1844947968549350166)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2042812708881317840)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -178,8 +184,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1846292091687978936)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2044156832019946610)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -191,8 +197,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Color of the checkbox to be displayed for this layer in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1849492703176881946)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2047357443508849620)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>50
@@ -204,8 +210,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If ''Y'', then this layer will be turned on the first time a user visits this page, otherwise it will be off. After the initial page visit, the layer visibility will be persisted.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1911703270424184304)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2109568010756151978)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -218,55 +224,55 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Height and width of the tiles requested from the WMS server in pixels. Default value is 256px.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(1911703837186185286)
-,p_plugin_attribute_id=>wwv_flow_imp.id(1911703270424184304)
+ p_id=>wwv_flow_imp.id(2109568577518152960)
+,p_plugin_attribute_id=>wwv_flow_imp.id(2109568010756151978)
 ,p_display_sequence=>10
 ,p_display_value=>'128'
 ,p_return_value=>'128'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(1911704236416186083)
-,p_plugin_attribute_id=>wwv_flow_imp.id(1911703270424184304)
+ p_id=>wwv_flow_imp.id(2109568976748153757)
+,p_plugin_attribute_id=>wwv_flow_imp.id(2109568010756151978)
 ,p_display_sequence=>20
 ,p_display_value=>'256'
 ,p_return_value=>'256'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(1911704710605188979)
-,p_plugin_attribute_id=>wwv_flow_imp.id(1911703270424184304)
+ p_id=>wwv_flow_imp.id(2109569450937156653)
+,p_plugin_attribute_id=>wwv_flow_imp.id(2109568010756151978)
 ,p_display_sequence=>30
 ,p_display_value=>'384'
 ,p_return_value=>'384'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(1911705075718189577)
-,p_plugin_attribute_id=>wwv_flow_imp.id(1911703270424184304)
+ p_id=>wwv_flow_imp.id(2109569816050157251)
+,p_plugin_attribute_id=>wwv_flow_imp.id(2109568010756151978)
 ,p_display_sequence=>40
 ,p_display_value=>'512'
 ,p_return_value=>'512'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(1911705519615190339)
-,p_plugin_attribute_id=>wwv_flow_imp.id(1911703270424184304)
+ p_id=>wwv_flow_imp.id(2109570259947158013)
+,p_plugin_attribute_id=>wwv_flow_imp.id(2109568010756151978)
 ,p_display_sequence=>50
 ,p_display_value=>'1024'
 ,p_return_value=>'1024'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(258403162277454917)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(456267902609422591)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_name=>'load_end'
 ,p_display_name=>'Loading Finished'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(258402838035454916)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(456267578367422590)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_name=>'load_start'
 ,p_display_name=>'Loading Started'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(258387406626342352)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(456252146958310026)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_name=>'visibility_toggled'
 ,p_display_name=>'Visibility Toggled'
 );
@@ -336,8 +342,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(258828954157094392)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(456693694489062066)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_file_name=>'mapbits-wmslayer.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -449,8 +455,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1980297401992418427)
-,p_plugin_id=>wwv_flow_imp.id(1832681323215256682)
+ p_id=>wwv_flow_imp.id(2178162142324386101)
+,p_plugin_id=>wwv_flow_imp.id(2030546063547224356)
 ,p_file_name=>'mapbits-wmslayer.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

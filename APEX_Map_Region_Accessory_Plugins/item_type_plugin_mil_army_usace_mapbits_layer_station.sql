@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:18 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1991444665626717647
+--     PLUGIN: 2189309405958685321
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_station
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.STATION'
 ,p_display_name=>'Mapbits Stationing Layer'
@@ -182,6 +187,7 @@ wwv_flow_imp_shared.create_plugin(
 '    }, 500);',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.STATION'');',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'map_station_render'
 ,p_ajax_function=>'mapbits_station_ajax'
@@ -191,13 +197,13 @@ wwv_flow_imp_shared.create_plugin(
 'Add a Mapbits Stationing plugin to a map region to show station labels based on visible domain values in a chart region. As the chart region viewport changes, so shall',
 'the station labels on the map. You will need to specify a query that returns a line sdo_geometry with measure values (4d) and if you have more than one chart, you will have',
 'to specify the chart id.'))
-,p_version_identifier=>'4.7.20231204'
+,p_version_identifier=>'4.8.20231204'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Stationing',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
-'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
-'Revision : $Revision: 19115 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_station.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
+'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
+'Revision : $Revision: 20090 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates',
@@ -217,8 +223,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>185
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1794442736439565794)
-,p_plugin_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(1992307476771533468)
+,p_plugin_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -229,8 +235,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If your page has more than one chart, set the ''Static Id'' of the chart region to use for stationing and set this attribute to that static id.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1873109309089740431)
-,p_plugin_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(2070974049421708105)
+,p_plugin_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>10
@@ -276,8 +282,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1208498620899973208)
-,p_plugin_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(1406363361231940882)
+,p_plugin_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_file_name=>'mapbits-station.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -353,8 +359,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1874875230893621989)
-,p_plugin_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(2072739971225589663)
+,p_plugin_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_file_name=>'mapbits-station.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -375,8 +381,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1991685663621828026)
-,p_plugin_id=>wwv_flow_imp.id(1991444665626717647)
+ p_id=>wwv_flow_imp.id(2189550403953795700)
+,p_plugin_id=>wwv_flow_imp.id(2189309405958685321)
 ,p_file_name=>'cross.png'
 ,p_mime_type=>'image/png'
 ,p_file_charset=>'utf-8'

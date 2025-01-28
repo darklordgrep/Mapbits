@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:17 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 867684014327522107
+--     PLUGIN: 1065548754659489781
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_layer_basemap
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.LAYER.BASEMAP'
 ,p_display_name=>'Mapbits Basemap'
@@ -119,6 +124,7 @@ wwv_flow_imp_shared.create_plugin(
 '      p_key => ''MIL.ARMY.USACE.MAPBITS.LAYER.BASEMAP'' || p_item.name);',
 '  end if;',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'mapbits_basemap'
 ,p_substitute_attributes=>true
@@ -130,15 +136,16 @@ wwv_flow_imp_shared.create_plugin(
 'When a Basemap is added to a Map region, a toggle will appear on the map allowing a user to switch between the existing default Map region basemap and the basemap defined in the plugin item. This plugin includes attributes for the icon, title, and to'
 ||'oltip for plugin item-defined basemap. The Map region default basemap icon, title, and tooltip can be configured in the Mapbits Basemap Component Settings. Multiple Basemaps can be added to the same Map region. The last basemap toggle choice is prese'
 ||'rved in a cookie and that last basemap is rendered the next time the page is next loaded.'))
-,p_version_identifier=>'4.7.20231201'
+,p_version_identifier=>'4.8.20240401'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 Layer - Basemap',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_basemap.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
-'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
-'Revision : $Revision: 19115 $',
-'Requires : Application Express >= 22.2',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_basemap.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
+'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
+'Revision : $Revision: 20090 $',
+'Requires : Application Express >= 23.2',
 '',
+'Version 4.7 Updates',
 '04/01/2024 - Fix issue that could cause a 500 Internal Server Error if the basemap item was inside a form region that was submitted.',
 '',
 'Version 4.6 Updates:',
@@ -156,8 +163,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>157
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(868149923109846679)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1066014663441814353)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'APPLICATION'
 ,p_attribute_sequence=>11
 ,p_display_sequence=>110
@@ -171,8 +178,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'The default Map region basemap is the basemap the Map region would use if there were no Basemap plugin. In the light version of APEX 22, this basemap is OSM Positron.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(868153818355930134)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1066018558687897808)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'APPLICATION'
 ,p_attribute_sequence=>12
 ,p_display_sequence=>120
@@ -187,8 +194,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'The default Map region basemap is the basemap the Map region would use if there were no Basemap plugin. In the light version of APEX 22, this basemap is OSM Positron.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(868154931097937518)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1066019671429905192)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'APPLICATION'
 ,p_attribute_sequence=>13
 ,p_display_sequence=>130
@@ -203,8 +210,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'The default Map region basemap is the basemap the Map region would use if there were no Basemap plugin. In the light version of APEX 22, this basemap is OSM Positron.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867685640946532804)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065550381278500478)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>70
@@ -229,8 +236,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'A raster source is created using the url as the "tiles" argument. For more information on how to define this url, refer to the Maplibre Style Spec Sources (https://maplibre.org/maplibre-style-spec/sources/).'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867686371018546408)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065551111350514082)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>10
@@ -242,8 +249,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Name of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(376834564830313371)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(574699305162281045)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>60
@@ -255,24 +262,24 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_lov_type=>'STATIC'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(376836263439316164)
-,p_plugin_attribute_id=>wwv_flow_imp.id(376834564830313371)
+ p_id=>wwv_flow_imp.id(574701003771283838)
+,p_plugin_attribute_id=>wwv_flow_imp.id(574699305162281045)
 ,p_display_sequence=>10
 ,p_display_value=>'Tile URL'
 ,p_return_value=>'tile_url'
 ,p_help_text=>'A URL to a tile server, with {z} {x} and {y} placeholders for the tile coordinates or a {bbox-epsg-3857} placeholder for the BBOX parameter of a WMS server.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(376836674008318342)
-,p_plugin_attribute_id=>wwv_flow_imp.id(376834564830313371)
+ p_id=>wwv_flow_imp.id(574701414340286016)
+,p_plugin_attribute_id=>wwv_flow_imp.id(574699305162281045)
 ,p_display_sequence=>20
 ,p_display_value=>'TileJSON URL'
 ,p_return_value=>'tile_json_url'
 ,p_help_text=>'A URL to a TileJSON file containing the details of the tile server. If the basemap source provides a TileJSON file, this is the easiest method.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(376777379231066761)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(574642119563034435)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>100
@@ -286,8 +293,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'This code may be an expression that evaluates to an object, or a function which returns an object. Either way, the object is merged with the original options.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(868206755511468516)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1066071495843436190)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>7
 ,p_display_sequence=>80
@@ -296,7 +303,7 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_required=>true
 ,p_default_value=>'16'
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(376834564830313371)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(574699305162281045)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'NOT_EQUALS'
 ,p_depending_on_expression=>'tile_json_url'
@@ -304,169 +311,169 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'The maximum zoom level to fetch tiles. Beyond this level, the imagery will be scaled. If you experience errors rendering at large scales, the basemap may not support that zoom level. You can reduce this value to avoid the issue.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868209138760471537)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066073879092439211)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>10
 ,p_display_value=>'0 - The Earth'
 ,p_return_value=>'0'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868209551556472822)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066074291888440496)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>20
 ,p_display_value=>'1'
 ,p_return_value=>'1'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868209946814473310)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066074687146440984)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>30
 ,p_display_value=>'2'
 ,p_return_value=>'2'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868210317144474765)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066075057476442439)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>40
 ,p_display_value=>'3 - A Continent'
 ,p_return_value=>'3'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868210674465476321)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066075414797443995)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>50
 ,p_display_value=>'4 - Large Islands'
 ,p_return_value=>'4'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868211063271476806)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066075803603444480)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>60
 ,p_display_value=>'5'
 ,p_return_value=>'5'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868211549785478105)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066076290117445779)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>70
 ,p_display_value=>'6 - Large Rivers'
 ,p_return_value=>'6'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868213439492479261)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066078179824446935)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>80
 ,p_display_value=>'7'
 ,p_return_value=>'7'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868213826801479661)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066078567133447335)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>90
 ,p_display_value=>'8'
 ,p_return_value=>'8'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868214168582480046)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066078908914447720)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>100
 ,p_display_value=>'9'
 ,p_return_value=>'9'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868214622129482512)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066079362461450186)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>110
 ,p_display_value=>'10 - Large Roads'
 ,p_return_value=>'10'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868215128611482942)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066079868943450616)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>120
 ,p_display_value=>'11'
 ,p_return_value=>'11'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868215530317483293)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066080270649450967)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>130
 ,p_display_value=>'12'
 ,p_return_value=>'12'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868215950632483690)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066080690964451364)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>140
 ,p_display_value=>'13'
 ,p_return_value=>'13'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868217241157484081)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066081981489451755)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>150
 ,p_display_value=>'14'
 ,p_return_value=>'14'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868218185701484882)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066082926033452556)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>160
 ,p_display_value=>'15 - Buildings'
 ,p_return_value=>'15'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868218634113485335)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066083374445453009)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>170
 ,p_display_value=>'16'
 ,p_return_value=>'16'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868219046426485853)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066083786758453527)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>180
 ,p_display_value=>'17'
 ,p_return_value=>'17'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868219428633486296)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066084168965453970)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>190
 ,p_display_value=>'18'
 ,p_return_value=>'18'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868219792999486745)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066084533331454419)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>200
 ,p_display_value=>'19'
 ,p_return_value=>'19'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868220216918487215)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066084957250454889)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>210
 ,p_display_value=>'20'
 ,p_return_value=>'20'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868220647252487563)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066085387584455237)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>220
 ,p_display_value=>'21'
 ,p_return_value=>'21'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(868221034178488070)
-,p_plugin_attribute_id=>wwv_flow_imp.id(868206755511468516)
+ p_id=>wwv_flow_imp.id(1066085774510455744)
+,p_plugin_attribute_id=>wwv_flow_imp.id(1066071495843436190)
 ,p_display_sequence=>230
 ,p_display_value=>'22'
 ,p_return_value=>'22'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867691173566816773)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065555913898784447)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>8
 ,p_display_sequence=>50
@@ -478,8 +485,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Show place names, streets, and roads over the basemap. Disable if the base map already contains these things.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867691520713819173)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065556261045786847)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>9
 ,p_display_sequence=>20
@@ -490,8 +497,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Icon of layer to be displayed in the toggle section under the map used to turn layers on and off.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867691859643822329)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065556599975790003)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>10
 ,p_display_sequence=>30
@@ -502,8 +509,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Tooltip to be displayed when a user hovers over the layer''s button in the basemap toggle section.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(867694915465835791)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065559655797803465)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>14
 ,p_display_sequence=>40
@@ -521,8 +528,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'The default Map region basemap is the basemap the Map region would use if there were no Basemap plugin. In the light version of APEX 22, this basemap is OSM Positron.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(376716827095316083)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(574581567427283757)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>15
 ,p_display_sequence=>90
@@ -530,7 +537,7 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(376834564830313371)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(574699305162281045)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'NOT_EQUALS'
 ,p_depending_on_expression=>'tile_json_url'
@@ -554,8 +561,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(248721879818369188)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(446586620150336862)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_file_name=>'mapbits-basemap.min.css'
 ,p_mime_type=>'text/css'
 ,p_file_charset=>'utf-8'
@@ -651,8 +658,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(248748256929396155)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(446612997261363829)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_file_name=>'mapbits-basemap.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -757,8 +764,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(376854555227495450)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(574719295559463124)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_file_name=>'mapbox-attribution-logo.svg'
 ,p_mime_type=>'image/svg+xml'
 ,p_file_charset=>'utf-8'
@@ -781,8 +788,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(867701065510179336)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065565805842147010)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_file_name=>'mapbits-basemap.css'
 ,p_mime_type=>'text/css'
 ,p_file_charset=>'utf-8'
@@ -951,8 +958,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(867701461537180806)
-,p_plugin_id=>wwv_flow_imp.id(867684014327522107)
+ p_id=>wwv_flow_imp.id(1065566201869148480)
+,p_plugin_id=>wwv_flow_imp.id(1065548754659489781)
 ,p_file_name=>'mapbits-basemap.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'

@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.8'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
 ,p_default_workspace_id=>2612926235066099
 ,p_default_application_id=>107981
 ,p_default_id_offset=>197864740331967674
@@ -28,14 +33,14 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   09:58 Thursday May 9, 2024
+--   Date and Time:   16:17 Tuesday January 28, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1793563380896301217
+--     PLUGIN: 1991428121228268891
 --   Manifest End
---   Version:         22.2.8
+--   Version:         23.2.0
 --   Instance ID:     61817619049184
 --
 
@@ -47,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/item_type/mil_army_usace_mapbits_geolocation
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.GEOLOCATION'
 ,p_display_name=>'Mapbits Geolocation'
@@ -106,6 +111,7 @@ wwv_flow_imp_shared.create_plugin(
 '    mapbits_geolocation("'' || p_item.name || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", {"enableDefault" : '' || l_defaultEnabled || '', "trackUserLocation" : '' || l_track || '', "showUserHeading" : ''  || l_heading || ''});',
 '    });'', p_key => ''MIL.ARMY.USACE.MAPBITS.GEOLOCATION'');',
 'end;'))
+,p_default_escape_mode=>'HTML'
 ,p_api_version=>2
 ,p_render_function=>'map_geolocation_render'
 ,p_substitute_attributes=>true
@@ -113,13 +119,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<p>If the browser has geolocation enabled, the Mapbits Geolocation plugin can show the user''s location as a pulsing dot.</p>',
 '<p>Add the plugin in to the map region in which you wish to show the user''s location. This plugin relays events from Mapbox Geolocation as application express events.</p>'))
-,p_version_identifier=>'4.7.20231201'
+,p_version_identifier=>'4.8.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Geolocation',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 19115 2024-05-09 15:00:25Z b2eddjw9 $',
-'Date     : $Date: 2024-05-09 10:00:25 -0500 (Thu, 09 May 2024) $',
-'Revision : $Revision: 19115 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_geolocation.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
+'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
+'Revision : $Revision: 20090 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates:',
@@ -143,8 +149,8 @@ wwv_flow_imp_shared.create_plugin(
 ,p_files_version=>53
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1793586317291992353)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991451057623960027)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -156,8 +162,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, move the map with the user, keeping his location in the center of the map.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1793586903938994629)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991451644270962303)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -169,8 +175,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, show the direction in which the user is moving when he is moving.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1786308301667767929)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1984173041999735603)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -182,26 +188,26 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'If Yes, the Geolocation tool will be enabled when the page renders. Otherwise, the user will have to click a button to start the tool.'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1793568616897301232)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991433357229268906)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_name=>'mil_army_usace_mapbits_geolocate'
 ,p_display_name=>'Geolocate'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1793584704783800760)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991449445115768434)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_name=>'mil_army_usace_mapbits_geolocate_error'
 ,p_display_name=>'Error'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1793585523468800762)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991450263800768436)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_name=>'mil_army_usace_mapbits_geolocate_trackend'
 ,p_display_name=>'Track End'
 );
 wwv_flow_imp_shared.create_plugin_event(
- p_id=>wwv_flow_imp.id(1793585065338800762)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991449805670768436)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_name=>'mil_army_usace_mapbits_geolocate_trackstart'
 ,p_display_name=>'Track Start'
 );
@@ -226,8 +232,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1208012719081481933)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1405877459413449607)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_file_name=>'mapbits-geolocation.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
@@ -262,8 +268,8 @@ end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(1793572325705372552)
-,p_plugin_id=>wwv_flow_imp.id(1793563380896301217)
+ p_id=>wwv_flow_imp.id(1991437066037340226)
+,p_plugin_id=>wwv_flow_imp.id(1991428121228268891)
 ,p_file_name=>'mapbits-geolocation.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
