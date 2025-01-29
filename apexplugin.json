@@ -1,8 +1,8 @@
 {
   "name" : "Mapbits",
-  "version" : "4.6",
+  "version" : "4.8",
   "description" : "Oracle Application Express (APEX) plugins to enhance Map region functionality.",
-  "keywords" : ["map", "maps", "mapbox", "map region", "gis", "geocode", "plan and profile", "draw", "geolocation", "geojson", "wms", "geocoder", "zoom", "raster", "vector"],
+  "keywords" : ["map", "maps", "mapbox", "map region", "gis", "geocode", "plan and profile", "draw", "geolocation", "geojson", "wms", "geocoder", "zoom", "raster", "vector", "georaster"],
   "homepage" : "https://github.com/darklordgrep/Mapbits",
   "bugs" : {
     "url" : "https://github.com/darklordgrep/Mapbits/issues",
@@ -20,14 +20,14 @@
     "url" : "https://github.com/darklordgrep/Mapbits.git"
   },
  "oracle" : {
-    "versions" : ["12.1", "19.0"],
+    "versions" : ["19.0", "23.0"],
     "apex" : {
-      "versions" : ["21.1", "22.2", "23.2"],
+      "versions" : ["23.2", "24.1"],
       "plugin" : {
         "internalName" : "MIL.ARMY.USACE.MAPBITS",
         "type" : "item",
-        "demo" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home",
-        "previewImage" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/107981/files/static/v28/screenshot02.jpg"
+        "demo" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/usacedemo/mapbits-demo/home",
+        "previewImage" : "https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/usacedemo/107981/files/static/v71/screenshot02.jpg"
       }
     }
   }

@@ -23,6 +23,7 @@ to this coordinate.
 - **Mapbits Lodestar Layer** provides an alternative to native map region layers that offer more of the functionality built into Maplibre such as symbology and filtering. For more information, see the [Mapbits Lodestar Layer Tutorial] (Documentation/Lodestar_Tutorial.md).
 - **Mapbits Lodestar Select Features** is a dynamic action plugin that highlights LodeStar Layer features based on a SQL query. 
 - **Mapbits Export To Image** is a dynamic action that exports a map region to image data, allowing to be directly downloaded or added to reports.
+- **Mapbits Georaster Layer** adds support for displaying Oracle Georasters. Supported types include 8-bit RGB images and 32-bit single band floating point digital elevation models (DEM). The latter of these is rendered as Maplibre-style Terrain.
 
 # Requirements
 Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Apex Express 22.1 or 22.2, you will need version 4.5 or later of the plugins.
@@ -62,6 +63,7 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Lodestar Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_lodestar.sql)
 * [Mapbits Lodestar Select Features](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_select_features.sql)
 * [Mapbits Export To Image](APEX_Map_Region_Accessory_Plugins/dynamic_action_plugin_mil_army_usace_mapbits_export_to_image.sql)
+* [Mapbits Georaster Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_georaster.sql)
 
 # Demonstration
-[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/usacedemo/mapbits-demo/home)
+[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home)
