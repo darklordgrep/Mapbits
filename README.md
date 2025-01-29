@@ -26,8 +26,16 @@ to this coordinate.
 - **Mapbits Georaster Layer** adds support for displaying Oracle Georasters. Supported types include 8-bit RGB images and 32-bit single band floating point digital elevation models (DEM). The latter of these is rendered as Maplibre-style Terrain.
 
 # Requirements
-Application and plugins require Oracle DBMS and Application Express 21.1 or later. If you are using Apex Express 22.1 or 22.2, you will need version 4.5 or later of the plugins.
-Mapbits version 4.5 was not tested on Application Express versions prior to 22.1. Mapbits version 4.6 has been tested using version 22.2 and 23.2.
+Demonstration application and plugins require Oracle DBMS and Application Express. The table below shows the recent Mapbits release versions and the versions of APEX on which these releases were either developed or tested. 
+
+  _ | APEX 22.1 | APEX 22.2 | APEX 23.2 | APEX 24.1
+--- | --- | --- | --- | ---
+Mapbits 4.5 | X | X |  | 
+Mapbits 4.6 |  | X | X |
+Mapbits 4.7 |  | X | X |
+Mapbits 4.8 |  | | X | X
+
+A particular Mapbits release will install on a later version of APEX, but changes over time in APEX or maplibre may result in anomolous behavior. A Mapbits release will not install on a version on APEX prior to the version used for development and release.
 
 # Installation
 You can install individual plugins by selecting and downloadling the plugin of interest from the Downloads section below. In your application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Import' and follow the steps in the wizard. When prompted to upload an import file, use the plugin file you downloaded.
