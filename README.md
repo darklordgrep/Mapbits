@@ -28,12 +28,13 @@ to this coordinate.
 # Requirements
 Demonstration application and plugins require Oracle DBMS and Application Express. The table below shows the recent Mapbits release versions and the versions of APEX on which these releases were either developed or tested. 
 
-  _ | APEX 22.1 | APEX 22.2 | APEX 23.2 | APEX 24.1
---- | --- | --- | --- | ---
-Mapbits 4.5 | X | X |  | 
-Mapbits 4.6 |  | X | X |
-Mapbits 4.7 |  | X | X |
-Mapbits 4.8 |  | | X | X
+  _ | APEX 22.1 | APEX 22.2 | APEX 23.2 | APEX 24.1 | APEX 24.2
+--- | --- | --- | --- | --- | ---
+Mapbits 4.5 | X | X |  | |
+Mapbits 4.6 |  | X | X | |
+Mapbits 4.7 |  | X | X | |
+Mapbits 4.8 |  | | X | X |
+Mapbits 4.9 |  | | X | X | X |
 
 A particular Mapbits release will install on a later version of APEX, but changes over time in APEX or maplibre may result in anomolous behavior. A Mapbits release will not install on a version on APEX prior to the version used for development and release.
 
@@ -74,4 +75,4 @@ After installation, the plugins will be available as a page item or dynamic acti
 * [Mapbits Georaster Layer](APEX_Map_Region_Accessory_Plugins/item_type_plugin_mil_army_usace_mapbits_layer_georaster.sql)
 
 # Demonstration
-[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/grep02/mapbits-demo/home)
+[View Mapbits in Action](https://taw4i5xyrvvl9hk-usacedemo.adb.us-ashburn-1.oraclecloudapps.com/ords/r/usacedemo/mapbits-demo/home)
