@@ -33,8 +33,8 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:17 Tuesday January 28, 2025
---   Exported By:     LESS
+--   Date and Time:   14:40 Monday May 12, 2025
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
@@ -106,13 +106,13 @@ wwv_flow_imp_shared.create_plugin(
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Labeler plugin uses the tooltip or the Info Window of a Map region native layer to display labels for that layer. Add the plugin as an item under an APEX Map region and set the <b>Layer Name</b> to the name of a native layer in the map re'
 ||'gion.'
-,p_version_identifier=>'4.8.20231201'
+,p_version_identifier=>'4.9.20231201'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Labeler',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
-'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
-'Revision : $Revision: 20090 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_labeler.sql 20613 2025-05-12 20:11:56Z b2imimcf $',
+'Date     : $Date: 2025-05-12 15:11:56 -0500 (Mon, 12 May 2025) $',
+'Revision : $Revision: 20613 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.6 Updates:',

@@ -33,12 +33,12 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:18 Tuesday January 28, 2025
---   Exported By:     LESS
+--   Date and Time:   14:44 Monday May 12, 2025
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 1991139997459864414
+--     PLUGIN: 95173023119871702
 --   Manifest End
 --   Version:         23.2.0
 --   Instance ID:     61817619049184
@@ -52,12 +52,13 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_zoom_to
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95173023119871702)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.ZOOM_TO'
 ,p_display_name=>'Mapbits Zoom To'
 ,p_category=>'EXECUTE'
-,p_javascript_file_urls=>'#PLUGIN_FILES#mapbits-zoomto.js'
+,p_javascript_file_urls=>'#PLUGIN_FILES#mapbits-zoomto#MIN#.js'
+,p_css_file_urls=>'#PLUGIN_FILES#mapbits-zoomto#MIN#.css'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'function mapbits_zoom_ajax (',
 '    p_dynamic_action in apex_plugin.t_dynamic_action,',
@@ -70,18 +71,28 @@ wwv_flow_imp_shared.create_plugin(
 '  ymin number;',
 '  xmax number;',
 '  ymax number;',
-'  rt apex_plugin.t_dynamic_action_ajax_result;',
+'  rt2 apex_plugin.t_dynamic_action_ajax_result;',
 '  i integer;',
 '  query_ctx apex_exec.t_context;',
 '  n_cols number;',
 '  l_shape sdo_geometry;',
 '  l_dim sdo_dim_array;',
+'  rt varchar2(4000);',
 'begin',
+'  -- X01 is ''Y'' if there is an initialization conflict, ''N'' otherwise.',
+'  -- if there is an initalization conflict with the map, produce the error message for the programmer. ',
+'  -- couldn''t do this in the render function for some reason.',
+'  if apex_application.g_x01 = ''Y'' then',
+'    apex_debug.error(''Configuration ERROR: Mapbits Zoom To DA [%s] conflicts with map region''''s ''''Initial Position and Zoom''''. '' ||',
+'      ''If Zoom To DA fires on initalization or if event triggering is ''''Page Load'''' or ''''Spatial Map Initialized'''', then the map''''s ''''Initial Position and Zoom'''''' || ',
+'      ''must be set to ''''Static Values'''' (The actual values don''''t matter). Otherwise, the ''''Initial Position and Zoom'''' will be used to setup the initial map view extent.'', p_dynamic_action.id);',
+'  end if;',
+'',
+'  -- run the plugin query for the extent and convert the result to sdo_geometry.',
 '  query_ctx := apex_exec.open_query_context(',
 '    p_location => apex_exec.c_location_local_db,',
 '    p_sql_query => l_query',
 '  );',
-'',
 '  if apex_exec.next_row(query_ctx) then',
 '    case query_type',
 '      when ''sdo_geometry'' then',
@@ -89,25 +100,32 @@ wwv_flow_imp_shared.create_plugin(
 '      when ''GeoJSON'' then',
 '        l_shape := sdo_util.from_geojson(apex_exec.get_clob(query_ctx, 1));',
 '      else',
-'        raise_application_error(-20981, ''ERROR: Map Layer Zoom To - Unexpected query_type "'' || query_type || ''".'');',
+'        rt := ''{"message" : "Map Layer Zoom To - Unexpected query_type ['' || query_type || '']."}'';',
 '    end case;',
 '  else',
 '    -- No data found',
-'    raise_application_error(-20520, ''ERROR: Map Layer Zoom To - No data found from query results.'');',
+'    rt := ''{"message" : "Map Layer Zoom To - No data found from query results."}'';',
 '  end if;',
 '',
 '  apex_exec.close(query_ctx);',
 '',
+'  -- Prepare response. If extent shape is null produce error, else produce the extent.',
 '  if l_shape is null then',
-'    raise_application_error(-20981, ''Could not create geometry. One reason for this could be the size of the GeoJSON data, which is limited to 32767 characters. Consider using the function SDO_GEOM.SDO_MBR return a smaller geometry.'');',
+'    rt := ''{"message" : "Could not create geometry. One reason for this could be the size of the GeoJSON data, which is limited to 32767 characters. Consider using the function SDO_GEOM.SDO_MBR return a smaller geometry. Also, ensure you have the cor'
+||'rect query type selected."}'';',
+'  else',
+'    select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  2),',
+'      SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
+'      into xmin,ymin,xmax,ymax   from dual;',
+'    rt := ''{"data" : ['' || xmin || '','' || ymin || '','' || xmax || '','' || ymax || '']}'';',
 '  end if;',
 '  ',
-'  select SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MIN_MBR_ORDINATE(l_shape,  2),',
-'  SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape,  1), SDO_GEOM.SDO_MAX_MBR_ORDINATE(l_shape, 2) ',
-'    into xmin,ymin,xmax,ymax   from dual;',
-'  htp.prn(''['' || xmin || '','' || ymin || '','' || xmax || '','' || ymax || '']'');',
-'  ',
-'  return rt;',
+'  -- write to HTTP',
+'  htp.init;',
+'  owa_util.mime_header(''application/json'', FALSE);',
+'  owa_util.http_header_close;  ',
+'  htp.p(rt);',
+'  return rt2;',
 'end;',
 '',
 'function mapbits_zoom (',
@@ -115,30 +133,44 @@ wwv_flow_imp_shared.create_plugin(
 '  p_plugin         in apex_plugin.t_plugin )',
 '  return apex_plugin.t_dynamic_action_render_result is',
 '    l_region_id varchar2(4000);',
-'    l_action_name varchar2(40);',
-'    l_region_type varchar2(40);',
+'    l_action_name apex_application_page_da.dynamic_action_name%type;',
+'    l_region_type apex_application_page_regions.source_type%type;',
+'    l_event_name apex_application_page_da.when_event_internal_name%type;',
+'    l_exec_init apex_application_page_da_acts.execute_on_page_init%type;',
+'    l_initial_pos_type apex_appl_page_maps.initial_pos_type%type;',
 '    rt apex_plugin.t_dynamic_action_render_result;',
 '    l_pits p_dynamic_action.attribute_01%type := p_dynamic_action.attribute_01;',
 '    l_pitss p_dynamic_action.attribute_03%type := p_dynamic_action.attribute_03;',
 '    l_skip_animation p_dynamic_action.attribute_04%type := p_dynamic_action.attribute_04;',
 '    l_padding p_dynamic_action.attribute_06%type := p_dynamic_action.attribute_06;',
+'    l_init_conflict varchar2(5);',
 'begin',
 '  begin',
-'    select nvl(r.static_id, ''R''||da.affected_region_id), r.source_type, da.dynamic_action_name into l_region_id, l_region_type, l_action_name',
-'      from apex_application_page_da_acts da, apex_application_page_regions r',
-'      where da.affected_region_id = r.region_id',
+'    select nvl(r.static_id, ''R''||da.affected_region_id), r.source_type, da.dynamic_action_name, ',
+'      decode(d.when_event_internal_name, ''NATIVE_MAP_REGION|REGION TYPE|spatialmapinitialized'', ''spatialmapinitialized'', ''ready'', ''load'', ''other''), ',
+'      decode(da.execute_on_page_init, ''Yes'', ''Y'', ''No'', ''N'', ''?''),',
+'      m.initial_pos_type',
+'      into l_region_id, l_region_type, l_action_name, l_event_name, l_exec_init, l_initial_pos_type',
+'      from apex_application_page_da_acts da',
+'      inner join apex_application_page_regions r on da.affected_region_id = r.region_id',
+'      inner join apex_application_page_da d on d.dynamic_action_id = da.dynamic_action_id',
+'      inner join apex_appl_page_maps m on m.region_id = r.region_id',
 '      and da.application_id = v(''APP_ID'') and da.page_id = v(''APP_PAGE_ID'')',
 '      and da.action_id = p_dynamic_action.id;',
 '    if not l_region_type = ''Map'' then',
 '      raise_application_error(-20341, ''Configuration ERROR: Mapbits Mapbits Zoom To DA for "'' || l_action_name ||  ''" ['' || p_dynamic_action.id || ''] is associated with the wrong type of region. It must be associated with a Map region. Check the Affe'
 ||'cted Elements section of the plugin settings.'');',
 '    end if;',
+'    if not l_initial_pos_type = ''Static Values'' and (l_event_name in (''load'', ''spatialmapinitialized'') or l_exec_init = ''Y'') then',
+'      l_init_conflict := ''true'';',
+'    else',
+'      l_init_conflict := ''false'';',
+'    end if;',
 '  exception when NO_DATA_FOUND then',
 '    raise_application_error(-20361, ''Configuration ERROR: Mapbits Zoom To DA ['' || p_dynamic_action.id || ''] is not associated with a region. It must be associated with a Map region.  Check the Affected Elements section of the plugin settings.'');',
 '  end;',
-'  rt.javascript_function := ''function () {'' ||',
-'    ''mapbits_zoom("'' || p_dynamic_action.id || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", "'' || l_pits || ''", "'' || l_pitss || ''", "'' || l_skip_animation || ''", '' || l_padding || '');}'';',
-'',
+'  rt.javascript_function := ''function () {mapbits_zoom("'' || p_dynamic_action.id || ''", "'' || apex_plugin.get_ajax_identifier || ''", "'' || l_region_id || ''", "'' || l_pits || ''", "'' || l_pitss || ''", "'' || l_skip_animation || ''", "'' || l_padding || ''"'
+||','' || l_init_conflict || '', this.browserEvent);}'';',
 '  return rt;',
 'end;'))
 ,p_default_escape_mode=>'HTML'
@@ -147,16 +179,24 @@ wwv_flow_imp_shared.create_plugin(
 ,p_ajax_function=>'mapbits_zoom_ajax'
 ,p_standard_attributes=>'REGION:REQUIRED:ONLOAD'
 ,p_substitute_attributes=>true
-,p_subscribe_plugin_settings=>true
-,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item.'
-,p_version_identifier=>'4.8.20240604'
+,p_subscribe_plugin_settings=>false
+,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item. If you are running this action when the page first loads, you must set the ''Initial Position and '
+||'Zoom'' to ''Static Values.'''
+,p_version_identifier=>'4.9.20250506'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
-'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
-'Revision : $Revision: 20090 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 20610 2025-05-12 19:59:44Z b2imimcf $',
+'Date     : $Date: 2025-05-12 14:59:44 -0500 (Mon, 12 May 2025) $',
+'Revision : $Revision: 20610 $',
 'Requires : Application Express >= 23.2',
+'',
+'Version 4.9 Updates:',
+'05/06/2025 Removed the need to poll for the map but handling the ''Page Load'' event by hooking the javascript code to the ''Map Initialized'' event. Added an error message to the APEX logger if',
+'the event triggers on ''Page Load'', ''Map Initialized'' or if the action "fires on initialization" and the associated map does not use ''Static Values for the ''Initial Position and Zoom'' setting.',
+'This configuration conflict causes the zoom to fail the first time it is executed in a session.',
+'01/15/2025 Return error messages from the ajax process instead of raising exception if there is no geometry upon which to base the zoom. Write the error message to the javascript console instead of propagating it to the application. ',
+'',
 '',
 'Version 4.8 Updates:',
 '06/04/2024 Added padding attribute.',
@@ -176,11 +216,11 @@ wwv_flow_imp_shared.create_plugin(
 '08/13/2022 Test with maplibre. No changes. Bumping version.',
 '03/24/2022 Added error message if geometry is too large. Edited help text to encourage use of MBR.',
 '12/07/2022 Break out of javascript function if the region is null to avoid javascript errors breaking the rest of page. This is common for ''load'' dynamic actions. '))
-,p_files_version=>58
+,p_files_version=>178
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1991140158483864417)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95173313260871704)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>50
@@ -191,8 +231,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Use ''Page Items To Submit'' (plural) instead.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(1991143688877618423)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95173753733871706)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
@@ -206,8 +246,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 'sdo_geom.sdo_mbr function.'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(873728154750561824)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95174149538871707)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -226,8 +266,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'Page item to submit prior to running the query in ''Query Returning Extent Geometry''. This page item is usually referenced in the where clause of the Zoom To query attribute.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(587689214689084026)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95174576868871708)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>4
 ,p_display_sequence=>40
@@ -238,8 +278,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_is_translatable=>false
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(593250376681113777)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95174945341871708)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>5
 ,p_display_sequence=>10
@@ -252,24 +292,24 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_help_text=>'The data type that the query returns.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(593251420104114702)
-,p_plugin_attribute_id=>wwv_flow_imp.id(593250376681113777)
+ p_id=>wwv_flow_imp.id(95175314313871709)
+,p_plugin_attribute_id=>wwv_flow_imp.id(95174945341871708)
 ,p_display_sequence=>10
 ,p_display_value=>'GeoJSON'
 ,p_return_value=>'GeoJSON'
 ,p_help_text=>'The query returns a single text column containing GeoJSON.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(593251874719116498)
-,p_plugin_attribute_id=>wwv_flow_imp.id(593250376681113777)
+ p_id=>wwv_flow_imp.id(95175829135871710)
+,p_plugin_attribute_id=>wwv_flow_imp.id(95174945341871708)
 ,p_display_sequence=>20
 ,p_display_value=>'SDO_GEOMETRY'
 ,p_return_value=>'sdo_geometry'
 ,p_help_text=>'The query returns a single column with type sdo_geometry.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(477497936578866022)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
+ p_id=>wwv_flow_imp.id(95176370715871710)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>6
 ,p_display_sequence=>60
@@ -284,21 +324,39 @@ end;
 /
 begin
 wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
-wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F7A6F6F6D286E2C652C6F2C742C722C692C73297B66756E6374696F6E20612865297B617065782E6A5175657279282866756E6374696F6E28297B636F6E736F6C652E6C6F67286E2B2220222B65297D29297D76';
-wwv_flow_imp.g_varchar2_table(2) := '6172206C3D617065782E726567696F6E286F293B6966286E756C6C3D3D6C2972657475726E20766F696420636F6E736F6C652E6C6F6728226D6170626974735F7A6F6F6D20222B6E2B22203A20526567696F6E205B222B6F2B225D206973206869646465';
-wwv_flow_imp.g_varchar2_table(3) := '6E206F72206D697373696E672E22293B636F6E737420633D736574496E74657276616C282866756E6374696F6E28297B636F6E7374206E3D6C2E63616C6C28226765744D61704F626A65637422293B696628766F696420303D3D3D6E7C7C6E756C6C3D3D';
-wwv_flow_imp.g_varchar2_table(4) := '6E2972657475726E3B636C656172496E74657276616C2863293B636F6E7374206F3D5B742C2E2E2E722E73706C697428222C22295D2E66696C74657228286E3D3E6E29293B6E2E67657443616E76617328292E7374796C652E637572736F723D226E6F74';
-wwv_flow_imp.g_varchar2_table(5) := '2D616C6C6F776564222C617065782E7365727665722E706C7567696E28652C7B706167654974656D733A6F7D2C7B737563636573733A66756E6374696F6E2865297B226572726F7222696E20653F6128657272293A6E2E666974426F756E647328652C7B';
-wwv_flow_imp.g_varchar2_table(6) := '70616464696E673A733F3F352C616E696D6174653A225922213D3D697D292C6E2E67657443616E76617328292E7374796C652E637572736F723D22706F696E746572227D2C6572726F723A66756E6374696F6E28652C6F2C74297B612874292C6E2E6765';
-wwv_flow_imp.g_varchar2_table(7) := '7443616E76617328292E7374796C652E637572736F723D22706F696E746572227D7D297D292C313030297D';
+wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F7A6F6F6D28705F616374696F6E5F69642C20705F616A61785F6964656E7469666965722C20705F726567696F6E5F69642C20705F6974656D5F746F5F7375626D69742C20705F6974656D735F746F5F7375626D';
+wwv_flow_imp.g_varchar2_table(2) := '69742C20705F736B69705F616E696D6174696F6E2C20705F70616464696E672C20705F696E69745F636F6E666C6963742C20705F6576656E7429207B0D0A20202F2F2072616973652061206A61766173637269707420616C657274207769746820746865';
+wwv_flow_imp.g_varchar2_table(3) := '20696E707574206D6573736167652C206D73672C20616E6420777269746520746F20636F6E736F6C652E0D0A202066756E6374696F6E20617065785F616C657274286D736729207B0D0A20202020617065782E6A51756572792866756E6374696F6E2829';
+wwv_flow_imp.g_varchar2_table(4) := '7B636F6E736F6C652E6C6F6728705F616374696F6E5F6964202B20222022202B206D7367293B7D293B0D0A20207D0D0A0D0A20202F2F206765742074686520726567696F6E206F626A6563742E20425265616B206F7574206966206974206973206E6F74';
+wwv_flow_imp.g_varchar2_table(5) := '2072656E64657265642E0D0A202076617220726567696F6E203D20617065782E726567696F6E28705F726567696F6E5F6964293B0D0A202069662028726567696F6E203D3D206E756C6C29207B0D0A20202020617065785F616C65727428276D61706269';
+wwv_flow_imp.g_varchar2_table(6) := '74735F7A6F6F6D2027202B20705F616374696F6E5F6964202B2027203A20526567696F6E205B27202B20705F726567696F6E5F6964202B20275D2069732068696464656E206F72206D697373696E672E27293B0D0A2020202072657475726E3B0D0A2020';
+wwv_flow_imp.g_varchar2_table(7) := '7D0D0A20200D0A202066756E6374696F6E207A6F6F6D5F746F2829207B0D0A202020202F2F2063616C6C206261636B2074686520617065782073657276657220746F206765742074686520626F756E647320636F72726573706F6E64696E6720746F0D0A';
+wwv_flow_imp.g_varchar2_table(8) := '202020202F2F2074686520657874656E7420636F64652E204966207375636365737366756C2C20746865206173736F636961746564206D617020726567696F6E2028705F726567696F6E5F6964290D0A202020202F2F2077696C6C2070616E20616E6420';
+wwv_flow_imp.g_varchar2_table(9) := '7A6F6F6D20746F2074686F736520626F756E64732E204F74686572776973652C2073686F7720746865206572726F72206D6573736167650D0A202020202F2F20696E2061206A61766173637269707420616C6572742E0D0A202020202F2F205061737320';
+wwv_flow_imp.g_varchar2_table(10) := '74686520696E697469616C20636F6E666C69637420666C616720696E207468652078303120617267756D656E7420746F2067656E657261746520616E206572726F72206D6573736167650D0A202020202F2F20746F206C6574207468652070726F677261';
+wwv_flow_imp.g_varchar2_table(11) := '6D6D6572206B6E6F772061626F7574207468652070726F626C656D20776974686F757420627265616B696E672074686520706167652E0D0A20202020636F6E7374206D6170203D20726567696F6E2E63616C6C28226765744D61704F626A65637422293B';
+wwv_flow_imp.g_varchar2_table(12) := '0D0A20202020636F6E737420706167654974656D73203D205B705F6974656D5F746F5F7375626D69742C202E2E2E705F6974656D735F746F5F7375626D69742E73706C697428222C22295D2E66696C7465722878203D3E2078293B0D0A202020206D6170';
+wwv_flow_imp.g_varchar2_table(13) := '2E67657443616E76617328292E636C6173734C6973742E61646428276D6170626974732D7A6F6F6D2D61637469766527293B0D0A20202020617065782E7365727665722E706C7567696E28705F616A61785F6964656E7469666965722C207B783031203A';
+wwv_flow_imp.g_varchar2_table(14) := '20705F696E69745F636F6E666C696374203F20275927203A20274E272C20706167654974656D737D2C20207B0D0A2020202020206461746154797065203A20276A736F6E272C0D0A202020202020737563636573733A2066756E6374696F6E2028704461';
+wwv_flow_imp.g_varchar2_table(15) := '746129207B0D0A20202020202020206966202870446174612E6461746129207B0D0A20202020202020202020636F6E7374206D6170203D20726567696F6E2E63616C6C28226765744D61704F626A65637422293B0D0A2020202020202020202074727920';
+wwv_flow_imp.g_varchar2_table(16) := '7B0D0A2020202020202020202020206D61702E666974426F756E64732870446174612E646174612C207B70616464696E673A20705F70616464696E67203F3F20352C20616E696D6174653A20705F736B69705F616E696D6174696F6E20213D3D20275927';
+wwv_flow_imp.g_varchar2_table(17) := '7D293B0D0A202020202020202020207D20636174636820286529207B0D0A2020202020202020202020207468726F77206E6577204572726F7228224572726F722066697474696E6720626F756E64732E20436865636B207468617420746865206D617020';
+wwv_flow_imp.g_varchar2_table(18) := '726567696F6E20616E64205A6F6F6D20546F20706C7567696E206172652070726F7065726C7920636F6E666967757265642E22293B0D0A202020202020202020207D0D0A20202020202020207D20656C7365207B0D0A2020202020202020202061706578';
+wwv_flow_imp.g_varchar2_table(19) := '5F616C6572742870446174612E6D657373616765293B0D0A20202020202020207D0D0A20202020202020206D61702E67657443616E76617328292E636C6173734C6973742E72656D6F766528276D6170626974732D7A6F6F6D2D61637469766527293B0D';
+wwv_flow_imp.g_varchar2_table(20) := '0A2020202020207D2C0D0A2020202020206572726F723A2066756E6374696F6E20286A717868722C207374617475732C2065727229207B0D0A2020202020202020617065785F616C65727428276D6170626974735F7A6F6F6D2027202B20705F61637469';
+wwv_flow_imp.g_varchar2_table(21) := '6F6E5F6964202B20272067656E6572616C206661696C75726527293B0D0A20202020202020206D61702E67657443616E76617328292E636C6173734C6973742E72656D6F766528276D6170626974732D7A6F6F6D2D61637469766527293B0D0A20202020';
+wwv_flow_imp.g_varchar2_table(22) := '20207D0D0A202020207D293B0D0A20207D0D0A20200D0A20202F2F20696620746865206576656E7420697320612070616765206C6F6164206576656E742C20686F6F6B20746865207370617469616C6D6170696E697469616C697A6564206576656E7420';
+wwv_flow_imp.g_varchar2_table(23) := '0D0A20202F2F20746F207A6F6F6D5F746F2066756E6374696F6E2073696E636520746865206D6170206973206E6F742079657420696E697469616C697A65642C20656C73650D0A20202F2F2072756E207A6F6F6D5F746F2E0D0A202069662028705F6576';
+wwv_flow_imp.g_varchar2_table(24) := '656E74203D3D20226C6F616422207C7C20705F6576656E742E74797065203D3D20226C6F61642229207B0D0A20202020726567696F6E2E6F6E28277370617469616C6D6170696E697469616C697A6564272C207A6F6F6D5F746F293B200D0A20207D2065';
+wwv_flow_imp.g_varchar2_table(25) := '6C7365207B0D0A202020207A6F6F6D5F746F28293B0D0A20207D0D0A7D';
 null;
 end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(477499745577867558)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
-,p_file_name=>'mapbits-zoomto.min.js'
+ p_id=>wwv_flow_imp.id(95176798941871715)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
+,p_file_name=>'mapbits-zoomto.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
@@ -307,32 +365,57 @@ end;
 /
 begin
 wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
-wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F7A6F6F6D28705F616374696F6E5F69642C20705F616A61785F6964656E7469666965722C20705F726567696F6E5F69642C20705F6974656D5F746F5F7375626D69742C20705F6974656D735F746F5F7375626D';
-wwv_flow_imp.g_varchar2_table(2) := '69742C20705F736B69705F616E696D6174696F6E2C20705F70616464696E6729207B0D0A20202F2F2072616973652061206A61766173637269707420616C65727420776974682074686520696E707574206D6573736167652C206D73672C20616E642077';
-wwv_flow_imp.g_varchar2_table(3) := '7269746520746F20636F6E736F6C652E0D0A202066756E6374696F6E20617065785F616C657274286D736729207B0D0A20202020617065782E6A51756572792866756E6374696F6E28297B636F6E736F6C652E6C6F6728705F616374696F6E5F6964202B';
-wwv_flow_imp.g_varchar2_table(4) := '20222022202B206D7367293B7D293B0D0A20207D0D0A20200D0A20202F2F206765742074686520726567696F6E206F626A6563742E20425265616B206F7574206966206974206973206E6F742072656E64657265642E0D0A202076617220726567696F6E';
-wwv_flow_imp.g_varchar2_table(5) := '203D20617065782E726567696F6E28705F726567696F6E5F6964293B0D0A202069662028726567696F6E203D3D206E756C6C29207B0D0A20202020636F6E736F6C652E6C6F6728276D6170626974735F7A6F6F6D2027202B20705F616374696F6E5F6964';
-wwv_flow_imp.g_varchar2_table(6) := '202B2027203A20526567696F6E205B27202B20705F726567696F6E5F6964202B20275D2069732068696464656E206F72206D697373696E672E27293B0D0A2020202072657475726E3B0D0A20207D0D0A0D0A20202F2F2049746572617465206F76657220';
-wwv_flow_imp.g_varchar2_table(7) := '63616C6C7320746F20276765744D61704F626A6563742720756E74696C2077652067657420746865206D61702E200D0A2020636F6E737420696E74657276616C203D20736574496E74657276616C2866756E6374696F6E2829207B0D0A20202020636F6E';
-wwv_flow_imp.g_varchar2_table(8) := '7374206D6170203D20726567696F6E2E63616C6C28226765744D61704F626A65637422293B0D0A2020202069662028747970656F66206D6170203D3D3D2027756E646566696E656427207C7C206D6170203D3D206E756C6C29207B2020200D0A20202020';
-wwv_flow_imp.g_varchar2_table(9) := '202072657475726E3B20200D0A202020207D0D0A20202020636C656172496E74657276616C28696E74657276616C293B0D0A0D0A202020202F2F2063616C6C206261636B2074686520617065782073657276657220746F206765742074686520626F756E';
-wwv_flow_imp.g_varchar2_table(10) := '647320636F72726573706F6E64696E6720746F0D0A202020202F2F2074686520657874656E7420636F64652E204966207375636365737366756C2C20746865206173736F636961746564206D617020726567696F6E2028705F726567696F6E5F6964290D';
-wwv_flow_imp.g_varchar2_table(11) := '0A202020202F2F2077696C6C2070616E20616E64207A6F6F6D20746F2074686F736520626F756E64732E204F74686572776973652C2073686F7720746865206572726F72206D6573736167650D0A202020202F2F20696E2061206A617661736372697074';
-wwv_flow_imp.g_varchar2_table(12) := '20616C6572742E0D0A20202020636F6E737420706167654974656D73203D205B705F6974656D5F746F5F7375626D69742C202E2E2E705F6974656D735F746F5F7375626D69742E73706C697428222C22295D2E66696C7465722878203D3E2078293B0D0A';
-wwv_flow_imp.g_varchar2_table(13) := '202020206D61702E67657443616E76617328292E7374796C652E637572736F72203D20276E6F742D616C6C6F776564273B0D0A20202020617065782E7365727665722E706C7567696E28705F616A61785F6964656E7469666965722C207B706167654974';
-wwv_flow_imp.g_varchar2_table(14) := '656D737D2C207B0D0A202020202020737563636573733A2066756E6374696F6E2028704461746129207B0D0A202020202020202069662028226572726F722220696E20704461746129207B0D0A20202020202020202020617065785F616C657274286572';
-wwv_flow_imp.g_varchar2_table(15) := '72293B0D0A20202020202020207D20656C7365207B0D0A202020202020202020206D61702E666974426F756E64732870446174612C207B70616464696E673A20705F70616464696E67203F3F20352C20616E696D6174653A20705F736B69705F616E696D';
-wwv_flow_imp.g_varchar2_table(16) := '6174696F6E20213D3D202759277D293B0D0A20202020202020207D0D0A20202020202020206D61702E67657443616E76617328292E7374796C652E637572736F72203D2027706F696E746572273B0D0A2020202020207D2C0D0A2020202020206572726F';
-wwv_flow_imp.g_varchar2_table(17) := '723A2066756E6374696F6E20286A717868722C207374617475732C2065727229207B0D0A2020202020202020617065785F616C65727428657272293B0D0A20202020202020206D61702E67657443616E76617328292E7374796C652E637572736F72203D';
-wwv_flow_imp.g_varchar2_table(18) := '2027706F696E746572273B0D0A2020202020207D0D0A202020207D293B0D0A20207D2C313030293B0D0A7D0D0A';
+wwv_flow_imp.g_varchar2_table(1) := '2E6D6170626974732D7A6F6F6D2D616374697665207B0D0A2020637572736F723A206E6F742D616C6C6F7765643B0D0A7D';
 null;
 end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(2072780822713425561)
-,p_plugin_id=>wwv_flow_imp.id(1991139997459864414)
-,p_file_name=>'mapbits-zoomto.js'
+ p_id=>wwv_flow_imp.id(96101462051528007)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
+,p_file_name=>'mapbits-zoomto.css'
+,p_mime_type=>'text/css'
+,p_file_charset=>'utf-8'
+,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
+);
+end;
+/
+begin
+wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
+wwv_flow_imp.g_varchar2_table(1) := '2E6D6170626974732D7A6F6F6D2D6163746976657B637572736F723A6E6F742D616C6C6F7765647D';
+null;
+end;
+/
+begin
+wwv_flow_imp_shared.create_plugin_file(
+ p_id=>wwv_flow_imp.id(96102938636528681)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
+,p_file_name=>'mapbits-zoomto.min.css'
+,p_mime_type=>'text/css'
+,p_file_charset=>'utf-8'
+,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
+);
+end;
+/
+begin
+wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
+wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F7A6F6F6D28612C652C742C6F2C692C6E2C732C722C63297B66756E6374696F6E206C2865297B617065782E6A5175657279282866756E6374696F6E28297B636F6E736F6C652E6C6F6728612B2220222B65297D';
+wwv_flow_imp.g_varchar2_table(2) := '29297D76617220703D617065782E726567696F6E2874293B66756E6374696F6E206D28297B636F6E737420743D702E63616C6C28226765744D61704F626A65637422292C633D5B6F2C2E2E2E692E73706C697428222C22295D2E66696C7465722828613D';
+wwv_flow_imp.g_varchar2_table(3) := '3E6129293B742E67657443616E76617328292E636C6173734C6973742E61646428226D6170626974732D7A6F6F6D2D61637469766522292C617065782E7365727665722E706C7567696E28652C7B7830313A723F2259223A224E222C706167654974656D';
+wwv_flow_imp.g_varchar2_table(4) := '733A637D2C7B64617461547970653A226A736F6E222C737563636573733A66756E6374696F6E2861297B696628612E64617461297B636F6E737420653D702E63616C6C28226765744D61704F626A65637422293B7472797B652E666974426F756E647328';
+wwv_flow_imp.g_varchar2_table(5) := '612E646174612C7B70616464696E673A733F3F352C616E696D6174653A225922213D3D6E7D297D63617463682861297B7468726F77206E6577204572726F7228224572726F722066697474696E6720626F756E64732E20436865636B2074686174207468';
+wwv_flow_imp.g_varchar2_table(6) := '65206D617020726567696F6E20616E64205A6F6F6D20546F20706C7567696E206172652070726F7065726C7920636F6E666967757265642E22297D7D656C7365206C28612E6D657373616765293B742E67657443616E76617328292E636C6173734C6973';
+wwv_flow_imp.g_varchar2_table(7) := '742E72656D6F766528226D6170626974732D7A6F6F6D2D61637469766522297D2C6572726F723A66756E6374696F6E28652C6F2C69297B6C28226D6170626974735F7A6F6F6D20222B612B222067656E6572616C206661696C75726522292C742E676574';
+wwv_flow_imp.g_varchar2_table(8) := '43616E76617328292E636C6173734C6973742E72656D6F766528226D6170626974732D7A6F6F6D2D61637469766522297D7D297D6E756C6C213D703F226C6F6164223D3D637C7C226C6F6164223D3D632E747970653F702E6F6E28227370617469616C6D';
+wwv_flow_imp.g_varchar2_table(9) := '6170696E697469616C697A6564222C6D293A6D28293A6C28226D6170626974735F7A6F6F6D20222B612B22203A20526567696F6E205B222B742B225D2069732068696464656E206F72206D697373696E672E22297D';
+null;
+end;
+/
+begin
+wwv_flow_imp_shared.create_plugin_file(
+ p_id=>wwv_flow_imp.id(112006008039990773)
+,p_plugin_id=>wwv_flow_imp.id(95173023119871702)
+,p_file_name=>'mapbits-zoomto.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)

@@ -33,8 +33,8 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:17 Tuesday January 28, 2025
---   Exported By:     LESS
+--   Date and Time:   14:42 Monday May 12, 2025
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
@@ -113,15 +113,16 @@ wwv_flow_imp_shared.create_plugin(
 ,p_render_function=>'mapbits_lodestar_info_window'
 ,p_substitute_attributes=>false
 ,p_subscribe_plugin_settings=>true
-,p_version_identifier=>'4.8.20250128'
+,p_version_identifier=>'4.9.20250128'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Lodestar Info Window',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_lodestar_infowin.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
-'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
-'Revision : $Revision: 20090 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_lodestar_infowin.sql 20613 2025-05-12 20:11:56Z b2imimcf $',
+'Date     : $Date: 2025-05-12 15:11:56 -0500 (Mon, 12 May 2025) $',
+'Revision : $Revision: 20613 $',
 'Requires : Application Express >= 22.2',
 '',
+'Version 4.8 Updates:',
 '11/29/2024 Fix bug where clicking a clustered point would cause popups to stop appearing',
 '',
 'Version 4.7 Updates:',

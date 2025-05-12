@@ -33,8 +33,8 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   16:30 Tuesday January 28, 2025
---   Exported By:     LESS
+--   Date and Time:   14:41 Monday May 12, 2025
+--   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
@@ -449,7 +449,8 @@ wwv_flow_imp_shared.create_plugin(
 '        htp.prn(l_chunk);',
 '      end loop;',
 '      htp.prn('']</script>'');',
-'      select nvl(static_id, ''R'' || region_id) into l_map_region_id from apex_application_page_regions where page_id = :APP_PAGE_ID and application_id = :APP_ID and source_type_code = ''NATIVE_MAP_REGION'';',
+'      select nvl(static_id, ''R'' || region_id) into l_map_region_id from apex_application_page_regions',
+'        where page_id = :APP_PAGE_ID and application_id = :APP_ID and source_type_code = ''NATIVE_MAP_REGION'' and (p_region.attribute_02 is null or p_region.attribute_02 = static_id);',
 '      apex_javascript.add_onload_code(''mapbits_legend_build_entries(R'' || p_region.id || ''_mapbits_legend_entry,'' || apex_escape.js_literal(l_map_region_id) || '')'', null);',
 '    end;',
 '  end if;',
@@ -661,15 +662,16 @@ wwv_flow_imp_shared.create_plugin(
 'Optionally, Mapbits Legend Entry Plugin Items can be added to a Legend Region to provide additional functionality and configuration such as added user-controlled visibility toggles for Lodestar layer and spacing',
 'control. See the Mapbits Legend Entry Plugin for more information.',
 '</p>'))
-,p_version_identifier=>'4.8.20250128'
+,p_version_identifier=>'4.9.20250128'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Legend',
-'Location : $Id: region_type_plugin_mil_army_usace_mapbits_legend.sql 20090 2025-01-28 22:41:13Z b2eddjw9 $',
-'Date     : $Date: 2025-01-28 16:41:13 -0600 (Tue, 28 Jan 2025) $',
-'Revision : $Revision: 20090 $',
+'Location : $Id: region_type_plugin_mil_army_usace_mapbits_legend.sql 20613 2025-05-12 20:11:56Z b2imimcf $',
+'Date     : $Date: 2025-05-12 15:11:56 -0500 (Mon, 12 May 2025) $',
+'Revision : $Revision: 20613 $',
 'Requires : Application Express >= 22.2',
 '',
+'Version 4.8 Updates:',
 '10/11/2024 Fix bug collapsing a section that contains a non-Legend Entry item',
 '09/23/2024 Add support for HTML Marker layers',
 '07/29/2024 Add support for Legend Entry show() and hide() methods.',
