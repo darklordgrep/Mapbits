@@ -33,8 +33,8 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   14:31 Monday May 12, 2025
---   Exported By:     GREP
+--   Date and Time:   16:13 Friday May 30, 2025
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
@@ -237,9 +237,9 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Draw',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 20613 2025-05-12 20:11:56Z b2imimcf $',
-'Date     : $Date: 2025-05-12 15:11:56 -0500 (Mon, 12 May 2025) $',
-'Revision : $Revision: 20613 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_draw.sql 20685 2025-05-30 21:18:24Z b2eddjw9 $',
+'Date     : $Date: 2025-05-30 16:18:24 -0500 (Fri, 30 May 2025) $',
+'Revision : $Revision: 20685 $',
 'Requires : Application Express >= 21.1',
 '',
 'Version 4.8 Updates:',

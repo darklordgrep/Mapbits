@@ -82,7 +82,8 @@ properties.
 
 Font APEX icons may be used in the "icon-image" property. Just use the icon name, e.g.
 "fa-map-marker", and Lodestar will add the icon to MapLibre for you the first time it is used.
-Icons referenced this way are compatible with "icon-color" and "icon-halo-color".
+Icons referenced this way are compatible with "icon-color" and "icon-halo-color". The "icon-image" can also be a path
+to a static application file, e.g. `#APP_FILES#my-icon.png`.
 
 Figure 4 combines many of these features in one example. It has both a line and symbol layer,
 and the symbol layer uses the "fa-chevron-right" icon.
@@ -143,7 +144,16 @@ the clicked point. This can be used to filter out duplicate events if there are 
 If a map layer has any Feature Clicked dynamic actions, then the cursor will change to a "pointer"
 appearance when you hover over a feature in that layer.
 
+## An Important Note about Feature IDs
+
+The ID column may be a number, date, timestamp, varchar2, or clob, but MapLibre only allows positive integer feature IDs.
+Therefore, Mapbits assigns new feature IDs when it passes the data to MapLibre. Mapbits APIs handle this transparently,
+but if you get a feature directly from MapLibre (e.g. by connecting an event handler to the Map object), you will need
+to call the item's **`convertID(id)`** method to get the original ID.
+
 ## Selecting Features
+
+### By Dynamic Action
 
 The Mapbits Lodestar Select Features Plug-in is a Dynamic Action that selects or deselects features
 in a Mapbits Lodestar Layer based on a query.
@@ -165,6 +175,30 @@ Figure 6 shows the dynamic action used to highlight locks in a particular distri
 ![Figure 6](./lodestar_plate_6.png "Figure 6")  
 Figure 6
 
+### Using JavaScript
+
+The Lodestar item API has functions for changing the selection:
+
+- **`getSelectedFeatures()`**: Gets the IDs of the selected features.
+- **`setSelectedFeatures(features, action)`**: Changes the selection set. `features` is a list of feature IDs and `action` is one of 'set', 'add', 'remove', or 'toggle'.
+- **`selectAllFeatures()`**: Selects all features in the layer.
+- **`clearSelection()`**: Clears the selection.
+
+### By User Interaction
+
+There are two ways users can select features on the map itself, if the developer enables them: clicking and rectangle
+select.
+
+Currently, they can only be enabled in JavaScript via the Initialization JavaScript Function attribute, for example:
+
+```js
+function(item) {
+  item.setSelectionStyle('property', {
+    enableClick: true,
+    rectangleSelect: true,
+  });
+}
+```
 
 ### Selections and Custom Layers
 
@@ -201,3 +235,37 @@ layer. In both cases, the highlight layer uses a filter expression like this:
 Lodestar won't add this selection highlight layer for you if you choose a custom layer type. You
 will need to add it yourself. Remember that the MapLibre Layer Definition attribute accepts arrays,
 so one **Lodestar Layer item** can contain multiple **MapLibre layers** which will act as one group.
+
+### Faster Selection Styling
+
+Mapbits also has a more performant method for indicating selected features, which uses filters and a separate layer
+rather than updating a property in the source data, which is slow. To enable this method, use the Initialization
+JavaScript Function attribute:
+
+```js
+function(item) {
+  item.setSelectionStyle('line', {});
+}
+```
+
+Use 'line' for line and polygon features or 'circle' for point features. You can include paint and layout properties
+for the selection highlight layer in the second argument to `setSelectionStyle()`.
+
+## Editing API
+
+For more advanced data entry scenarios, Lodestar offers an editing API through JavaScript. Using this API, you can
+make changes to the data on the client side, then upload them to an application process (or elsewhere).
+
+- **`editFeature(action, feature)`**: Edits a feature. `action` should be 'create', 'update', or 'delete'. `feature` is the feature to edit. If the action is 'delete', then `feature` only needs the `id` property.
+  
+  If `action` is 'create' and the feature has no ID, a UUID will be assigned as the ID.
+
+- **`getEdits()`**: Gets the list of edits that have been made to the layer. This is the function you will likely use when saving changes via page process.
+
+  Only the latest edit for each feature is included. For example, if a feature is edited and then deleted, only the delete edit is returned. If a feature is created and then deleted, no edit is returned for it.
+
+- **`getEditedData()`**: Gets the full data of the layer with edits applied.
+- **`getFeature(id)`**: Gets the feature with the given ID, with edits applied. If the feature has been deleted, returns `undefined`.
+- **`getFeatureEditAction(id)`**: Gets the edit action ('create', 'update', 'delete', or 'none') for the given feature.
+- **`clearEdits()`**: Clears the edits from the layer.
+- **`clearEditsAndRefresh()`**: Clears edits from the layer, then refreshes the data source.
