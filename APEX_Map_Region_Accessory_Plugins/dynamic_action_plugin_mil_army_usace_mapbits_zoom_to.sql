@@ -33,7 +33,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   07:56 Tuesday August 12, 2025
+--   Date and Time:   07:59 Tuesday August 12, 2025
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -197,9 +197,9 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 4 - Zoom To',
-'Location : $Id: mapbits_demo_apex_application.sql 19954 2025-01-15 17:15:00Z b2imimcf $',
-'Date     : $Date: 2025-01-15 11:15:00 -0600 (Wed, 15 Jan 2025) $',
-'Revision : $Revision: 19954 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 20908 2025-08-12 13:01:49Z b2eddjw9 $',
+'Date     : $Date: 2025-08-12 08:01:49 -0500 (Tue, 12 Aug 2025) $',
+'Revision : $Revision: 20908 $',
 'Requires : Application Express >= 23.2',
 '',
 '09/12/2025 Use APEX_JAVASCRIPT package to pass parameters to Javascript (fixes a bug in locales where commas are used instead of decimal points)',
