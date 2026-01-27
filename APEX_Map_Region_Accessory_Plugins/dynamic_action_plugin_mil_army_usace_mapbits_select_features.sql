@@ -18,30 +18,30 @@ whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2023.10.31'
-,p_release=>'23.2.0'
-,p_default_workspace_id=>2612926235066099
-,p_default_application_id=>107981
-,p_default_id_offset=>197864740331967674
+ p_version_yyyy_mm_dd=>'2024.11.30'
+,p_release=>'24.2.4'
+,p_default_workspace_id=>7300231193299000
+,p_default_application_id=>107982
+,p_default_id_offset=>0
 ,p_default_owner=>'MVDGIS'
 );
 end;
 /
  
-prompt APPLICATION 107981 - Mapbits Demo
+prompt APPLICATION 107982 - Mapbits 5 Demo
 --
 -- Application Export:
---   Application:     107981
---   Name:            Mapbits Demo
---   Date and Time:   14:43 Monday May 12, 2025
---   Exported By:     GREP
+--   Application:     107982
+--   Name:            Mapbits 5 Demo
+--   Date and Time:   17:33 Tuesday January 27, 2026
+--   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 910903358650826987
+--     PLUGIN: 43245364294713187
 --   Manifest End
---   Version:         23.2.0
---   Instance ID:     61817619049184
+--   Version:         24.2.4
+--   Instance ID:     218369902185809
 --
 
 begin
@@ -52,7 +52,7 @@ end;
 prompt --application/shared_components/plugins/dynamic_action/mil_army_usace_mapbits_select_features
 begin
 wwv_flow_imp_shared.create_plugin(
- p_id=>wwv_flow_imp.id(910903358650826987)
+ p_id=>wwv_flow_imp.id(43245364294713187)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'MIL.ARMY.USACE.MAPBITS.SELECT_FEATURES'
 ,p_display_name=>'Mapbits Lodestar Select Features'
@@ -126,38 +126,27 @@ wwv_flow_imp_shared.create_plugin(
 '  end loop;',
 '  json_obj.put(''ids'', json_ids);',
 '',
-'  declare',
-'    output_clob clob;',
-'    l_offset pls_integer := 1;',
-'    l_chunk pls_integer := 2048;',
-'  begin',
-'    output_clob := json_obj.to_clob();',
-'    loop',
-'      exit when l_offset > length(output_clob);',
-'      htp.prn(substr(output_clob, l_offset, l_chunk));',
-'      l_offset := l_offset + l_chunk;',
-'    end loop;',
-'  end;',
+'  apex_util.prn(json_obj.to_clob(), false);',
 '',
 '  return rt;',
 'end;',
 ''))
-,p_default_escape_mode=>'HTML'
-,p_api_version=>2
+,p_api_version=>1
 ,p_render_function=>'mapbits_select_features'
 ,p_ajax_function=>'mapbits_select_features_ajax'
 ,p_standard_attributes=>'ITEM:REQUIRED:ONLOAD'
 ,p_substitute_attributes=>true
+,p_version_scn=>449825614
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Lodestar Select Features plugin is a dynamic action used to modify the symbology of a subset Mapbits Lodestar Layer features to appear "selected". The selected feature subset is based on a sql query that returns ''ids'' from the Lodestar Layer.'
-,p_version_identifier=>'4.9.20250128'
+,p_version_identifier=>'5.0.20250512'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'Module   : Mapbits 4 - Lodestar Select Features',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_select_features.sql 20613 2025-05-12 20:11:56Z b2imimcf $',
-'Date     : $Date: 2025-05-12 15:11:56 -0500 (Mon, 12 May 2025) $',
-'Revision : $Revision: 20613 $',
-'Requires : Application Express >= 22.2',
+'Module   : Mapbits 5 - Lodestar Select Features',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_select_features.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
+'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
+'Revision : $Revision: 21366 $',
+'Requires : Application Express >= 24.2',
 '',
 'Version 4.6 Updates:',
 '12/04/2023 Raise an application error if this plugin item is not associated with at least one Lodestar layer item.',
@@ -165,11 +154,11 @@ wwv_flow_imp_shared.create_plugin(
 '11/03/2023 Initial Implementation',
 '',
 ''))
-,p_files_version=>51
+,p_files_version=>53
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(873724654024455647)
-,p_plugin_id=>wwv_flow_imp.id(910903358650826987)
+ p_id=>wwv_flow_imp.id(43245743437713188)
+,p_plugin_id=>wwv_flow_imp.id(43245364294713187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -177,15 +166,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'PAGE ITEMS'
 ,p_is_required=>false
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(910978797524999399)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'IN_LIST'
 ,p_depending_on_expression=>'set,add,remove'
 ,p_help_text=>'If the IDs query includes any page items that may need to be passed to the database for the query to work properly, specify them here as a comma-separated list.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(910904044672835762)
-,p_plugin_id=>wwv_flow_imp.id(910903358650826987)
+ p_id=>wwv_flow_imp.id(43246156585713188)
+,p_plugin_id=>wwv_flow_imp.id(43245364294713187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>5
@@ -193,15 +182,15 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'SQL'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_depending_on_attribute_id=>wwv_flow_imp.id(910978797524999399)
+,p_depending_on_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'IN_LIST'
 ,p_depending_on_expression=>'set,add,remove'
 ,p_help_text=>'SQL query returning a single column of ids from the affected layer, corresponding to the column specified in the ''Id Column'' attribute of the Lodestar Layer.'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
- p_id=>wwv_flow_imp.id(910978797524999399)
-,p_plugin_id=>wwv_flow_imp.id(910903358650826987)
+ p_id=>wwv_flow_imp.id(43246578707713188)
+,p_plugin_id=>wwv_flow_imp.id(43245364294713187)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>4
@@ -215,8 +204,8 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ||'ve From Selection'' will remove features returned by the query from the existing selection. ''Select All'' and ''Deselect All'' do not use the query, but rather select all features and deselect all features from the affected layer, respectively.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(910980142109003056)
-,p_plugin_attribute_id=>wwv_flow_imp.id(910978797524999399)
+ p_id=>wwv_flow_imp.id(43246901493713188)
+,p_plugin_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_display_sequence=>10
 ,p_display_value=>'Set Selection'
 ,p_return_value=>'set'
@@ -224,8 +213,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Select the specified features, and unselect all other features.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(910980490431005234)
-,p_plugin_attribute_id=>wwv_flow_imp.id(910978797524999399)
+ p_id=>wwv_flow_imp.id(43247457463713188)
+,p_plugin_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_display_sequence=>20
 ,p_display_value=>'Add To Selection'
 ,p_return_value=>'add'
@@ -233,8 +222,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Adds the specified features to the layer''s selection.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(910980881630009413)
-,p_plugin_attribute_id=>wwv_flow_imp.id(910978797524999399)
+ p_id=>wwv_flow_imp.id(43247906901713188)
+,p_plugin_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_display_sequence=>30
 ,p_display_value=>'Remove From Selection'
 ,p_return_value=>'remove'
@@ -242,8 +231,8 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Deselect the specified features.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(910981277693011711)
-,p_plugin_attribute_id=>wwv_flow_imp.id(910978797524999399)
+ p_id=>wwv_flow_imp.id(43248425947713189)
+,p_plugin_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_display_sequence=>40
 ,p_display_value=>'Select All'
 ,p_return_value=>'select_all'
@@ -251,39 +240,13 @@ wwv_flow_imp_shared.create_plugin_attr_value(
 ,p_help_text=>'Select all features in the layer.'
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
- p_id=>wwv_flow_imp.id(910981679666013547)
-,p_plugin_attribute_id=>wwv_flow_imp.id(910978797524999399)
+ p_id=>wwv_flow_imp.id(43248966343713189)
+,p_plugin_attribute_id=>wwv_flow_imp.id(43246578707713188)
 ,p_display_sequence=>50
 ,p_display_value=>'Deselect All'
 ,p_return_value=>'deselect_all'
 ,p_is_quick_pick=>true
 ,p_help_text=>'Clear the layer''s selection.'
-);
-end;
-/
-begin
-wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
-wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F73656C6563745F6665617475726573287B69643A652C616A61784964656E7469666965723A742C6C6179657249643A732C7375626D69744974656D733A612C616374696F6E547970653A727D297B6966282173';
-wwv_flow_imp.g_varchar2_table(2) := '2972657475726E20766F696420617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F666561747572657320222B652B22203A204E6F206166666563746564206974656D207370656369666965642E22293B636F6E73742069';
-wwv_flow_imp.g_varchar2_table(3) := '3D732E73706C697428222C22292E6D61702828743D3E7B636F6E737420733D617065782E6974656D2874293B69662873296966282266756E6374696F6E223D3D747970656F6620732E73657453656C65637465644665617475726573297B696628732E68';
-wwv_flow_imp.g_varchar2_table(4) := '61734944436F6C756D6E28292972657475726E20733B617065782E64656275672E6572726F7228606D6170626974735F73656C6563745F666561747572657320247B657D203A204974656D20247B747D20686173206E6F20494420636F6C756D6E2C2073';
-wwv_flow_imp.g_varchar2_table(5) := '6F207468652053656C6563742046656174757265732064796E616D696320616374696F6E2077696C6C206E6F7420776F726B2E60297D656C736520617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F6665617475726573';
-wwv_flow_imp.g_varchar2_table(6) := '20222B652B22203A204974656D205B222B742B225D206973206E6F742061204D617062697473204C6F646573746172204C61796572206974656D2E22293B656C736520617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F';
-wwv_flow_imp.g_varchar2_table(7) := '666561747572657320222B652B22203A204974656D205B222B742B225D2069732068696464656E206F72206D697373696E672E22297D29292E66696C7465722828653D3E6529293B7377697463682872297B636173652273656C6563745F616C6C223A66';
-wwv_flow_imp.g_varchar2_table(8) := '6F7228636F6E73742065206F66206929652E73656C656374416C6C466561747572657328293B627265616B3B6361736522646573656C6563745F616C6C223A666F7228636F6E73742065206F66206929652E73657453656C656374656446656174757265';
-wwv_flow_imp.g_varchar2_table(9) := '73285B5D2C2273657422293B627265616B3B64656661756C743A617065782E7365727665722E706C7567696E28742C7B706167654974656D733A613F612E73706C697428222C22293A766F696420307D2C7B737563636573733A66756E6374696F6E2865';
-wwv_flow_imp.g_varchar2_table(10) := '297B666F7228636F6E73742074206F66206929742E73657453656C6563746564466561747572657328652E6964732C72297D7D297D7D';
-null;
-end;
-/
-begin
-wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(874191935339223009)
-,p_plugin_id=>wwv_flow_imp.id(910903358650826987)
-,p_file_name=>'mapbits-select-features.min.js'
-,p_mime_type=>'text/javascript'
-,p_file_charset=>'utf-8'
-,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
 );
 end;
 /
@@ -305,14 +268,38 @@ wwv_flow_imp.g_varchar2_table(13) := '202020207D0D0A202020202020627265616B3B0D0A
 wwv_flow_imp.g_varchar2_table(14) := '3F207375626D69744974656D732E73706C697428222C2229203A20756E646566696E65647D2C207B0D0A2020202020202020737563636573733A2066756E6374696F6E2028704461746129207B20200D0A20202020202020202020666F722028636F6E73';
 wwv_flow_imp.g_varchar2_table(15) := '74206C617965724974656D206F66206C617965727329207B0D0A2020202020202020202020206C617965724974656D2E73657453656C656374656446656174757265732870446174612E6964732C20616374696F6E54797065293B0D0A20202020202020';
 wwv_flow_imp.g_varchar2_table(16) := '2020207D0D0A20202020202020207D2C0D0A2020202020207D293B0D0A20207D0D0A7D0D0A';
-null;
 end;
 /
 begin
 wwv_flow_imp_shared.create_plugin_file(
- p_id=>wwv_flow_imp.id(910904976348989992)
-,p_plugin_id=>wwv_flow_imp.id(910903358650826987)
+ p_id=>wwv_flow_imp.id(43250009536713190)
+,p_plugin_id=>wwv_flow_imp.id(43245364294713187)
 ,p_file_name=>'mapbits-select-features.js'
+,p_mime_type=>'text/javascript'
+,p_file_charset=>'utf-8'
+,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
+);
+end;
+/
+begin
+wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
+wwv_flow_imp.g_varchar2_table(1) := '66756E6374696F6E206D6170626974735F73656C6563745F6665617475726573287B69643A652C616A61784964656E7469666965723A742C6C6179657249643A732C7375626D69744974656D733A612C616374696F6E547970653A727D297B6966282173';
+wwv_flow_imp.g_varchar2_table(2) := '2972657475726E20766F696420617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F666561747572657320222B652B22203A204E6F206166666563746564206974656D207370656369666965642E22293B636F6E73742069';
+wwv_flow_imp.g_varchar2_table(3) := '3D732E73706C697428222C22292E6D61702828743D3E7B636F6E737420733D617065782E6974656D2874293B69662873296966282266756E6374696F6E223D3D747970656F6620732E73657453656C65637465644665617475726573297B696628732E68';
+wwv_flow_imp.g_varchar2_table(4) := '61734944436F6C756D6E28292972657475726E20733B617065782E64656275672E6572726F7228606D6170626974735F73656C6563745F666561747572657320247B657D203A204974656D20247B747D20686173206E6F20494420636F6C756D6E2C2073';
+wwv_flow_imp.g_varchar2_table(5) := '6F207468652053656C6563742046656174757265732064796E616D696320616374696F6E2077696C6C206E6F7420776F726B2E60297D656C736520617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F6665617475726573';
+wwv_flow_imp.g_varchar2_table(6) := '20222B652B22203A204974656D205B222B742B225D206973206E6F742061204D617062697473204C6F646573746172204C61796572206974656D2E22293B656C736520617065782E64656275672E6572726F7228226D6170626974735F73656C6563745F';
+wwv_flow_imp.g_varchar2_table(7) := '666561747572657320222B652B22203A204974656D205B222B742B225D2069732068696464656E206F72206D697373696E672E22297D29292E66696C7465722828653D3E6529293B7377697463682872297B636173652273656C6563745F616C6C223A66';
+wwv_flow_imp.g_varchar2_table(8) := '6F7228636F6E73742065206F66206929652E73656C656374416C6C466561747572657328293B627265616B3B6361736522646573656C6563745F616C6C223A666F7228636F6E73742065206F66206929652E73657453656C656374656446656174757265';
+wwv_flow_imp.g_varchar2_table(9) := '73285B5D2C2273657422293B627265616B3B64656661756C743A617065782E7365727665722E706C7567696E28742C7B706167654974656D733A613F612E73706C697428222C22293A766F696420307D2C7B737563636573733A66756E6374696F6E2865';
+wwv_flow_imp.g_varchar2_table(10) := '297B666F7228636F6E73742074206F66206929742E73657453656C6563746564466561747572657328652E6964732C72297D7D297D7D';
+end;
+/
+begin
+wwv_flow_imp_shared.create_plugin_file(
+ p_id=>wwv_flow_imp.id(43250450133713190)
+,p_plugin_id=>wwv_flow_imp.id(43245364294713187)
+,p_file_name=>'mapbits-select-features.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_imp.varchar2_to_blob(wwv_flow_imp.g_varchar2_table)
@@ -321,7 +308,8 @@ end;
 /
 prompt --application/end_environment
 begin
-wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false)
+);
 commit;
 end;
 /
