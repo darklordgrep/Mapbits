@@ -33,7 +33,7 @@ prompt APPLICATION 107982 - Mapbits 5 Demo
 -- Application Export:
 --   Application:     107982
 --   Name:            Mapbits 5 Demo
---   Date and Time:   17:34 Tuesday January 27, 2026
+--   Date and Time:   20:00 Tuesday February 10, 2026
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -189,7 +189,7 @@ wwv_flow_imp_shared.create_plugin(
 ,p_ajax_function=>'mapbits_zoom_ajax'
 ,p_standard_attributes=>'REGION:REQUIRED:ONLOAD'
 ,p_substitute_attributes=>true
-,p_version_scn=>449816873
+,p_version_scn=>455271146
 ,p_subscribe_plugin_settings=>false
 ,p_help_text=>'The Mapbits Zoom To plugin is a dynamic action that zooms and recenters the map viewport based on the extent of a GeoJSON format feature in a page item. If you are running this action when the page first loads or when the map is initialized, you must'
 ||' set the ''Initial Position and Zoom'' to ''Static Values.'''
@@ -197,14 +197,14 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 5 - Zoom To',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
-'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
-'Revision : $Revision: 21366 $',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_zoom_to.sql 21386 2026-02-10 20:05:51Z b2eddjw9 $',
+'Date     : $Date: 2026-02-10 14:05:51 -0600 (Tue, 10 Feb 2026) $',
+'Revision : $Revision: 21386 $',
 'Requires : Application Express >= 24.2',
 '',
-'Version 5 Updates:',
+'Version 5.0 Updates:',
 '12/02/2025 Changed the default query type from GeoJSON to SDO_GEOMETRY',
-'08/12/2025 Use APEX_JAVASCRIPT package to pass parameters to Javascript (fixes a bug in locales where commas are used instead of decimal points)',
+'08/12/2025 Use APEX_JAVASCRIPT package to pass parameters to JavaScript (fixes a bug in locales where commas are used instead of decimal points)',
 '08/09/2025 Added Max Zoom attribute',
 '',
 '--------------------',

@@ -33,7 +33,7 @@ prompt APPLICATION 107982 - Mapbits 5 Demo
 -- Application Export:
 --   Application:     107982
 --   Name:            Mapbits 5 Demo
---   Date and Time:   17:33 Tuesday January 27, 2026
+--   Date and Time:   20:00 Tuesday February 10, 2026
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -572,7 +572,7 @@ wwv_flow_imp_shared.create_plugin(
 ,p_api_version=>1
 ,p_render_function=>'map_legend_render'
 ,p_substitute_attributes=>true
-,p_version_scn=>449839712
+,p_version_scn=>455270748
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<p>Mapbits Legend is a Region that displays symbology and names for the layers shown in an associated Map Region. ',
@@ -596,16 +596,16 @@ wwv_flow_imp_shared.create_plugin(
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 5 - Legend',
-'Location : $Id: region_type_plugin_mil_army_usace_mapbits_legend.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
-'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
-'Revision : $Revision: 21366 $',
+'Location : $Id: region_type_plugin_mil_army_usace_mapbits_legend.sql 21386 2026-02-10 20:05:51Z b2eddjw9 $',
+'Date     : $Date: 2026-02-10 14:05:51 -0600 (Tue, 10 Feb 2026) $',
+'Revision : $Revision: 21386 $',
 'Requires : Application Express >= 24.2',
 '',
 'Version 5 Updates:',
 '11/26/2025 Fixed issue in APEX 24 and above where the legend did not appear correctly',
 '11/26/2025 Improved performance on page load',
 '09/04/2025 Support icon URLs in Lodestar layers',
-'06/11/2025 Add support for Georaster layers',
+'06/11/2025 Add support for GeoRaster layers',
 '',
 '--------------------',
 '',

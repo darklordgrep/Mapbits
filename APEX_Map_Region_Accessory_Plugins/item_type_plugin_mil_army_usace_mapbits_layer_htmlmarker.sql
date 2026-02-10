@@ -33,7 +33,7 @@ prompt APPLICATION 107982 - Mapbits 5 Demo
 -- Application Export:
 --   Application:     107982
 --   Name:            Mapbits 5 Demo
---   Date and Time:   17:33 Tuesday January 27, 2026
+--   Date and Time:   19:59 Tuesday February 10, 2026
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -257,17 +257,17 @@ wwv_flow_imp_shared.create_plugin(
 ,p_ajax_function=>'mapbits_htmlmarker_ajax'
 ,p_standard_attributes=>'INIT_JAVASCRIPT_CODE'
 ,p_substitute_attributes=>true
-,p_version_scn=>449849719
+,p_version_scn=>454922634
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits Lodestar Layer plugin provides an alternative map layer to Apex''s built-in layers. It includes advanced configuration options that expose the full power of MapLibre styling and labeling capability.'
 ,p_version_identifier=>'5.0.20251126'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 5 - HTML Marker Layer',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_htmlmarker.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
-'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
-'Revision : $Revision: 21366 $',
-'Requires : Application Express >= 22.2',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_htmlmarker.sql 21386 2026-02-10 20:05:51Z b2eddjw9 $',
+'Date     : $Date: 2026-02-10 14:05:51 -0600 (Tue, 10 Feb 2026) $',
+'Revision : $Revision: 21386 $',
+'Requires : Application Express >= 24.2',
 '',
 'Version 5 Updates:',
 '11/26/2025 Fixed a bug where toggling visibility did not work properly',

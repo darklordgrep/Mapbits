@@ -33,7 +33,7 @@ prompt APPLICATION 107982 - Mapbits 5 Demo
 -- Application Export:
 --   Application:     107982
 --   Name:            Mapbits 5 Demo
---   Date and Time:   17:34 Tuesday January 27, 2026
+--   Date and Time:   20:00 Tuesday February 10, 2026
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -102,7 +102,7 @@ wwv_flow_imp_shared.create_plugin(
 ,p_api_version=>2
 ,p_render_function=>'mapbits_wmslayer'
 ,p_substitute_attributes=>true
-,p_version_scn=>449819544
+,p_version_scn=>454922487
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'The Mapbits Layer WMS plugin adds support for OGC Web Map Service (WMS) raster layers to APEX Map regions. The layer shall appear in the map as defined by the plugin attributes and shall be togglable using the APEX Map built-in layer selector.',
@@ -111,11 +111,11 @@ wwv_flow_imp_shared.create_plugin(
 ,p_version_identifier=>'5.0.20250512'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'Module   : Mapbits 4 Layer - WMS',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
-'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
-'Revision : $Revision: 21366 $',
-'Requires : Application Express >= 21.1',
+'Module   : Mapbits 5 Layer - WMS',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_wms.sql 21386 2026-02-10 20:05:51Z b2eddjw9 $',
+'Date     : $Date: 2026-02-10 14:05:51 -0600 (Tue, 10 Feb 2026) $',
+'Revision : $Revision: 21386 $',
+'Requires : Application Express >= 24.2',
 '',
 'Version 4.7 Updates:',
 '04/23/2024 Added visibility_toggled, load_start, and load_end events. Added item API using apex.item.create with show(), hide(), and isVisible().',

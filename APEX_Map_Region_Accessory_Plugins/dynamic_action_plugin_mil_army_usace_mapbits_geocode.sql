@@ -33,7 +33,7 @@ prompt APPLICATION 107982 - Mapbits 5 Demo
 -- Application Export:
 --   Application:     107982
 --   Name:            Mapbits 5 Demo
---   Date and Time:   17:33 Tuesday January 27, 2026
+--   Date and Time:   19:59 Tuesday February 10, 2026
 --   Exported By:     LESS
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -235,18 +235,18 @@ wwv_flow_imp_shared.create_plugin(
 ,p_ajax_function=>'mapbits_geocode_ajax'
 ,p_standard_attributes=>'REGION:REQUIRED'
 ,p_substitute_attributes=>true
-,p_version_scn=>449849461
+,p_version_scn=>454922271
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'Mapbits Geocoder is a dynamic action plugin that uses page items storing a location''s street address, city, state, and zip code to set the position of the point geometry in a Mapbits Drawing plugin. The Mapbits Geocoder must be associated with the sa'
 ||'me map region as the Mapbits Drawing plugin.'
 ,p_version_identifier=>'5.0.20240509'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'Module   : Mapbits 4 - Geocoder',
-'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 21366 2026-01-27 17:48:16Z b2eddjw9 $',
-'Date     : $Date: 2026-01-27 11:48:16 -0600 (Tue, 27 Jan 2026) $',
-'Revision : $Revision: 21366 $',
-'Requires : Application Express >= 21.1 and Mapbits Drawing plugin',
+'Module   : Mapbits 5 - Geocoder',
+'Location : $Id: dynamic_action_plugin_mil_army_usace_mapbits_geocode.sql 21386 2026-02-10 20:05:51Z b2eddjw9 $',
+'Date     : $Date: 2026-02-10 14:05:51 -0600 (Tue, 10 Feb 2026) $',
+'Revision : $Revision: 21386 $',
+'Requires : Application Express >= 24.2 and Mapbits Drawing plugin',
 '',
 'Version 4.7 Updates:',
 '05/02/2024 Trigger "Draw/Create" event on the drawing item',
