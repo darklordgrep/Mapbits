@@ -28,15 +28,18 @@ to this coordinate.
 # Requirements
 Demonstration application and plugins require Oracle DBMS and Application Express. The table below shows the recent Mapbits release versions and the versions of APEX on which these releases were either developed or tested. 
 
-  _ | APEX 22.1 | APEX 22.2 | APEX 23.2 | APEX 24.1 | APEX 24.2
---- | --- | --- | --- | --- | ---
-Mapbits 4.5 | X | X |  | |
-Mapbits 4.6 |  | X | X | |
-Mapbits 4.7 |  | X | X | |
-Mapbits 4.8 |  | | X | X |
-Mapbits 4.9 |  | | X | X | X |
+   _         | APEX 22.1 | APEX 22.2 | APEX 23.2 | APEX 24.1 | APEX 24.2
+----------- | --------- | --------- | --------- | --------- | ---------
+Mapbits 4.5 | X         | X         |           |           |
+Mapbits 4.6 |           | X         | X         |           |
+Mapbits 4.7 |           | X         | X         |           |
+Mapbits 4.8 |           |           | X         | X         |
+Mapbits 4.9 |           |           | X         | X         |
+Mapbits 5.0 |           |           |           |           | X
 
 A particular Mapbits release will install on a later version of APEX, but changes over time in APEX or maplibre may result in anomolous behavior. A Mapbits release will not install on a version on APEX prior to the version used for development and release.
+
+Of particular note is the break between APEX 24.1 and 24.2. APEX 24.2 changed the way attributes are queried from the item views, which affects how Mapbits Legend entries appear. Mapbits 5.0 switches to the new way to query item attributes, which does not work in previous versions.
 
 # Installation
 You can install individual plugins by selecting and downloadling the plugin of interest from the Downloads section below. In your application, go to the 'Plug-ins' page from the 'Shared Components'. Click 'Import' and follow the steps in the wizard. When prompted to upload an import file, use the plugin file you downloaded.
