@@ -4,7 +4,7 @@
 
 The Mapbits GeoRaster Layer Plug-In is a page item that adds a raster layer using an Oracle GeoRaster table.
 
-![A digital elevation model of a riverbed, displayed in 3D with contour lines and color relief](images/GeoRaster_dem.png)
+![A digital elevation model of a riverbed, displayed in 3D with contour lines and color relief](images/georaster_dem.png)
 
 ## Configuration
 
