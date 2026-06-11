@@ -33,7 +33,7 @@ prompt APPLICATION 107981 - Mapbits Demo
 -- Application Export:
 --   Application:     107981
 --   Name:            Mapbits Demo
---   Date and Time:   15:02 Monday June 8, 2026
+--   Date and Time:   08:48 Thursday June 11, 2026
 --   Exported By:     GREP
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -62,6 +62,9 @@ wwv_flow_imp_shared.create_plugin(
 '#PLUGIN_FILES#mapbits_georaster#MIN#.js'))
 ,p_css_file_urls=>'#PLUGIN_FILES#mapbits_georaster#MIN#.css'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'NEGATIVE_INFINITY constant number := -340282346638529000000000000000000000000;',
+'TERRAIN_BASE constant number := -10000; --lowest elevation of a dem',
+'',
 '-- Parse and run query returning the sdo_georaster',
 'procedure georas(p_sql in varchar2, p_items in varchar2, g out sdo_georaster) is',
 '  c pls_integer;',
@@ -121,6 +124,11 @@ wwv_flow_imp_shared.create_plugin(
 '    l_p2 := sdo_cs.transform(sdo_geor.getModelCoordinate(p_geor, 0, sdo_number_array(l_dims(1), l_dims(2))), 4326);',
 '    l_nodata := sdo_geor.getNoData(p_geor, 1);',
 '',
+'    -- raise error if the raster is double precision',
+'    if l_celldepth > 32 then',
+'      raise_application_error(-20199,''Data ERROR: Mapbits GeoRaster Layer ['' ||p_item_id || ''] is double precision floating point, which is not currently supported.'');',
+'    end if;',
+'',
 '    apex_json.open_object();',
 '    apex_json.write(''itemid'', p_item_id);',
 '    apex_json.write(''maxpyramidlevel'', l_pyramid_level);',
@@ -128,10 +136,16 @@ wwv_flow_imp_shared.create_plugin(
 '    apex_json.write(''celldepth'', l_cellDepth);',
 '    apex_json.write(''height'', l_dims(2));',
 '    apex_json.write(''width'', l_dims(1));',
-'    apex_json.write(''nodata'', l_nodata(1).lb);',
+'    if not l_nodata is null then',
+'      apex_json.write(''nodata'', l_nodata(1).lb);',
+'    end if;',
 '',
 '    -- if we are rendering color-relief for a DEM, we need to get a range of values',
 '    if ('':'' || p_terrain_features || '':'') like ''%:color-relief:%'' then',
+'      -- set the nodata to -infinity if it is undefined so as to not count it in statistics.',
+'      if l_nodata is null then',
+'        sdo_geor.addnodata(p_geor, 1, sdo_range_array(sdo_range(NEGATIVE_INFINITY, TERRAIN_BASE)));',
+'      end if;',
 '      -- get the statistics from the source georaster. If stats don''t exist, generate them.',
 '      l_stats := sdo_geor.getStatistics(p_geor, 1);',
 '      if l_stats is null then ',
@@ -274,7 +288,11 @@ wwv_flow_imp_shared.create_plugin(
 '      l_bgvalues := sdo_number_array(l_bgtoks(1), l_bgtoks(2), l_bgtoks(3));',
 '    elsif l_celldepth > 8 then',
 '      l_nodata := sdo_geor.getNoData(p_geor, 1);',
-'      l_bgvalues := sdo_number_array(l_nodata(1).lb);',
+'      if not l_nodata is null then',
+'        l_bgvalues := sdo_number_array(l_nodata(1).lb);',
+'      else',
+'        l_bgvalues := sdo_number_array(NEGATIVE_INFINITY);',
+'      end if;',
 '    end if;',
 '',
 '    -- Perform the reprojection',
@@ -404,7 +422,7 @@ wwv_flow_imp_shared.create_plugin(
 '      where i.item_id = p_item.id and r.source_type = ''Map'';',
 '  exception',
 '    when no_data_found then ',
-'      raise_application_error(-20381, ''Configuration ERROR: Mapbits Raster Layer ['' ||p_item.name || ''] is not associated with a Map region.'');',
+'      raise_application_error(-20381, ''Configuration ERROR: Mapbits GeoRaster Layer ['' ||p_item.name || ''] is not associated with a Map region.'');',
 '  end;',
 '  -- Run the javascript on the ''spatialmapinitialized event''',
 '  htp.p(''<div id="'' || p_item.name || ''" name="'' || p_item.name || ''"></div>'');',
@@ -435,21 +453,22 @@ wwv_flow_imp_shared.create_plugin(
 ,p_render_function=>'map_georaster_render'
 ,p_ajax_function=>'map_georaster_ajax'
 ,p_substitute_attributes=>true
-,p_version_scn=>16748734851153
+,p_version_scn=>16749678657120
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'The Mapbits GeoRaster Layer plugin adds support for Oracle GeoRasters without the need for middleware services. Add this plugin as an item under an APEX Map region. Define a single-row SQL query that returns a single column of type sdo_georaster and '
 ||'that raster shall be rendered in the associated Map Region. Currently, only DEM (single band, 32-bit float) and RGB (three or four band 8-bit unsigned integer) rasters are supported. Source GeoRasters must have pyramids and should have statistics. If'
 ||' the Georaster DEM has no statistics, then plugin will calculate them when loaded.'
-,p_version_identifier=>'5.0.20260603'
+,p_version_identifier=>'5.0.20260611'
 ,p_about_url=>'https://github.com/darklordgrep/Mapbits'
 ,p_plugin_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'Module   : Mapbits 5 - GeoRaster Layer',
-'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_georaster.sql 21682 2026-06-08 20:21:19Z b2imimcf $',
-'Date     : $Date: 2026-06-08 15:21:19 -0500 (Mon, 08 Jun 2026) $',
-'Revision : $Revision: 21682 $',
+'Location : $Id: item_type_plugin_mil_army_usace_mapbits_layer_georaster.sql 21692 2026-06-11 14:07:02Z b2imimcf $',
+'Date     : $Date: 2026-06-11 09:07:02 -0500 (Thu, 11 Jun 2026) $',
+'Revision : $Revision: 21692 $',
 'Requires : Application Express >= 24.2',
 '',
 'Version 5 Updates',
+'06/11/2026 Use negativity ''infinity'' for nodata value if the georaster doesn''t have its own NoData value. Throw error for double point precision.',
 '06/03/2026 Using nearest neighbor in the DEM warp, for better results at the edges. Calculate stats only if they don''t exist.',
 '05/22/2026 Pixels that match a raster''s NoData value now render as transparent.',
 '01/27/2026 Change name from Georaster to GeoRaster ',
